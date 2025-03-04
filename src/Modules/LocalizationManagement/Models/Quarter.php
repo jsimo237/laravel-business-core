@@ -16,7 +16,7 @@ class Quarter extends Model implements EventNotifiableContract {
     use HasFactory,SoftDeletes,Paginable,
         HasRelationships;
 
-    protected string $table = "localization_mgt__quarters";
+    protected $table = "localization_mgt__quarters";
     protected $guarded = ["created_at"];
     const FK_ID = "quarter_id";
 

@@ -12,7 +12,7 @@ use Kirago\BusinessCore\Modules\BaseModel;
  */
 class Setting extends BaseModel {
 
-    protected string $table = "organization_mgt__settings";
+    protected $table = "organization_mgt__settings";
 
 
 

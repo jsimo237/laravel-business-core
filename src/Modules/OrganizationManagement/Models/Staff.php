@@ -23,7 +23,7 @@ class Staff extends MediableModel implements AuthenticatableModelContract {
 
     use HasUser,Notifiable;
 
-    protected string $table = "organization_mgt__staffs";
+    protected $table = "organization_mgt__staffs";
 
 
     //RELATIONS

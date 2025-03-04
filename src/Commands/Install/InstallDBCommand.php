@@ -1,42 +1,42 @@
 <?php
 
-
 namespace Kirago\BusinessCore\Commands\Install;
-
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
-use Kirago\BusinessCore\Database\Seeders\CommissionTypeSeeder;
-use Kirago\BusinessCore\Database\Seeders\GateSeeder;
-use Kirago\BusinessCore\Database\Seeders\StatusSeeder;
+use Illuminate\Support\Facades\File;
 
+class InstallDBCommand extends Command
+{
+    protected $signature = 'bc:install-db';
+    protected $description = "Install all tables in the database";
 
-class InstallDBCommand extends Command{
+    public function handle()
+    {
+        // Désactiver les contraintes de clé étrangère temporairement
+        DB::statement("SET FOREIGN_KEY_CHECKS=0");
 
-    protected $signature = 'business-core:install-db';
-    protected $description = "";
+        // Demander à l'utilisateur s'il veut publier les migrations
+        if ($this->confirm("Voulez-vous publier les fichiers de migration ?", false)) {
+            // Publier les migrations du package
+            Artisan::call("vendor:publish", [
+                "--tag" => "business-core-migrations"
+            ]);
 
-    public function handle(){
+            $this->info("Les migrations ont été publiées.");
 
-        DB::unprepared("set foreign_key_checks=0");
-
-        Artisan::call("migrate:fresh");
-        echo strtoupper("All Tables created in database.\n\n");
-
-        $seeds = [
-            GateSeeder::class,
-            CommissionTypeSeeder::class,
-            StatusSeeder::class,
-        ];
-
-        if ($seeds){
-            foreach ($seeds as $seed) {
-                Artisan::call("db:seed" , ['--class' => $seed ]);
-            }
+            // Exécuter les migrations depuis le dossier de l'application
+            Artisan::call("migrate:fresh", ['--force' => true]);
+        } else {
+            // Exécuter les migrations directement depuis les modules du package
+            $this->runPackageMigrations();
         }
 
-        echo strtoupper("All Data installed in Database \n\n");
+       // $this->info(strtoupper("Toutes les tables ont été créées dans la base de données"));
 
+
+        return self::SUCCESS;
     }
+
 }

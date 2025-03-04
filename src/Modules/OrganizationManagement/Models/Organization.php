@@ -6,7 +6,7 @@ namespace Kirago\BusinessCore\Modules\OrganizationManagement\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Kirago\BusinessCore\Database\Factories\UserManagement\CompanyFactory;
+use Kirago\BusinessCore\Database\Factories\UserManagement\OrganizationFactory;
 use Kirago\BusinessCore\Enums\Settings;
 use Illuminate\Notifications\Notifiable;
 use Kirago\BusinessCore\Modules\MediableModel;
@@ -28,7 +28,7 @@ class Organization extends MediableModel {
 
     use Notifiable;
 
-    protected string $table = "organization_mgt__organizations";
+    protected $table = "organization_mgt__organizations";
 
 
     //RELATIONS
@@ -82,7 +82,7 @@ class Organization extends MediableModel {
 
 
     protected static function newFactory(){
-        return CompanyFactory::new();
+        return OrganizationFactory::new();
     }
 
 

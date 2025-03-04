@@ -4,17 +4,17 @@
     "keywords": [
         "laravel","kirago","business","models"
       ],
-    "homepage" : "https://jsimo237@bitbucket.org/jsimo237/xpeedy.packages.models-managers",
+    "homepage" : "https://github.com/jsimo237/laravel-business-core",
     "version": "1.0",
     "support" : {
-        "issues" : "https://jsimo237@bitbucket.org/jsimo237/xpeedy.packages.models-managers/issues"
+        "issues" : "https://github.com/jsimo237/laravel-business-core/issues"
     },
     "authors" : [
         {
             "name" : "Simo Joel",
             "email" : "joelsimooverride@gmail.com",
             "role": "Developper",
-            "homepage": "mailto:joelsimooverride@gmail.com"
+            "homepage": "https://github.com/jsimo237"
         }
     ],
     "license" : "MIT",
@@ -30,7 +30,6 @@
         "calebporzio/sushi": "^2.4",
         "illuminate/support": "^8.0 || ^9.0 || ^10.0",
         "laravel/sanctum": "^3.3",
-        "laravel/framework": "^10.10",
         "spatie/laravel-medialibrary": "^10.15",
         "spatie/laravel-permission": "^6.9",
         "spatie/laravel-activitylog": "^4.9",
@@ -61,10 +60,6 @@
             "providers": [
                 "Kirago\\BusinessCore\\BusinessCoreServiceProvider"
             ]
-        },
-        "branch-alias": {
-            "dev-master": "master",
-            "dev-main": "main"
         }
     }
 }

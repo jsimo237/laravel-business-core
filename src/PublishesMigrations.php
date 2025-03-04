@@ -4,6 +4,7 @@ namespace Kirago\BusinessCore;
 
 use Generator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 trait PublishesMigrations {
 
@@ -18,15 +19,43 @@ trait PublishesMigrations {
 
         if ($this->app->runningInConsole()) {
             $generator = function(string $directory): Generator {
-                foreach ($this->app->make('files')->allFiles($directory) as $file) {
-                    yield $file->getPathname() => $this->app->databasePath(
-                        'migrations/' . now()->format('Y_m_d_His') . Str::after($file->getFilename(), '00_00_00_000000')
-                    );
-                }
-            };
+                            foreach ($this->app->make('files')->allFiles($directory) as $file) {
+                                yield $file->getPathname() => $this->app->databasePath(
+                                    'migrations/' . now()->format('Y_m_d_His') . Str::after($file->getFilename(), '00_00_00_000000')
+                                );
+                            }
+                        };
 
-            $this->publishes(iterator_to_array($generator($directory)), 'business-core-migrations');
+            $this->publishes(iterator_to_array($generator($directory)), 'bc-migrations');
         }
+    }
+
+
+    protected function runPackageMigrations(){
+        // Chemin de base du package
+        $packageBasePath = realpath(__DIR__."/../database/migrations");
+        //$packageBasePath = __DIR__ . '/../Modules';
+
+        // Vérifier si le dossier des modules existe
+        if (!$packageBasePath || !File::exists($packageBasePath)) {
+            echo("Le dossier des modules n'existe $packageBasePath. \n");
+            return;
+        }
+
+        // Récupérer tous les dossiers des modules
+        $modules = File::directories($packageBasePath);
+
+        foreach ($modules as $modulePath) {
+            $migrationPath = $modulePath ;
+            //$migrationPath = $modulePath . '/Database/Migrations';
+
+            // Vérifier si le dossier des migrations existe pour ce module
+            if (File::exists($migrationPath)) {
+                echo("Module : " . $migrationPath."\n");
+                $this->loadMigrationsFrom($migrationPath);
+            }
+        }
+
     }
 
 

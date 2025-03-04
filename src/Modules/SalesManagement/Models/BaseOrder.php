@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Kirago\BusinessCore\Modules\BaseModel;
@@ -92,7 +93,7 @@ abstract class BaseOrder extends BaseModel implements
 
     abstract public function items() : HasMany;
 
-    abstract public function invoice() : BelongsTo;
+    abstract public function invoice() : HasOne;
 
     abstract public function generateUniqueValue(string $field = "code") : void ;
 

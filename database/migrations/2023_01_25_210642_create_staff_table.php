@@ -3,43 +3,45 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Staff;
 
 return new class extends Migration {
 
     public function up(){
 
-        if(!Schema::hasTable((new User)->getTable())){
-            Schema::create((new User)->getTable(), function (Blueprint $table) {
+        if(!Schema::hasTable((new Staff)->getTable())){
+            Schema::create((new Staff)->getTable(), function (Blueprint $table) {
                 $table->id();
 
-                $table->string('first_name',60)
+                $table->string('firstname',100)
                     ->comment("Le nom");
-                $table->string('last_name',60)->nullable()
+                $table->string('lastname',100)->nullable()
                     ->comment("Le prénom");
 
 
-//                $table->computed ('full_name',"concat(first_name,' ',last_name)")->nullable()
+//                $table->computed ('full_name',"concat(firstname,' ',lastname)")->nullable()
 //                        ->comment("Le nom complet");
 
-                $table->string('full_name')->nullable()
-                        ->storedAs("concat(first_name,' ',last_name)")
+                $table->string('fullname')->nullable()
+                        ->storedAs("concat(firstname,' ',lastname)")
                         ->comment("Le nom complet");
 
                 $table->string('username',20)->nullable()->unique(uniqid('UQ_'))
                     ->comment("Le nom d'utilisateur");
+
                 $table->string('email')->unique(uniqid('UQ_'))
                     ->comment("L'email");
-                $table->string('password')->nullable()
-                    ->comment("Le mot de passe crypté");
+
                 $table->timestamp('email_verified_at')->nullable()
                     ->comment("La date de vérification de l'email");
 
-                $table->boolean("is_manager")->default(false)
-                    ->comment("Détermine l'user le proprietaire");
+                $table->timestamp('phone_verified_at')->nullable()
+                    ->comment("La date de vérification du numéro de téléphone");
 
                 $table->rememberToken()
                     ->comment("le dernier token de réinitialisation du mot de passe");
+
+
             });
         }
 
@@ -47,6 +49,6 @@ return new class extends Migration {
 
 
     public function down(){
-        Schema::dropIfExists((new User)->getTable());
+        Schema::dropIfExists((new Staff)->getTable());
     }
 };

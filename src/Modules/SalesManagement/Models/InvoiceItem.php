@@ -13,7 +13,7 @@ class InvoiceItem extends BaseInvoiceitem
 {
 
 
-    protected string $table = "sales_mgt__invoice_items";
+    protected $table = "sales_mgt__invoice_items";
 
     const MORPH_ID_COLUMN = "invoiceable_id";
     const MORPH_TYPE_COLUMN = "invoiceable_type";

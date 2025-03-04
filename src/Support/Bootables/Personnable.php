@@ -21,7 +21,7 @@ trait Personnable
     public function fullName(): Attribute
     {
         return Attribute::make(
-            get: fn() => ucfirst($this->first_name) . ' ' . ucfirst($this->last_name),
+            get: fn() => ucfirst($this->firstname) . ' ' . ucfirst($this->lastname),
         );
     }
 
