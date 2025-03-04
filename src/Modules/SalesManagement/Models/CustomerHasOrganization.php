@@ -10,7 +10,7 @@ use Kirago\BusinessCore\Modules\SalesManagement\Models\Customer;
 
 class CustomerHasOrganization extends Model {
 
-    protected string $table = "sales_mgt__customers_has_organizations";
+    protected $table = "sales_mgt__customers_has_organizations";
 
 
     //RELATIONS

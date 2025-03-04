@@ -70,8 +70,6 @@ return [
 
         //
 
-
-
         //SalesManagegement
         "order" => \Kirago\BusinessCore\Modules\SalesManagement\Models\Order::class,
         "order-item" => \Kirago\BusinessCore\Modules\SalesManagement\Models\Order::class,

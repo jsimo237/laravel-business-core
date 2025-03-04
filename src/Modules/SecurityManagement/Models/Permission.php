@@ -20,7 +20,7 @@ class Permission extends SpatiePermission {
 
     protected array $hidden = ['pivot'];
 
-    protected string $table = "security_mgt__permissions";
+    protected $table = "security_mgt__permissions";
 
 
     protected static function booted(){

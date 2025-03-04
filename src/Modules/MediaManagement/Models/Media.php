@@ -30,7 +30,7 @@ class Media extends SpatieMediaModel{
         InteractWithCommonsScopeFilter;
 
     protected $guarded = ['id','created_at'];
-    protected string $table= "medias_mgt__medias";
+    protected $table= "medias_mgt__medias";
 
     const MORPH_ID_COLUMN = "mediable_id";
     const MORPH_TYPE_COLUMN = "mediable_type";

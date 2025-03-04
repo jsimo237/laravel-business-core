@@ -12,7 +12,7 @@ use Kirago\BusinessCore\Modules\SalesManagement\Contrats\InvoiceableContract;
 class OrderItem extends BaseOrderItem
 {
 
-    protected string $table = "sales_mgt__order_items";
+    protected $table = "sales_mgt__order_items";
 
     const MORPH_ID_COLUMN = "orderable_id";
     const MORPH_TYPE_COLUMN = "orderable_type";

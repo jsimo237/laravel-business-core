@@ -4,6 +4,7 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Contrats;
 
 // use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 
 interface BaseOrderContract
@@ -11,7 +12,7 @@ interface BaseOrderContract
 
     public function refreshOrder() : void;
 
-    public function invoice() : BelongsTo;
+    public function invoice() : HasOne;
 
     public function user() : BelongsTo;
 

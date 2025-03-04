@@ -18,7 +18,7 @@ use Kirago\BusinessCore\Support\Contracts\EventNotifiableContract;
 class City extends Model implements EventNotifiableContract {
     use HasFactory,SoftDeletes,Auditable;
 
-    protected string $table = "localization_mgt__cities";
+    protected $table = "localization_mgt__cities";
     protected $guarded = ["created_at"];
     const FK_ID = "city_id";
 

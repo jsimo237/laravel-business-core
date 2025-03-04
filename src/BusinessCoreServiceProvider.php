@@ -59,26 +59,16 @@ class BusinessCoreServiceProvider extends BaseServiceProvider {
     }
 
     protected function loadMacro(){
-        /*Types polymorphes personnalisés
-             indique à Eloquent d'utiliser un nom personnalisé pour chaque
-              model au lieu du nom de la classe(Kirago\BusinessCore\Models\...)*/
-        Relation::enforceMorphMap(MorphMap::get());
-
-        JsonResource::withoutWrapping();
-
-
-        //Lorsque la requête contient le paramètre "showed_all"
-        request()->whenHas("showed_all",function ($input){
-            //Demande aux json-ressources de laravel de mapper le retour des données dans un attribut 'data'
-            JsonResource::wrap("data");
-        });
-
-        //demande à 'Carbon' d'uliser la langue de l'application
-        Carbon::setLocale($this->app->getLocale());
+        /**
+         * Types polymorphes personnalisés indique à Eloquent d'utiliser un nom personnalisé pour chaque
+         * model au lieu du nom de la classe(Kirago\BusinessCore\Models\...)
+         */
+       // Relation::enforceMorphMap(config('business-core.morphs-map'));
 
 
-
-        /*Se produit lorsque l'app passe trop de temps (> 500ms) à interroger la bd au cours d'une seule requête*/
+        /**
+         * Se produit lorsque l'app passe trop de temps (> 500ms) à interroger la bd au cours d'une seule requête
+         */
         DB::whenQueryingForLongerThan(500, function (Connection $connection , QueryExecuted $query) {
             $userAgent = request()->userAgent();
             $bindings  = json_encode($query->bindings);
@@ -87,8 +77,9 @@ class BusinessCoreServiceProvider extends BaseServiceProvider {
             write_log("queries-timeout",$content);
         });
 
-
-        //si l'affichage dans requetes sql en console est activé
+        /**
+         * Si l'affichage dans requetes sql en console est activé
+         */
         if (env('APP_DISPLAY_QUERIES_IN_CONSOLE',false)){
             /*ecoute chaque requete entrante dans la bd*/
             DB::listen(function ($query) {
@@ -97,7 +88,9 @@ class BusinessCoreServiceProvider extends BaseServiceProvider {
                 $content   = "[SQL] {$query->sql} in {$query->time} s\n
                               [bindinds]: {$bindings}\n [userAgent]: {$userAgent} \n";
 
-                /*imprime le message sur le terminal courant en exécution (s'il est ouvert)*/
+                /**
+                 * Imprime le message sur le terminal courant en exécution (s'il est ouvert)
+                 */
                 file_put_contents('php://stderr', $content);
             });
         }
@@ -112,6 +105,9 @@ class BusinessCoreServiceProvider extends BaseServiceProvider {
         });
 
 
+        /**
+         * Supprimer certaine migrations
+         */
         if (Schema::hasTable("migrations")){
             DB::table("migrations")
                 ->whereIn('migration',[
@@ -144,8 +140,9 @@ class BusinessCoreServiceProvider extends BaseServiceProvider {
 
     private function configurePublishing(){
         $this->publishes([
-            __DIR__.'/../config/xpeedy-models-manager.php' => config_path('xpeedy-models-manager.php'),
-        ], 'xpeedy-config-models-manager');
+            __DIR__.'/../config/business-core.php' => config_path('business-core.php'),
+        ], 'business-core')
+        ;
     }
 
     protected function offerPublishing(): void{
@@ -153,18 +150,20 @@ class BusinessCoreServiceProvider extends BaseServiceProvider {
             return;
         }
 
+        // function not available and 'publish' not relevant in Lumen
         if (! function_exists('config_path')) {
-            // function not available and 'publish' not relevant in Lumen
             return;
         }
 
         // $this->loadMigrationsFrom('');
         $this->registerMigrations(__DIR__."/../database/migrations");
+
+        $this->runPackageMigrations();
     }
 
 
     protected function registerConsoleCommands(): void{
-        if (! $this->app->runningInConsole()) {
+        if (!$this->app->runningInConsole()) {
             return;
         }
 

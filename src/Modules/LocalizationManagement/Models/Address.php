@@ -18,7 +18,7 @@ use Kirago\BusinessCore\Modules\BaseModel;
 class Address extends BaseModel {
 
 
-    protected string $table = "localization_mgt__addresses";
+    protected $table = "localization_mgt__addresses";
     protected $guarded = ['id','created_at'];
 
     const MORPH_ID_COLUMN = "addressable_id";

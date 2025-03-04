@@ -6,7 +6,7 @@ use Kirago\BusinessCore\Modules\BaseModel;
 
 class Contact extends BaseModel {
 
-    protected string $table = "organization__mgt__contacts_forms";
+    protected $table = "organization__mgt__contacts_forms";
 
 
 

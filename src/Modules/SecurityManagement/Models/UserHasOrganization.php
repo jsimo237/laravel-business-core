@@ -10,7 +10,7 @@ use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
 
 class UserHasOrganization extends Model {
 
-    protected string $table = "security_mgt__users_has_organizations";
+    protected $table = "security_mgt__users_has_organizations";
 
 
     //RELATIONS

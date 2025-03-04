@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 use Kirago\BusinessCore\Enums\Statuses;
 use Kirago\BusinessCore\Modules\BaseModel;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseInvoiceContract;
+use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseInvoiceItemContrat;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseOrderContract;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BillableContrat;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\ContainItemsContrat;
@@ -23,7 +24,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
  * @property \Illuminate\Database\Eloquent\Collection $payments
- * @property Collection $items
+ * @property BaseInvoiceItemContrat[] $items
  * @property array<string, mixed> $discounts
  * @property string $status
  * @property string $code

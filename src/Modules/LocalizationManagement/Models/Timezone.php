@@ -12,7 +12,7 @@ class Timezone extends Model{
     use HasFactory,SoftDeletes,
         HasDates,Paginable;
 
-    protected string $table = "localization_mgt__timezones";
+    protected $table = "localization_mgt__timezones";
     public bool $timestamps = false;
     protected $guarded = [];
 

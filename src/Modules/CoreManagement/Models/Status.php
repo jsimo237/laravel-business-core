@@ -17,7 +17,7 @@ use Kirago\BusinessCore\Modules\HasCustomPrimaryKey;
 class Status extends BaseModel {
     use HasCustomPrimaryKey;
 
-    protected string $table = "core_mgt__statuses";
+    protected $table = "core_mgt__statuses";
     protected $guarded = [];
 
     public array $translatable = ['name'];  // Champs translatables

@@ -15,7 +15,7 @@ class Invoice extends BaseInvoice
 
     use HasCustomPrimaryKey;
 
-    protected string $table = "sales_mgt__invoices";
+    protected $table = "sales_mgt__invoices";
 
 
 
@@ -27,17 +27,17 @@ class Invoice extends BaseInvoice
 
     public function items(): HasMany
     {
-        // TODO: Implement items() method.
+       return $this->hasMany(InvoiceItem::class,"invoice_id");
     }
 
     public function payments(): HasMany
     {
-        // TODO: Implement payments() method.
+        return $this->hasMany(Payment::class,"invoice_id");
     }
 
     public function order(): BelongsTo
     {
-        // TODO: Implement order() method.
+        return $this->belongsTo(Order::class,"order_id");
     }
 
     public function handleInvoicePaied(): void
@@ -63,6 +63,7 @@ class Invoice extends BaseInvoice
              "separator" => "-",
                 "count_by" => [
                     "column" => [
+                        ["name" => "organization_id" , "value" => $organisation->getKey()],
                         ["name" => "created_at" , "value" => date("Y-m")],
                     ]
                 ],

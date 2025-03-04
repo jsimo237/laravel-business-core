@@ -8,11 +8,20 @@ use Kirago\BusinessCore\Modules\SecurityManagement\Contracts\AuthenticatableMode
 use Kirago\BusinessCore\Modules\SecurityManagement\Traits\HasUser;
 use Kirago\BusinessCore\Support\Bootables\Personnable;
 
+/**
+ * @property int id
+ * @property string firstname
+ * @property string lastname
+ * @property string fullname
+ * @property string username
+ * @property string email
+ * @property string phone
+ */
 class Customer extends MediableModel implements AuthenticatableModelContract {
 
     use HasUser,Personnable;
 
-    protected string $table = "sales_mgt__customers";
+    protected $table = "sales_mgt__customers";
 
 
     //RELATIONS
@@ -33,4 +42,8 @@ class Customer extends MediableModel implements AuthenticatableModelContract {
 
     //
 
+    public function getObjectName(): string
+    {
+        return $this->fullname;
+    }
 }

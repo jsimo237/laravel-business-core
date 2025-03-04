@@ -9,7 +9,7 @@ class MimeType extends Model{
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected string $table =  "medias_mgt__mime_types";
+    protected $table =  "medias_mgt__mime_types";
 
     //Images
     const PNG = "png";

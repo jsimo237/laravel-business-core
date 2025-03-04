@@ -15,7 +15,7 @@ use Kirago\BusinessCore\Support\Contracts\EventNotifiableContract;
 class State extends Model implements EventNotifiableContract {
     use HasFactory,SoftDeletes,Paginable;
 
-    protected string $table = "localization_mgt__states";
+    protected $table = "localization_mgt__states";
     protected $guarded = [];
     const FK_ID = "state_id";
 

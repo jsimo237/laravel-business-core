@@ -3,10 +3,15 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Models\WalletManagement\Wallet;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Setting;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Customer;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Invoice;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\InvoiceItem;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Order;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\OrderItem;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Product;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\Role;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
-use Kirago\BusinessCore\Modules\SettingManagment\StatusChange;
 
 return new class extends Migration {
     /**
@@ -18,9 +23,10 @@ return new class extends Migration {
 
         //class pour slug-column
         $classes = [
-            Role::class,
-            Wallet::class,
-            StatusChange::class, User::class
+            Role::class, Organization::class,
+            Setting::class, Product::class, Customer::class,
+            Order::class, Invoice::class,
+            OrderItem::class, InvoiceItem::class,
         ];
 
         $authorableOptions = config("eloquent-authorable");

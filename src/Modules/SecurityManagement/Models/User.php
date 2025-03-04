@@ -22,6 +22,7 @@ use Spatie\Permission\Traits\HasRoles as SpatieHasRoles;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 //use Illuminate\Contracts\Auth\MustVerifyEmail;
 //use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -41,7 +42,7 @@ final class User extends Authenticatable implements SpatieHasMedia{
 //    use HasProfilePhoto;
 
 
-    protected string $table = "security_mgt__users";
+    protected $table = "security_mgt__users";
    // protected string $primaryKey = "id";
 
     const MORPH_ID_COLUMN = "userable_id";
@@ -50,7 +51,7 @@ final class User extends Authenticatable implements SpatieHasMedia{
 
     protected $guarded = [];
 
-    protected array $hidden = [
+    protected $hidden = [
         'password',
         'remember_token',
         //'two_factor_recovery_codes',

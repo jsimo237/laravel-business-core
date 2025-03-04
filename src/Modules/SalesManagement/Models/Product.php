@@ -19,10 +19,10 @@ use Kirago\BusinessCore\Modules\SalesManagement\Contrats\OrderableContrat;
  * @property string description
  * @property float price
  */
-abstract class Product extends BaseModel implements OrderableContrat
+class Product extends BaseModel implements OrderableContrat
 {
 
-    protected string $table = "sales_mgt__products";
+    protected $table = "sales_mgt__products";
 
 
     //

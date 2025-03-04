@@ -13,14 +13,14 @@ use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Scopes\HasOrganiza
 trait HasOrganization
 {
 
-    public function bootHasOrganization(){
+    public static function bootHasOrganization(){
 
         static::addGlobalScope(new HasOrganizationGlobalScope());
 
         static::saving(function (OrganizationScopable $model) {
 
             /** @var ?User */
-           // $user = auth(activeGuard())->user();
+            // $user = auth(activeGuard())->user();
 
             if ($currentOrganization = currentOrganization()) {
                 if (!$model->getOrganization()) {
@@ -33,6 +33,8 @@ trait HasOrganization
                 }
             }
         });
+
+
     }
 
     /**

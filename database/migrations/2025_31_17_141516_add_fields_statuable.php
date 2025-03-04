@@ -4,20 +4,17 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Models\TransactionManagement\Transaction;
-use Kirago\BusinessCore\Models\WalletManagement\WalletCollection;
 use Kirago\BusinessCore\Modules\CoreManagement\Models\Status;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\Invoice;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\Order;
-use Kirago\BusinessCore\Modules\SettingManagment\StatusChange;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Payment;
 
 return new class extends Migration {
 
     public function up(){
 
         $classes = [
-            Order::class,Invoice::class,
-            StatusChange::class,
+            Order::class,Invoice::class, Payment::class
         ];
 
         $column = "status_code";

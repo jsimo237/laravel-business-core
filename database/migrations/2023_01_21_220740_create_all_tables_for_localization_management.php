@@ -110,17 +110,23 @@ return new class extends Migration {
     protected function createAddressTable()
     {
         if (!Schema::hasTable((new Address)->getTable())) {
+
             Schema::create((new Address)->getTable(), function (Blueprint $table) {
 
                 $table->id();
-                $table->ulidMorphs('addressable', uniqid("POLY_INDEX_"));
+
+                $table->nullableUlidMorphs('addressable',uniqid("POLY_INDEX_"));
+
                 $table->string('name')->comment("le nom de l'addresse");
-                $table->string('referencer_full_name')->nullable()
+
+                $table->string('title')->default('Main');
+
+                $table->string('contact_full_name')->nullable()
                     ->comment("nom complet de la personne référence à cette addresse");
 
-                $table->string('email')->nullable()
+                $table->string('contact_email')->nullable()
                     ->comment("l'email de contact (ex : 'company@app.com')");
-                $table->string('phone')->nullable()
+                $table->string('contact_phone')->nullable()
                     ->comment("le téléphone de contact (ex : '237 (683523318)')");
                 $table->string('street')->nullable()
                     ->comment("la rue (ex : 'RES')");
@@ -128,6 +134,10 @@ return new class extends Migration {
                     ->comment("address line 1");
                 $table->string('address2')->nullable()
                     ->comment("address line 2");
+
+                $table->boolean('is_default')
+                    ->comment("Determine si c'est l'adresse par défaut")
+                    ->default(false);
 
                 $table->foreignIdFor(Country::class, Country::FK_ID)->nullable()
                     ->constrained((new Country)->getTable(), (new Country)->getKeyName(), uniqid("FK_"))
@@ -160,10 +170,8 @@ return new class extends Migration {
                 $table->boolean('default')->default(false)
                     ->comment("determine si c'est l'addresse par défaut");
 
-                $table->boolean('is_primary')->default(false)
-                    ->comment("determine si c'est une addresse primaire");
 
-                $table->nullableUlidMorphs('author', uniqid("POLY_INDEX_"));
+               // $table->nullableUlidMorphs('author', uniqid("POLY_INDEX_"));
                 $table->timestamps();
                 $table->softDeletes();
             });
@@ -196,5 +204,6 @@ return new class extends Migration {
         Schema::dropIfExists((new State)->getTable());
         Schema::dropIfExists((new City)->getTable());
         Schema::dropIfExists((new Address)->getTable());
+        Schema::dropIfExists((new Timezone)->getTable());
     }
 };

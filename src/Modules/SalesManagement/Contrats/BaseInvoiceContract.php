@@ -25,5 +25,7 @@ interface BaseInvoiceContract
 
     public function handleInvoicePaied() :void;
 
+    public function getTotalPaied() : float;
+
     public function send() :void;
 }

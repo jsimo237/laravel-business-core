@@ -12,6 +12,7 @@ use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Staff;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\Customer;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\Invoice;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\Order;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Product;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\Tax;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\TaxGroup;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\Role;
@@ -24,7 +25,7 @@ return new class extends Migration {
         $classes = [
             User::class, Role::class,
             Order::class,Invoice::class, Setting::class,Contact::class, Staff::class,
-            Tax::class, TaxGroup::class,
+            Tax::class, TaxGroup::class, Product::class,
             Customer::class,
             Media::class,
         ];

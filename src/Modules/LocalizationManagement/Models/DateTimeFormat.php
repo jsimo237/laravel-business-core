@@ -11,7 +11,7 @@ class DateTimeFormat extends Model{
     use HasFactory,SoftDeletes,
         Paginable;
 
-    protected string $table = "localize_datetime_formats";
+    protected $table = "localize_datetime_formats";
     public bool $timestamps = false;
     protected $guarded = [];
 

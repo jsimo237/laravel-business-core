@@ -8,14 +8,16 @@ use Kirago\BusinessCore\Modules\BaseModel;
 use Kirago\BusinessCore\Support\Contracts\EventNotifiableContract;
 
 /**
- * @property bool $active
+ * @property string|int $id
  * @property string $name
  * @property string $label
+ * @property string $description
  * @property string $tax_number
  * @property string $tax_type
  * @property string $calculation_type
  * @property string $calculation_base
  * @property float $value
+ * @property bool $is_active
  * @property bool $applied_in_taxable_amount
  */
 class Tax extends BaseModel implements EventNotifiableContract
@@ -33,8 +35,9 @@ class Tax extends BaseModel implements EventNotifiableContract
     const TAX_CALCULATION_BASE_AFTER_TAX = 'AFTER_TAX';
 
 
+    protected $table = "sales_mgt__taxes";
 
-    protected array $fillable = [
+    protected $fillable = [
         'active',
         'name',
         'label',
@@ -43,13 +46,16 @@ class Tax extends BaseModel implements EventNotifiableContract
         'calculation_type',
         'calculation_base',
         'value',
-        'excerpt',
+        'applied_in_taxable_amount',
+        'description',
     ];
 
     /**
+     * @param $query
+     * @param $search
      * @return mixed
      */
-    public function scopeSearch($query, $search)
+    public function scopeSearch($query, $search): mixed
     {
         return $query->where('name', 'LIKE', "%$search%")
                         ->orWhere('label', 'LIKE', "%$search%")

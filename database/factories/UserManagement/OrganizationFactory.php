@@ -8,7 +8,7 @@ use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization>
  */
-class CompanyFactory extends Factory{
+class OrganizationFactory extends Factory{
 
     protected $model = Organization::class;
 
