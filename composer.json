@@ -60,10 +60,6 @@
             "providers": [
                 "Kirago\\BusinessCore\\BusinessCoreServiceProvider"
             ]
-        },
-        "branch-alias": {
-            "dev-master": "master",
-            "dev-main": "main"
         }
     }
 }
