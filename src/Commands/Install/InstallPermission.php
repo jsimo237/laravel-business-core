@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\DB;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\Permission;
 
 
-class InstallPermissions extends Command{
+class InstallPermission extends Command{
 
-    protected $signature = 'bc:install-permissions';
+    protected $signature = 'bc:install/permissions';
 
     protected $description = "";
 
