@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\CoreManagement\Models\Status;
 use Kirago\BusinessCore\Modules\LocalizationManagement\Models\Address;
 use Kirago\BusinessCore\Modules\LocalizationManagement\Models\City;
 use Kirago\BusinessCore\Modules\LocalizationManagement\Models\Country;
@@ -11,6 +10,13 @@ use Kirago\BusinessCore\Modules\LocalizationManagement\Models\Quarter;
 use Kirago\BusinessCore\Modules\LocalizationManagement\Models\State;
 use Kirago\BusinessCore\Modules\MediaManagement\Models\Media;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Staff;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Customer;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Invoice;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\InvoiceItem;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Order;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\OrderItem;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Product;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\Permission;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\Role;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
@@ -25,7 +31,8 @@ return new class extends Migration {
 
         $classes = [
             Role::class, Permission::class, User::class, Organization::class,
-             Status::class,
+            Order::class,Invoice::class, OrderItem::class, InvoiceItem::class,
+            Product::class, Customer::class, Staff::class,
             Country::class, State::class, City::class, Quarter::class, Address::class,
             Media::class,
         ];

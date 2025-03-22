@@ -15,12 +15,12 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 /**
  * @property int id
  * @property string code
- * @property string excerpt
+ * @property string note
  * @property BaseInvoiceContract invoice
  * @property string source_code
  * @property string source_reference
  * @property array<string, mixed> source_response
- * @property string status_code
+ * @property string status
  * @property DateTime paied_at
  * @property int invoice_id
  */

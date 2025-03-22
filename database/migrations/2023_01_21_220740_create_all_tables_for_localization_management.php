@@ -32,6 +32,8 @@ return new class extends Migration {
             Schema::create((new Country)->getTable(), function (Blueprint $table) {
                 $table->id();
 
+                $table->string('code',10)->unique(uniqid("UQ_"))
+                    ->comment("Le code unique");
                 $table->json("data")->nullable()
                     ->comment("les infos récupéré via l'api (ex : '') ");
 
@@ -51,7 +53,7 @@ return new class extends Migration {
                 $table->id();
                 $table->string('name')
                     ->comment("Le nom (ex : 'Littoral')");
-                $table->foreignIdFor(Country::class, Country::FK_ID)->nullable()
+                $table->foreignIdFor(Country::class, "country_id")->nullable()
                     ->constrained((new Country)->getTable(), (new Country)->getKeyName(), uniqid("FK_"))
                     ->cascadeOnUpdate()->cascadeOnDelete()
                     ->comment("[FK] le pays");
@@ -182,14 +184,13 @@ return new class extends Migration {
     {
         if (!Schema::hasTable((new Timezone)->getTable())) {
             Schema::create((new Timezone)->getTable(), function (Blueprint $table) {
-                $table->id();
-                $table->string('label')
-                    ->comment("Le label (ex : 'Africa/Malabo')");
+
+                $table->string('code',100)->primary()
+                    ->comment("[PK] le code");
+
                 $table->text("description")->nullable()
                     ->comment("[FK] la ville");
 
-                $table->boolean('is_active')->default(true)
-                    ->comment("Determine si c'est actif");
                 $table->timestamps();
                 $table->softDeletes();
 

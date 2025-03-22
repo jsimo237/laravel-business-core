@@ -20,7 +20,7 @@ class Payment extends BasePayment
         'date',
         'code',
         'status',
-        'excerpt',
+        'note',
         'amount',
         'source_code',
         'source_reference',
@@ -100,7 +100,7 @@ class Payment extends BasePayment
          * @var Invoice $invoice
          */
         $invoice = $this->invoice;
-        if ($this->status_code === Statuses::PAYMENT_COMPLETED->value) {
+        if ($this->status === Statuses::PAYMENT_COMPLETED->value) {
 
             $totalAmountFmt = number_format($invoice->getTotalAmount(), $precision, '.', '');
             $totalPaidFmt = number_format($invoice->getTotalPaied(), $precision, '.', '');

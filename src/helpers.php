@@ -98,14 +98,14 @@ if (!function_exists('write_log')) {
                     $realPath = $file->getRealPath();
                     $lastModified = File::lastModified($realPath);
 
-                    $lastModified = Carbon::parse($lastModified)->format("Y-m-d");
-                    $deletable_date = Carbon::parse($lastModified)->subDays($deletable)->format("Y-m-d");
+                   // $lastModified = Carbon::parse($lastModified)->format("Y-m-d");
+                   // $deletable_date = Carbon::parse($lastModified)->subDays($deletable)->format("Y-m-d");
                     // echo ("path= $path; lastModified = $lastModified ; deletableDate = $deletable_date ; deletable = $deletable \n");
 
                     /*si le fichier a déja fait plus de*/
-                    if ($deletable_date > $lastModified){
-                        File::delete($realPath);
-                    }
+                   // if ($deletable_date > $lastModified){
+                   //     File::delete($realPath);
+                   // }
                 }
             }
         }

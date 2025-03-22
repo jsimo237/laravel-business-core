@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('sku',60)->nullable(false);
             $table->string('name');
             $table->longText('description')->nullable();
-            $table->float('buying_price')->comment("le prix d'achat");
-            $table->float('selling_price')->comment("le prix de vente");
+            $table->decimal('buying_price',20,4)->comment("le prix d'achat");
+            $table->decimal('selling_price',20,4)->comment("le prix de vente");
 
             $table->json('buying_taxes')->nullable()
                 ->comment("les taxes a l'achat");

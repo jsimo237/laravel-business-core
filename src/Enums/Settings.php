@@ -14,9 +14,10 @@ enum Settings : string
         return [
             'text',
             'number',
+            'longText',
             'boolean',
-            'array-pick-one',
-            'array-pick-multiple',
+            'select-single',
+            'select-multiple',
             'json',
         ];
     }

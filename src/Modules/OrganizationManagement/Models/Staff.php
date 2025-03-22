@@ -46,6 +46,6 @@ class Staff extends MediableModel implements AuthenticatableModelContract {
 
     public function getObjectName(): string
     {
-        return $this->name;
+        return $this->fullname;
     }
 }

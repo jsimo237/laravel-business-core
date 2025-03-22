@@ -9,7 +9,7 @@ use Kirago\BusinessCore\Modules\BaseModel;
 
 /**
  * @property string $name
- * @property string $excerpt
+ * @property string $note
  * @property array $other_phones
  */
 class TaxGroup  extends BaseModel
@@ -17,10 +17,10 @@ class TaxGroup  extends BaseModel
 
 
 
-    protected array $fillable = [
+    protected $fillable = [
         'name',
         'country_code',
-        'excerpt',
+        'note',
     ];
 
 

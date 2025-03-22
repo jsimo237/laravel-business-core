@@ -4,6 +4,7 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Collection;
 use Kirago\BusinessCore\Modules\HasCustomPrimaryKey;
 use Kirago\BusinessCore\Support\Exceptions\NewIdCannotGeneratedException;
@@ -88,8 +89,13 @@ class Invoice extends BaseInvoice
                         ]);
     }
 
-    public function recipient(): BelongsTo
+    public function recipient(): MorphTo
     {
-        // TODO: Implement recipient() method.
+        return $this->morphTo(Customer::class,"recipient");
+    }
+
+    public function getTotalPaied(): float
+    {
+        // TODO: Implement getTotalPaied() method.
     }
 }

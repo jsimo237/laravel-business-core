@@ -7,7 +7,6 @@ namespace Kirago\BusinessCore\Modules\LocalizationManagement\Models\Traits;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 use Kirago\BusinessCore\Models\Modules\Localization\Address;
-use function Kirago\BusinessCore\Models\LocalizationManagement\Traits\config;
 
 trait Addressable{
 

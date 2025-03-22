@@ -63,16 +63,24 @@ class InvoiceItem extends BaseInvoiceitem
 
     public function getName(): string
     {
-        // TODO: Implement getName() method.
+        return $this->code;
     }
 
-    public function getExcerpt(): ?string
+    public function getnote(): ?string
     {
-        // TODO: Implement getExcerpt() method.
+        // TODO: Implement getnote() method.
     }
 
     public function order(): HasOneThrough
     {
-        // TODO: Implement order() method.
+        return $this->hasOneThrough(
+                        Order::class,  // Modèle cible (Order)
+                        Invoice::class, // Modèle intermédiaire (Invoice)
+                        'id',          // Clé primaire de Invoice (intermédiaire)
+                        'id',          // Clé primaire de Order
+                        'invoice_id',  // Clé étrangère dans InvoiceItem (vers Invoice)
+                        'order_id'     // Clé étrangère dans Invoice (vers Order)
+                    );
+
     }
 }

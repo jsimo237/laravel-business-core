@@ -41,19 +41,21 @@ abstract class BaseInvoice extends BaseModel implements
 
     use WithOrderCapacities;
 
-    protected array $fillable = [
+    protected $fillable = [
         'code',
-        'expiration_time',
-        'excerpt',
+        'note',
         'status',
         'has_no_taxes',
         'is_opened',
         'discounts',
         'invoice_type',
+        'expired_at',
+        'processed_at',
     ];
 
-    protected array $dates = [
-        'expiration_time',
+    protected $dates = [
+        'expired_at',
+        'processed_at',
     ];
 
     protected $casts = [
@@ -62,8 +64,8 @@ abstract class BaseInvoice extends BaseModel implements
     ];
 
     protected $attributes = [
-        'status_code' => Statuses::INVOICE_CREATED,
-       // 'invoice_type' =>  BaseOrder::INVOICING_TYPE_PRODUCT,
+        'status' => Statuses::INVOICE_CREATED,
+        'invoice_type' =>  BaseOrder::INVOICING_TYPE_PRODUCT,
         'is_opened' =>  true,
     ];
 
@@ -95,7 +97,7 @@ abstract class BaseInvoice extends BaseModel implements
                     foreach ($order->items as $item) {
                         $invoiceItem = new InvoiceItem();
                         $invoiceItem->code = $item->code;
-                        $invoiceItem->excerpt = $item->excerpt;
+                        $invoiceItem->note = $item->note;
                         $invoiceItem->unit_price = $item->unit_price;
                         $invoiceItem->quantity = $item->quantity;
                         $invoiceItem->discount = $item->discount;

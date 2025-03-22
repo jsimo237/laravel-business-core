@@ -22,7 +22,7 @@ interface OrderableContrat
 
     public function getName(): string;
 
-    public function getExcerpt(): ?string;
+    public function getnote(): ?string;
 
     public function getProductId(): string;
 

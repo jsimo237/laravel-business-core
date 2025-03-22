@@ -8,6 +8,7 @@ use Kirago\BusinessCore\Modules\LocalizationManagement\Models\Country;
 use Kirago\BusinessCore\Modules\LocalizationManagement\Models\Quarter;
 use Kirago\BusinessCore\Modules\LocalizationManagement\Models\State;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Staff;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\Customer;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\Invoice;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\InvoiceItem;
@@ -30,6 +31,7 @@ return new class extends Migration {
         //class pour slug-column
         $classes = [
             Role::class, User::class,
+            Staff::class,
             Country::class, State::class,
             Organization::class,
             Order::class, Invoice::class, OrderItem::class, InvoiceItem::class,

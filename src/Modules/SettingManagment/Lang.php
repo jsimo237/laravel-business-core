@@ -2,14 +2,22 @@
 
 namespace Kirago\BusinessCore\Modules\SettingManagment;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Kirago\BusinessCore\Modules\BaseModel;
+use Kirago\BusinessCore\Modules\HasCustomPrimaryKey;
 
-class Lang extends Model{
-    use HasFactory;
+/**
+ * @property string code
+ * @property string label
+ * @property string description
+ */
+class Lang extends BaseModel {
+
+    use HasCustomPrimaryKey;
 
     protected $table = "settings_mgt__langs";
-    const FK_ID = "lang_id";
-    protected $guarded = [];
 
+    public function getObjectName(): string
+    {
+        return $this->label;
+    }
 }
