@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Cache;
 use Kirago\BusinessCore\Modules\BaseModel;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseOrderContract;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\ContainItemsContrat;
+use Kirago\BusinessCore\Modules\SalesManagement\Contrats\HasRecipient;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
 use Kirago\BusinessCore\Support\Contracts\EventNotifiableContract;
 use Kirago\BusinessCore\Support\Contracts\GenerateUniqueValueContrat;
@@ -20,7 +21,7 @@ use Kirago\BusinessCore\Support\Contracts\GenerateUniqueValueContrat;
 /**
  * @property string $code
  * @property Carbon $expiration_time
- * @property string $excerpt
+ * @property string $note
  * @property string $status
  * @property array<string, mixed> $discounts
  * @property Collection $items
@@ -30,27 +31,9 @@ use Kirago\BusinessCore\Support\Contracts\GenerateUniqueValueContrat;
  */
 abstract class BaseOrder extends BaseModel implements
     EventNotifiableContract,GenerateUniqueValueContrat,
-    ContainItemsContrat,BaseOrderContract
+    ContainItemsContrat,BaseOrderContract,HasRecipient
 {
 
-    protected array $fillable = [
-        'code',
-        'expiration_time',
-        'excerpt',
-        'status',
-        'has_no_taxes',
-        'discounts',
-    ];
-
-    protected array $dates = [
-        'expiration_time',
-        'updated_at',
-        'created_at',
-    ];
-
-    protected $casts = [
-        "discounts" => "array"
-    ];
 
     const INVOICING_TYPE_PRODUCT = 'PRODUCT';
 

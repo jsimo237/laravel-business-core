@@ -9,14 +9,19 @@ trait HasUser
 {
 
 
-    public function bootHasUser(){
+    public static function bootHasUser(){
 
     }
 
 
     public function user(): MorphOne
     {
-        return $this->morphOne(User::class, User::MORPH_FUNCTION_NAME);
+        return $this->morphOne(
+                    User::class,
+                    User::MORPH_FUNCTION_NAME,
+                    User::MORPH_ID_COLUMN,
+                    User::MORPH_TYPE_COLUMN,
+                );
     }
 
     public function getUser(): ?User

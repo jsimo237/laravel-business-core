@@ -45,37 +45,37 @@ return [
 
     // COMPANY
     [
-        "name" => Permissions::COMPANY_CREATE->value,
+        "name" => Permissions::ORGANIZATION_CREATE->value,
         "description" => "Peut créer une entreprise",
         "guard_name" => "api",
         "group_code" => PermissionsGroup::COMPANY->value,
     ],
     [
-        "name" => Permissions::COMPANY_UPDATE->value,
+        "name" => Permissions::ORGANIZATION_UPDATE->value,
         "description" => "Peut modifier une entreprise",
         "guard_name" => "api",
         "group_code" => PermissionsGroup::COMPANY->value,
     ],
     [
-        "name" => Permissions::COMPANY_DELETE->value,
+        "name" => Permissions::ORGANIZATION_DELETE->value,
         "description" => "Peut supprimer une entreprise",
         "guard_name" => "api",
         "group_code" => PermissionsGroup::COMPANY->value,
     ],
     [
-        "name" => Permissions::COMPANY_VIEW_ANY->value,
+        "name" => Permissions::ORGANIZATION_VIEW_ANY->value,
         "description" => "Peut voir toutes les entreprises",
         "guard_name" => "api",
         "group_code" => PermissionsGroup::COMPANY->value,
     ],
     [
-        "name" => Permissions::COMPANY_VIEW_LIST->value,
+        "name" => Permissions::ORGANIZATION_VIEW_LIST->value,
         "description" => "Peut voir la liste des entreprises",
         "guard_name" => "api",
         "group_code" => PermissionsGroup::COMPANY->value,
     ],
     [
-        "name" => Permissions::COMPANY_VIEW_MODULE->value,
+        "name" => Permissions::ORGANIZATION_VIEW_MODULE->value,
         "description" => "Peut accéder au module des entreprises",
         "guard_name" => "api",
         "group_code" => PermissionsGroup::COMPANY->value,

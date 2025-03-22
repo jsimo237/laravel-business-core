@@ -6,12 +6,12 @@ enum Permissions : string
 {
 
     // COMPANY
-    case COMPANY_CREATE = "company-create";
-    case COMPANY_UPDATE = "company-update";
-    case COMPANY_DELETE = "company-delete";
-    case COMPANY_VIEW_ANY = "company-view-any";
-    case COMPANY_VIEW_LIST = "company-view-list";
-    case COMPANY_VIEW_MODULE = "company-view-module";
+    case ORGANIZATION_CREATE = "organization-create";
+    case ORGANIZATION_UPDATE = "organization-update";
+    case ORGANIZATION_DELETE = "organization-delete";
+    case ORGANIZATION_VIEW_ANY = "organization-view-any";
+    case ORGANIZATION_VIEW_LIST = "organization-view-list";
+    case ORGANIZATION_VIEW_MODULE = "organization-view-module";
 
     // ROLE
     case ROLE_CREATE = "role-create";

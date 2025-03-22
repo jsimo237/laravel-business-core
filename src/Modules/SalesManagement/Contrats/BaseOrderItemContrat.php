@@ -13,12 +13,13 @@ use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
  * @property string $code
  * @property int|float $quantity
  * @property float $unit_price
- * @property string $excerpt
+ * @property string $note
  * @property float $discount
  * @property array<string, mixed> $taxes
  * @property BaseOrderContract $order
  * @property BaseInvoiceContract $invoice
  * @property BaseInvoiceContract $invoiceable
+ * @property OrderableContrat $orderable
  */
 interface BaseOrderItemContrat
 {
@@ -35,7 +36,7 @@ interface BaseOrderItemContrat
 
     public function getOrganization() : Organization;
 
-    public function getOrderable() : OrderableContrat;
+    public function getOrderable() : ?OrderableContrat;
 
     public function getOrder() : ?BaseOrderContract;
 

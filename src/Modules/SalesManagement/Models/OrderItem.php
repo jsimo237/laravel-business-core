@@ -5,8 +5,9 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\InvoiceableContract;
-
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
+use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseOrderContract;
+use Kirago\BusinessCore\Modules\SalesManagement\Contrats\OrderableContrat;
 
 
 class OrderItem extends BaseOrderItem
@@ -39,4 +40,36 @@ class OrderItem extends BaseOrderItem
                 );
     }
 
+    public function getOrder(): ?BaseOrderContract
+    {
+        return $this->order;
+    }
+
+    public function getOrderable(): ?OrderableContrat
+    {
+        return $this->orderable;
+    }
+
+    public function getOrganization(): Organization
+    {
+        return $this->order?->getOrganization();
+    }
+
+    public function invoice(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+                        Invoice::class, // Modèle cible (Invoice)
+                        Order::class,   // Modèle intermédiaire (Order)
+                        'id',           // Clé primaire de Order (intermédiaire)
+                        'order_id',     // Clé étrangère dans Invoice (vers Order)
+                        'order_id',     // Clé étrangère dans OrderItem (vers Order)
+                        'id'            // Clé primaire de Order (intermédiaire)
+                    );
+
+    }
+
+    public function getObjectName(): string
+    {
+       return $this->code;
+    }
 }

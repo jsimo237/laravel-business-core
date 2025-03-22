@@ -40,7 +40,6 @@ return new class extends Migration
                 $table->string('billing_address')->nullable();
                 $table->string('billing_email')->nullable();
 
-
                 $table->foreignIdFor(User::class,'manager_id')->nullable()
                     ->constrained((new User)->getTable(), (new User)->getKeyName(),uniqid("FK_"))
                     ->cascadeOnUpdate()->cascadeOnDelete()

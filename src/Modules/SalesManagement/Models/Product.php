@@ -46,7 +46,7 @@ class Product extends BaseModel implements OrderableContrat
         return $this->name;
     }
 
-    public function getExcerpt(): ?string
+    public function getnote(): ?string
     {
        return $this->description;
     }

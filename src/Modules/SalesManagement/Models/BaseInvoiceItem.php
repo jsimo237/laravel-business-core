@@ -25,9 +25,9 @@ abstract class BaseInvoiceItem extends Model implements
 
     /************ Common functions, attributes and constants ************/
 
-    protected array $fillable = [
+    protected $fillable = [
         'code',
-        'excerpt',
+        'note',
         'unit_price',
         'quantity',
         'discount',
@@ -36,9 +36,6 @@ abstract class BaseInvoiceItem extends Model implements
     protected $casts = [
         "taxes" => 'array'
     ];
-
-
-
 
     public function getObjectName(): string
     {

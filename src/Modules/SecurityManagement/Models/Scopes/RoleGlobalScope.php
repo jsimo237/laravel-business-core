@@ -6,10 +6,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\Role;
-use function activeGuard;
-use function Kirago\BusinessCore\Models\SecurityManagement\Scopes\auth;
-use function Kirago\BusinessCore\Models\SecurityManagement\Scopes\filled;
-use function Kirago\BusinessCore\Models\SecurityManagement\Scopes\request;
 
 class RoleGlobalScope implements Scope{
 

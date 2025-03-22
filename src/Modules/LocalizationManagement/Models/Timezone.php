@@ -2,22 +2,26 @@
 
 namespace Kirago\BusinessCore\Modules\LocalizationManagement\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Kirago\BusinessCore\Modules\BaseModel;
+use Kirago\BusinessCore\Modules\HasCustomPrimaryKey;
 
-use Kirago\BusinessCore\Support\Bootables\Paginable;
+/**
+ * @property string code
+ * @property string name
+ * @property string description
+ */
+class Timezone extends BaseModel {
 
-class Timezone extends Model{
-    use HasFactory,SoftDeletes,
-        HasDates,Paginable;
+    use HasCustomPrimaryKey;
 
     protected $table = "localization_mgt__timezones";
-    public bool $timestamps = false;
-    protected $guarded = [];
 
     public function getRouteKeyName(){
-        return "id";
+        return "code";
     }
 
+    public function getObjectName(): string
+    {
+        return $this->name;
+    }
 }

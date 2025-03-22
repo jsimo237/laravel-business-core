@@ -5,6 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Kirago\BusinessCore\Enums\BillingInformations;
+use Kirago\BusinessCore\Enums\OrderStatuses;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\Order;
 
 return new class extends Migration
@@ -18,11 +19,12 @@ return new class extends Migration
     {
         Schema::create((new Order)->getTable(), function (Blueprint $table) {
             $table->id();
-            $table->string('code')->nullable(false);
+            $table->string('code',60)
+                ->unique(uniqid("UQ_"));
 
-            $table->dateTime('expiration_time')->nullable(false);
-            $table->json('discounts')->nullable(false);
-            $table->text('excerpt')->nullable(true);
+
+            $table->json('discounts');
+            $table->text('note')->nullable();
 
             $table->enum('billing_entity_type',BillingInformations::values())->default(BillingInformations::TYPE_INDIVIDUAL->value);
             $table->string('billing_company_name')->nullable();
@@ -35,8 +37,13 @@ return new class extends Migration
             $table->string('billing_address')->nullable();
             $table->string('billing_email')->nullable();
 
+            $table->string("status",50)->default(OrderStatuses::DRAFT->value)
+                ->comment("Le statut");
 
-            $table->nullableMorphs('recipient');
+            $table->timestamp('expired_at')->nullable();
+            $table->timestamp('processed_at')->nullable();
+            $table->nullableUlidMorphs('recipient');
+
 
             $table->timestamps();
             $table->softDeletes();

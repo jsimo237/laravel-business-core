@@ -55,7 +55,6 @@ return [
         "media" =>  \Kirago\BusinessCore\Modules\MediaManagement\Models\Media::class,
         "comment" => \Kirago\BusinessCore\Modules\SettingManagment\Comment::class,
         "notification" => \Kirago\BusinessCore\Modules\SettingManagment\Notification::class,
-        "status" => \Kirago\BusinessCore\Modules\CoreManagement\Models\Status::class,
 
         //Security
         "role" => \Kirago\BusinessCore\Modules\SecurityManagement\Models\Role::class,

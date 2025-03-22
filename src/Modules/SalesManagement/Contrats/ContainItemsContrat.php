@@ -4,6 +4,9 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Contrats;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property BaseOrderItemContrat|BaseInvoiceItemContrat items
+ */
 interface ContainItemsContrat
 {
 

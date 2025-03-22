@@ -18,18 +18,23 @@ return new class extends Migration {
                 $table->string('lastname',100)->nullable()
                     ->comment("Le prénom");
 
+                $table->string('phone',20)->nullable()
+                    ->comment("Le numéro de téléphone");
 
-//                $table->computed ('full_name',"concat(firstname,' ',lastname)")->nullable()
-//                        ->comment("Le nom complet");
 
-                $table->string('fullname')->nullable()
+                $table->string('fullname')
                         ->storedAs("concat(firstname,' ',lastname)")
                         ->comment("Le nom complet");
 
-                $table->string('username',20)->nullable()->unique(uniqid('UQ_'))
+                $table->string('initials',2)->nullable()
+                    ->storedAs("concat(upper(left(firstname,1)), upper(left(lastname,1)))")
+                    ->comment("Les initiales du prénom et du nom");
+
+                $table->string('username',20)
+                    ->nullable()
                     ->comment("Le nom d'utilisateur");
 
-                $table->string('email')->unique(uniqid('UQ_'))
+                $table->string('email')
                     ->comment("L'email");
 
                 $table->timestamp('email_verified_at')->nullable()

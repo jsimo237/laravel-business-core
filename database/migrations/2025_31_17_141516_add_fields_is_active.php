@@ -16,7 +16,6 @@ return new class extends Migration {
         $classes = [
             Organization::class,User::class, Product::class,
             Setting::class
-            //WalletCredential::class
         ];
 
         $column = "is_active";

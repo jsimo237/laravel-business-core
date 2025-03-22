@@ -3,7 +3,11 @@
 namespace Kirago\BusinessCore\Modules\SecurityManagement\Contracts;
 
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
+/**
+ * @property User user
+ */
 interface AuthenticatableModelContract
 {
     /**
@@ -14,6 +18,7 @@ interface AuthenticatableModelContract
     public function getAuthPasswordField(): ?string;
 
     public function getUser(): ?User;
+    public function user(): ?MorphOne;
 
     /**
      * Retourne le nom de la garde utilisée par ce modèle

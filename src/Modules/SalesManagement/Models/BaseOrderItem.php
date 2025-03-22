@@ -4,7 +4,6 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseOrderContract;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseOrderItemContrat;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\OrderableContrat;
@@ -14,12 +13,11 @@ use Kirago\BusinessCore\Modules\SalesManagement\Traits\HasTaxGroup;
 use Kirago\BusinessCore\Support\Bootables\Auditable;
 use Kirago\BusinessCore\Support\Contracts\EventNotifiableContract;
 
-
 /**
  * @property string $code
  * @property int|float $quantity
  * @property float $unit_price
- * @property string $excerpt
+ * @property string $note
  * @property float $discount
  * @property array<string, mixed> $taxes
  */

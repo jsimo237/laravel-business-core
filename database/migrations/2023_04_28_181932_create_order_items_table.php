@@ -17,12 +17,14 @@ return new class extends Migration
     {
         Schema::create((new OrderItem)->getTable(), function (Blueprint $table) {
             $table->id();
-            $table->string('code')->nullable(false);
 
-            $table->text('excerpt')->nullable();
-            $table->float('unit_price')->default(0);
-            $table->integer('quantity')->default(0);
-            $table->float('discount')->nullable()->default(0);
+            $table->string('code',60)
+                ->unique(uniqid("UQ_"));
+
+            $table->text('note')->nullable();
+            $table->decimal('unit_price',20,4)->default(0);
+            $table->float('quantity')->default(0);
+            $table->decimal('discount',10,4)->nullable()->default(0);
             $table->json('taxes')->nullable();
 
             $table->nullableUlidMorphs('orderable',uniqid("POLY_INDEX_"));
