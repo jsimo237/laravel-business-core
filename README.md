@@ -45,7 +45,4 @@ php artisan bc:setup
 
 ### 1️⃣ **Setup the database and publish migrations**
 
-```bash
-php artisan bc:setup/per
-```
 ✅ **You are ready to use!**
