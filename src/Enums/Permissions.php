@@ -117,4 +117,12 @@ enum Permissions : string
     case CATEGORY_VIEW_LIST = "category-view-list";
     case CATEGORY_VIEW_MODULE = "category-view-module";
 
+    public function details(): array
+    {
+        return match ($this) {
+            self::PRODUCT_CREATE => ["description" => "...",],
+
+        };
+    }
+
 }

@@ -113,7 +113,7 @@ class BusinessCoreServiceProvider extends BaseServiceProvider {
                 ->whereIn('migration',[
                     "2025_31_17_141516_add_fields_authorable",
                     "2025_31_17_141516_add_fields_dates",
-                    "2025_31_17_141516_add_fields_statuable",
+                    "2025_31_17_141516_add_fields_organization_id",
                     "2025_31_17_141516_add_fields_is_active",
                     "2023_06_01_012858_add_fields_to_application_table",
                 ])
@@ -168,7 +168,8 @@ class BusinessCoreServiceProvider extends BaseServiceProvider {
         }
 
         $this->commands([
-            Commands\Install\InstallDBCommand::class,
+            Commands\Setup::class,
+            Commands\Install\InstallPermission::class,
         ]);
     }
 
