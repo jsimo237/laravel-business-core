@@ -3,12 +3,13 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\MediaManagement\Models\Media;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia;
+
 
 return new class extends Migration {
 
     public function up(){
-        Schema::create((new Media)->getTable(), function (Blueprint $table) {
+        Schema::create((new BcMedia)->getTable(), function (Blueprint $table) {
 
             $table->bigIncrements('id');
 

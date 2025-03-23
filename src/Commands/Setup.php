@@ -17,30 +17,33 @@ class Setup extends Command
         // Désactiver les contraintes de clé étrangère temporairement
         DB::statement("SET FOREIGN_KEY_CHECKS=0");
 
+        if ($this->confirm("Dou you want to publish config files ?", true)) {
+
+            Artisan::call("vendor:publish", [ "--tag" => "bc-config" ]);
+
+            $this->info("✅  config/business-core.php published.");
+        }
+
         // Demander à l'utilisateur s'il veut publier les migrations
-        if ($this->confirm("dou you want to generate and publish migration files ?", false)) {
+        if ($this->confirm("Dou you want to generate and publish migration files ?", true)) {
             // Publier les migrations du package
-            Artisan::call("vendor:publish", [
-                "--tag" => "bc-migrations"
-            ]);
+            Artisan::call("vendor:publish", [  "--tag" => "bc-migrations" ]);
 
-            $this->info("✅ Migrations files published.");
+            $this->info("✅  Migrations files published.");
 
-            // Exécuter les migrations depuis le dossier de l'application
-            Artisan::call("migrate:fresh", ['--force' => true]);
         } else {
-
-            Artisan::call("migrate:fresh", ['--force' => true]);
 
             // Exécuter les migrations directement depuis les modules du package
           //  $this->runPackageMigrations();
         }
+        // Exécuter les migrations depuis le dossier de l'application
+        Artisan::call("migrate:fresh", ['--force' => true]);
 
         // Créee les permissions
        // Artisan::call("bc:install/permissions");
        // $this->info("✅ All Permissions Data created in database");
 
-        $this->info("✅ Business Core Database stucture setting up!");
+        $this->info("✅  Business Core Database stucture setting up!");
 
 
         return self::SUCCESS;

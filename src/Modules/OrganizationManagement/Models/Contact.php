@@ -2,9 +2,9 @@
 
 namespace Kirago\BusinessCore\Modules\OrganizationManagement\Models;
 
-use Kirago\BusinessCore\Modules\BaseModel;
+use Kirago\BusinessCore\Modules\BaseBcModel;
 
-class Contact extends BaseModel {
+class Contact extends BaseBcModel {
 
     protected $table = "organization__mgt__contacts_forms";
 

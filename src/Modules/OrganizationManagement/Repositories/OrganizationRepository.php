@@ -2,11 +2,11 @@
 
 namespace Kirago\BusinessCore\Modules\OrganizationManagement\Repositories;
 
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
 
 class OrganizationRepository {
 
-    public function __construct(protected int|string|Organization $organization)
+    public function __construct(protected int|string|BcOrganization $organization)
     {
     }
 
@@ -20,11 +20,11 @@ class OrganizationRepository {
     public function getOrganization() : int|string
     {
 
-        if ( $this->organization instanceof Organization){
+        if ( $this->organization instanceof BcOrganization){
             return $this->organization;
         }
 
-        return Organization::find($this->organization);
+        return BcOrganization::find($this->organization);
     }
 
 

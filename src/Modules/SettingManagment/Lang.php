@@ -2,7 +2,7 @@
 
 namespace Kirago\BusinessCore\Modules\SettingManagment;
 
-use Kirago\BusinessCore\Modules\BaseModel;
+use Kirago\BusinessCore\Modules\BaseBcModel;
 use Kirago\BusinessCore\Modules\HasCustomPrimaryKey;
 
 /**
@@ -10,7 +10,7 @@ use Kirago\BusinessCore\Modules\HasCustomPrimaryKey;
  * @property string label
  * @property string description
  */
-class Lang extends BaseModel {
+class Lang extends BaseBcModel {
 
     use HasCustomPrimaryKey;
 

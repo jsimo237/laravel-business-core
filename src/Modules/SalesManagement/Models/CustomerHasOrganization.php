@@ -5,7 +5,7 @@ namespace Kirago\BusinessCore\Modules\OrganizationManagement\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\Customer;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\BcCustomer;
 
 
 class CustomerHasOrganization extends Model {
@@ -19,14 +19,14 @@ class CustomerHasOrganization extends Model {
      * @return BelongsTo
      */
     public function customer(){
-        return $this->BelongsTo(Customer::class,"customer_id");
+        return $this->BelongsTo(BcCustomer::class,"customer_id");
     }
 
     /**
      * @return BelongsTo
      */
     public function organization(){
-        return $this->BelongsTo(Organization::class,"organization_id");
+        return $this->BelongsTo(BcOrganization::class,"organization_id");
     }
 
 

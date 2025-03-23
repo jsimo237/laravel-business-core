@@ -3,7 +3,7 @@
 namespace Kirago\BusinessCore\Modules\SecurityManagement\Traits;
 
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
 
 trait HasUser
 {
@@ -17,14 +17,14 @@ trait HasUser
     public function user(): MorphOne
     {
         return $this->morphOne(
-                    User::class,
-                    User::MORPH_FUNCTION_NAME,
-                    User::MORPH_ID_COLUMN,
-                    User::MORPH_TYPE_COLUMN,
+                    BcUser::class,
+                    BcUser::MORPH_FUNCTION_NAME,
+                    BcUser::MORPH_ID_COLUMN,
+                    BcUser::MORPH_TYPE_COLUMN,
                 );
     }
 
-    public function getUser(): ?User
+    public function getUser(): ?BcUser
     {
         return $this->user;
     }

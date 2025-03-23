@@ -2,8 +2,8 @@
 
 namespace Kirago\BusinessCore\Support\Bootables;
 
-use Kirago\BusinessCore\Modules\MediaManagement\Repositories\MediaDeletionRepository;
 use Illuminate\Database\Eloquent\Model;
+use Kirago\BusinessCore\Modules\CoresManagement\Repositories\MediaDeletionRepository;
 
 trait FlushTempMediasDeletions
 {

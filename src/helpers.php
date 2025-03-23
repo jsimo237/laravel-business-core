@@ -8,10 +8,10 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use Kirago\BusinessCore\Enums\Settings;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
-use Kirago\BusinessCore\Support\Exceptions\NewIdCannotGeneratedException;
+use Kirago\BusinessCore\Constants\Settings;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+use Kirago\BusinessCore\Support\Exceptions\BcNewIdCannotGeneratedException;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Stevebauman\Location\Facades\Location;
@@ -157,11 +157,14 @@ if (!function_exists('activeGuard')) {
 if (!function_exists('currentOrganization')) {
 
     /** Retourne l'organisation active dans la requete
-     * @return Organization|null
+     * @return BcOrganization|null
      */
-    function currentOrganization(): ?Organization
+    function currentOrganization(): ?BcOrganization
     {
-        return Organization::find(request()->header('x-organization-id'));
+        if ($organizationId = request()->header('x-organization-id')){
+            return BcOrganization::find($organizationId);
+        }
+       return null;
     }
 }
 
@@ -304,7 +307,7 @@ if(!function_exists("newId")){
      * @param string $model Le modèle pour lequel on veut générer un ID
      * @param array|null $options Options supplémentaires
      * @return string
-     * @throws NewIdCannotGeneratedException
+     * @throws BcNewIdCannotGeneratedException
      */
     function newId(string $model = "", ?array $options = []): string
     {
@@ -312,19 +315,19 @@ if(!function_exists("newId")){
 
         // Vérifications initiales
         if (empty($model) || !class_exists($model)) {
-            throw new NewIdCannotGeneratedException("$errorMsg [Raison] : " . __("Le modèle spécifié est invalide ou introuvable."));
+            throw new BcNewIdCannotGeneratedException("$errorMsg [Raison] : " . __("Le modèle spécifié est invalide ou introuvable."));
         }
 
         $instance = new $model;
 
         if (!($instance instanceof Model)) {
-            throw new NewIdCannotGeneratedException("$errorMsg [Raison] : " . __("Le modèle fourni n'est pas une instance de [Illuminate\Database\Eloquent\Model]"));
+            throw new BcNewIdCannotGeneratedException("$errorMsg [Raison] : " . __("Le modèle fourni n'est pas une instance de [Illuminate\Database\Eloquent\Model]"));
         }
 
         $keyName = $options['keyName'] ?? $instance->getKeyName();
 
         if (!isset($instance->$keyName)) {
-            throw new NewIdCannotGeneratedException("$errorMsg [Raison] : " . __("Le champ '$keyName' n'existe pas dans le modèle $model"));
+            throw new BcNewIdCannotGeneratedException("$errorMsg [Raison] : " . __("Le champ '$keyName' n'existe pas dans le modèle $model"));
         }
 
         // Définition des paramètres
@@ -372,7 +375,7 @@ if(!function_exists("newId")){
         } 
         while ($attempts < $maxAttempts);
 
-        throw new NewIdCannotGeneratedException("$errorMsg [Échec après $maxAttempts tentatives]");
+        throw new BcNewIdCannotGeneratedException("$errorMsg [Échec après $maxAttempts tentatives]");
     }
 }
 
@@ -447,12 +450,12 @@ if (! function_exists('preset')) {
 if (! function_exists('manager')) {
 
     /** Retourne le manager lié au un compte user
-     * @param User|null $user
-     * @return User|null
+     * @param BcUser|null $user
+     * @return BcUser|null
      */
-    function manager(User $user = null): ?User
+    function manager(BcUser $user = null): ?BcUser
     {
-        $user ??= auth((new User)->guardName())?->user();
+        $user ??= auth((new BcUser)->guardName())?->user();
         return $user?->manager;
     }
 }

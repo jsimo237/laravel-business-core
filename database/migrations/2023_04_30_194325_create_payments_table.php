@@ -3,10 +3,10 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Enums\PaymentSource;
-use Kirago\BusinessCore\Enums\PaymentStatuses;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\Invoice;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\Payment;
+use Kirago\BusinessCore\Constants\PaymentSource;
+use Kirago\BusinessCore\Constants\PaymentStatuses;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\BcPayment;
 
 return new class extends Migration
 {
@@ -17,7 +17,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create((new Payment)->getTable(), function (Blueprint $table) {
+        Schema::create((new BcPayment)->getTable(), function (Blueprint $table) {
             $table->id();
             $table->string('code',50)->unique(uniqid("UQ_"));
 
@@ -29,8 +29,8 @@ return new class extends Migration
 
             $table->text('note')->nullable();
 
-            $table->foreignIdFor(Invoice::class,'invoice_id')->nullable()
-                ->constrained((new Invoice)->getTable(), (new Invoice)->getKeyName(), uniqid("FK_"))
+            $table->foreignIdFor(BcInvoice::class,'invoice_id')->nullable()
+                ->constrained((new BcInvoice)->getTable(), (new BcInvoice)->getKeyName(), uniqid("FK_"))
                 ->cascadeOnUpdate()->cascadeOnDelete()
                 ->comment("[FK] la facture");
 
@@ -53,6 +53,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists((new Payment)->getTable());
+        Schema::dropIfExists((new BcPayment)->getTable());
     }
 };

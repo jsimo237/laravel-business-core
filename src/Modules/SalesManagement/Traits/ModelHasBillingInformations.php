@@ -3,7 +3,7 @@
 namespace Kirago\BusinessCore\Modules\SalesManagement\Traits;
 
 
-use Kirago\BusinessCore\Enums\BillingInformations;
+use Kirago\BusinessCore\Constants\BillingInformations;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\ModelIsBillableTo;
 
 /**

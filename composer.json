@@ -58,7 +58,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Kirago\\BusinessCore\\BusinessCoreServiceProvider"
+              "Kirago\\BusinessCore\\BcServiceProvider"
             ]
         }
     }

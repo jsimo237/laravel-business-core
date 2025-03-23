@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Contrats\OrganizationScopable;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Scopes\HasOrganizationGlobalScope;
 
 trait HasOrganization
@@ -15,7 +15,7 @@ trait HasOrganization
 
     public static function bootHasOrganization(){
 
-        static::addGlobalScope(new HasOrganizationGlobalScope());
+      //  static::addGlobalScope(new HasOrganizationGlobalScope);
 
         static::saving(function (OrganizationScopable $model) {
 
@@ -40,9 +40,9 @@ trait HasOrganization
     /**
      * Undocumented function
      *
-     * @return ?Organization
+     * @return ?BcOrganization
      */
-    public function getOrganization(): ?Organization
+    public function getOrganization(): ?BcOrganization
     {
         return $this->organization;
     }
@@ -70,7 +70,7 @@ trait HasOrganization
 
         if ($type === BelongsToMany::class){
             return $this->belongsToMany(
-                        Organization::class,
+                        BcOrganization::class,
                         (new $config['related_model'])->getTable(),
                         $config['related_column_name'],
                         "organization_id",
@@ -83,14 +83,17 @@ trait HasOrganization
 
     public function organization(): BelongsTo
     {
-        return $this->belongsTo(Organization::class,"organization_id");
+        return $this->belongsTo(BcOrganization::class,"organization_id");
     }
 
-    public function scopeOrganizationId(Builder $query, string|int|Organization $organization): Builder
+    public function scopeOrganizationId(Builder $query, string|int|BcOrganization $organization): Builder
     {
-        $organization = ($organization instanceof Organization) ? $organization->getKey() : $organization;
 
-        return  $query->where($query->getModel()->getTable() . '.organization_id', $organization);
+    }
+
+    public function scopeOrganization(Builder $query, string|int|BcOrganization $organization): Builder
+    {
+
     }
 
 }

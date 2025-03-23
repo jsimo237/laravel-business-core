@@ -1,7 +1,7 @@
 <?php
 
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\Permission;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\Role;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcPermission;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcRole;
 
 return [
 
@@ -17,7 +17,7 @@ return [
          */
 
        // 'permission' => Spatie\Permission\Models\Permission::class,
-        'permission' => \Kirago\BusinessCore\Modules\SecurityManagement\Models\Permission::class,
+        'permission' => \Kirago\BusinessCore\Modules\SecurityManagement\Models\BcPermission::class,
 
         /*
          * When using the "HasRoles" trait from this package, we need to know which
@@ -29,7 +29,7 @@ return [
          */
 
        // 'role' => Spatie\Permission\Models\Role::class,
-        'role' => Role::class,
+        'role' => BcRole::class,
 
     ],
 
@@ -41,7 +41,7 @@ return [
          * default value but you may easily change it to any table you like.
          */
 
-        'roles' => (new Role)->getTable(),
+        'roles' => (new BcRole)->getTable(),
 
         /*
          * When using the "HasPermissions" trait from this package, we need to know which
@@ -49,7 +49,7 @@ return [
          * default value but you may easily change it to any table you like.
          */
 
-        'permissions' => (new Permission)->getTable(),
+        'permissions' => (new BcPermission)->getTable(),
 
         /*
          * When using the "HasPermissions" trait from this package, we need to know which

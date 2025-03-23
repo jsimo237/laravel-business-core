@@ -1,7 +1,7 @@
 <?php
 
 
-use Kirago\BusinessCore\Enums\Statuses;
+use Kirago\BusinessCore\Constants\Statuses;
 
 return [
     [
