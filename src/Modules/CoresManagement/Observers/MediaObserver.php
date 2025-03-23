@@ -5,7 +5,7 @@ namespace Kirago\BusinessCore\Modules\CoresManagement\Observers;
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
-use Kirago\BusinessCore\Modules\CoreManagement\Models\BcMedia;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia;
 
 class MediaObserver
 {

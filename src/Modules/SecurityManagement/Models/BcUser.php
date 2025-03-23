@@ -13,7 +13,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Kirago\BusinessCore\Database\Factories\SecurityManagement\UserFactory;
-use Kirago\BusinessCore\Modules\CoreManagement\Traits\Mediable;
+use Kirago\BusinessCore\Modules\CoresManagement\Traits\Mediable;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Contrats\OrganizationScopable;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Traits\HasOrganization;
 use Kirago\BusinessCore\Modules\SecurityManagement\Observers\UserObserver;

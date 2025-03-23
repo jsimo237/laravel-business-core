@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirago\BusinessCore\Modules\CoreManagement\Models;
+namespace Kirago\BusinessCore\Modules\CoresManagement\Models;
 
 use Kirago\BusinessCore\Modules\BaseBcModel;
 

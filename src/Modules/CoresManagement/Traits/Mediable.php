@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Kirago\BusinessCore\Modules\CoreManagement\Traits;
+namespace Kirago\BusinessCore\Modules\CoresManagement\Traits;
 
 
 use Illuminate\Database\Eloquent\Casts\Attribute;

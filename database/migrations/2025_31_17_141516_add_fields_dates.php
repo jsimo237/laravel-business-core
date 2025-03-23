@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\CoreManagement\Models\BcMedia;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia;
 use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcAddress;
 use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcCity;
 use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcCountry;

@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller;
-use Kirago\BusinessCore\Modules\CoreManagement\Models\BcMedia;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia;
 use Kirago\BusinessCore\Modules\CoresManagement\Repositories\MediaDeletionRepository;
 use Kirago\BusinessCore\Modules\MediaManagement\Controllers\JsonResponse;
 

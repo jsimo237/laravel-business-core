@@ -4,7 +4,7 @@ namespace Kirago\BusinessCore\Modules\CoresManagement\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
-use Kirago\BusinessCore\Modules\CoreManagement\Models\BcMedia;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia;
 use Spatie\Valuestore\Valuestore;
 
 class MediaDeletionRepository

@@ -41,7 +41,7 @@ return [
         \Kirago\BusinessCore\Modules\SecurityManagement\Models\BcRole::class ,
         \Kirago\BusinessCore\Modules\OrganizationManagement\Models\Contact::class,
         \Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcSetting::class,
-        \Kirago\BusinessCore\Modules\CoreManagement\Models\BcMedia::class,
+        \Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia::class,
         \Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder::class,
         \Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder::class,
         \Kirago\BusinessCore\Modules\SalesManagement\Models\BcTax::class,
@@ -59,7 +59,7 @@ return [
         "staff" => \Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcStaff::class,
 
         //CoreManagement
-        "media" =>  \Kirago\BusinessCore\Modules\CoreManagement\Models\BcMedia::class,
+        "media" =>  \Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia::class,
         "notification" => \Kirago\BusinessCore\Modules\SettingManagment\Notification::class,
 
         //SecurityManagement

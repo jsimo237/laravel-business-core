@@ -23,8 +23,9 @@ return new class extends Migration
 
             $table->decimal('amount',20,4)->default(0);
 
-            $table->boolean('active')
-                ->storedAs('start_at <= CURRENT_TIMESTAMP AND end_at >= CURRENT_TIMESTAMP');
+            $table->boolean('active')->default(true)
+               // ->storedAs('start_at <= CURRENT_TIMESTAMP AND end_at >= CURRENT_TIMESTAMP')
+            ;
 
             $table->foreignIdFor(BcPackage::class,"package_id")
                 ->constrained((new BcPackage)->getTable(), (new BcPackage)->getKeyName(), uniqid("FK_"))
@@ -34,7 +35,7 @@ return new class extends Migration
             $table->string("status",50)->default(SubscriptionStatuses::UNPROCESSED->value)
                 ->comment("Le statut");
 
-            $table->nullableUlidMorphs('subscriber');
+            $table->nullableUlidMorphs('subscriber',uniqid("INDX_"));
 
             $table->timestamps();
             $table->softDeletes();

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Kirago\BusinessCore\Modules\CoreManagement\Traits;
+namespace Kirago\BusinessCore\Modules\CoresManagement\Traits;
 
 
 use Illuminate\Database\Eloquent\Model;
@@ -74,13 +74,13 @@ trait CanUploadFiles{
 
     /**
      * Télécharge les fichiers et les rattaches au model
-     * @param array $images
+     * @param array|UploadedFile|string $images
      * @param array $options
      * @return bool
      * @throws Throwable
      */
 
-    public function uploadImages(array $images, array $options = []): bool
+    public function uploadFiles(array|UploadedFile|string $images, array $options = []): bool
     {
         try {
             $resize = $options['resize'] ?? [];
