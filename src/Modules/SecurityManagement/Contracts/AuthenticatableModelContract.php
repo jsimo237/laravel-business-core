@@ -2,11 +2,11 @@
 
 namespace Kirago\BusinessCore\Modules\SecurityManagement\Contracts;
 
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 /**
- * @property User user
+ * @property BcUser user
  */
 interface AuthenticatableModelContract
 {
@@ -17,7 +17,7 @@ interface AuthenticatableModelContract
 
     public function getAuthPasswordField(): ?string;
 
-    public function getUser(): ?User;
+    public function getUser(): ?BcUser;
     public function user(): ?MorphOne;
 
     /**

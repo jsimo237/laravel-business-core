@@ -4,14 +4,14 @@
 namespace Kirago\BusinessCore\Modules\SecurityManagement\Models\Traits;
 
 
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
 
 trait HasAutors{
 
     public function createdBy(){
-        return $this->belongsTo(User::class,"created_by");
+        return $this->belongsTo(BcUser::class,"created_by");
     }
     public function updatedBy(){
-        return $this->belongsTo(User::class,"updated_by");
+        return $this->belongsTo(BcUser::class,"updated_by");
     }
 }

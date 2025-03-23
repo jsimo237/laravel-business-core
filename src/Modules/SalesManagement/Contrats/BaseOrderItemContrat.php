@@ -6,7 +6,7 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Contrats;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
 
 /**
  * @property string|int $id
@@ -34,7 +34,7 @@ interface BaseOrderItemContrat
 
     public function getItemDiscountAmount() : ?float;
 
-    public function getOrganization() : Organization;
+    public function getOrganization() : BcOrganization;
 
     public function getOrderable() : ?OrderableContrat;
 

@@ -4,9 +4,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Enums\BillingInformations;
-use Kirago\BusinessCore\Enums\OrderStatuses;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\Order;
+use Kirago\BusinessCore\Constants\BillingInformations;
+use Kirago\BusinessCore\Constants\OrderStatuses;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
 
 return new class extends Migration
 {
@@ -17,7 +17,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create((new Order)->getTable(), function (Blueprint $table) {
+        Schema::create((new BcOrder)->getTable(), function (Blueprint $table) {
             $table->id();
             $table->string('code',60)
                 ->unique(uniqid("UQ_"));
@@ -27,15 +27,15 @@ return new class extends Migration
             $table->text('note')->nullable();
 
             $table->enum('billing_entity_type',BillingInformations::values())->default(BillingInformations::TYPE_INDIVIDUAL->value);
-            $table->string('billing_company_name')->nullable();
-            $table->string('billing_firstname')->nullable();
-            $table->string('billing_lastname')->nullable();
-            $table->string('billing_country')->nullable();
-            $table->string('billing_state')->nullable();
-            $table->string('billing_city')->nullable();
-            $table->string('billing_zipcode')->nullable();
-            $table->string('billing_address')->nullable();
-            $table->string('billing_email')->nullable();
+            $table->string('billing_company_name',60)->nullable();
+            $table->string('billing_firstname',60)->nullable();
+            $table->string('billing_lastname',60)->nullable();
+            $table->string('billing_country',60)->nullable();
+            $table->string('billing_state',60)->nullable();
+            $table->string('billing_city',60)->nullable();
+            $table->string('billing_zipcode',100)->nullable();
+            $table->string('billing_address',100)->nullable();
+            $table->string('billing_email',100)->nullable();
 
             $table->string("status",50)->default(OrderStatuses::DRAFT->value)
                 ->comment("Le statut");
@@ -58,6 +58,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists((new Order)->getTable());
+        Schema::dropIfExists((new BcOrder)->getTable());
     }
 };

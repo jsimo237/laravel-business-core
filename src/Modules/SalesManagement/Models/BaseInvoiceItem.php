@@ -4,7 +4,7 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
 
  use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\SoftDeletes;
- use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
+ use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
  use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseInvoiceItemContrat;
  use Kirago\BusinessCore\Modules\SalesManagement\Contrats\InvoiceableContract;
  use Kirago\BusinessCore\Modules\SalesManagement\Contrats\TaxableItemContrat;
@@ -46,7 +46,7 @@ abstract class BaseInvoiceItem extends Model implements
 
 
     /************ Abstract functions ************/
-    abstract public function getInvoice() : BaseInvoice;
+    abstract public function getInvoice() : BaseBcInvoice;
 
     abstract public function getInvoiceable() : ?InvoiceableContract;
 
@@ -109,7 +109,7 @@ abstract class BaseInvoiceItem extends Model implements
     /**
      * Get the Organization or item based on orderable/invoiceable relation
      */
-    public function getOrganization(): ?Organization
+    public function getOrganization(): ?BcOrganization
     {
         return $this->getInvoiceable()?->getOrganization();
     }

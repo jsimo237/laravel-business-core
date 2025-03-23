@@ -2,22 +2,22 @@
 
 namespace Kirago\BusinessCore\Modules\SalesManagement\Helpers;
 
-use Kirago\BusinessCore\Enums\TaxeType;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
+use Kirago\BusinessCore\Constants\TaxeType;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
 
 use Illuminate\Support\Collection;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\Tax;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\BcTax;
 
 final class TaxHelper
 {
 
     /**
      * @param float $taxableAmount Le soust-total contenant déjà des reductions
-     * @param Organization $organization
+     * @param BcOrganization $organization
      * @param array|null $itemTaxes
      * @return array
      */
-   public static function generateCalculatedTaxes(float $taxableAmount, Organization $organization, ?array $itemTaxes = []): array
+   public static function generateCalculatedTaxes(float $taxableAmount, BcOrganization $organization, ?array $itemTaxes = []): array
     {
 
         if ($itemTaxes){
@@ -27,7 +27,7 @@ final class TaxHelper
          * Toutes les taxes actives liées à l'organisation
          * @var Collection
          */
-        $orgTaxes = $organization->relatedEntities(Tax::class)
+        $orgTaxes = $organization->relatedEntities(BcTax::class)
                                     ->active()
                                     ->orderBy('applied_in_taxable_amount')
                                     ->get();
@@ -109,7 +109,7 @@ final class TaxHelper
          *
          * @var array
          */
-        return $taxes->map(function (Tax $tax) use (&$taxableAmount) {
+        return $taxes->map(function (BcTax $tax) use (&$taxableAmount) {
 
                         // Calcul de la taxe en fonction du montant taxable actuel
                         $taxAmount = $tax->getCalculateAmount($taxableAmount);

@@ -4,38 +4,38 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Setting;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Staff;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\Customer;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\Invoice;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\Order;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\Product;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcSetting;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcStaff;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\BcCustomer;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\BcProduct;
 
 return new class extends Migration {
 
     public function up(){
 
         $classes = [
-            Customer::class => [
+           BcCustomer::class => [
                 "columns" => ['email',"phone","username"]
             ],
-            Staff::class => [
+            BcStaff::class => [
                 "columns" => ['email',"phone","username"]
             ],
 
-            Product::class => [
+            BcProduct::class => [
                 "columns" => ['sku']
             ],
 
-            Order::class => [
+            BcOrder::class => [
                 "columns" => ['code']
             ],
-            Invoice::class => [
+            BcInvoice::class => [
                 "columns" => ['code']
             ],
 
-           Setting::class => [
+           BcSetting::class => [
                 "columns" => ['key']
             ],
         ];

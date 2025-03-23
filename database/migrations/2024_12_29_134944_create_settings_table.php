@@ -3,8 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Setting;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcSetting;
 
 return new class extends Migration {
     /**
@@ -13,14 +13,14 @@ return new class extends Migration {
      * @return void
      */
     public function up(){
-        Schema::create((new Setting)->getTable(), function (Blueprint $table) {
+        Schema::create((new BcSetting)->getTable(), function (Blueprint $table) {
             $table->id();
 
             $table->string('key');
             $table->longText('value')->nullable();
 
-            $table->foreignIdFor(Organization::class,"organization_id")->nullable()
-                ->constrained((new Organization)->getTable(), (new Organization)->getKeyName(), uniqid("FK_"))
+            $table->foreignIdFor(BcOrganization::class,"organization_id")->nullable()
+                ->constrained((new BcOrganization)->getTable(), (new BcOrganization)->getKeyName(), uniqid("FK_"))
                 ->cascadeOnUpdate()->cascadeOnDelete()
                 ->comment("[FK] l'organisation");
 
@@ -36,6 +36,6 @@ return new class extends Migration {
      * @return void
      */
     public function down(){
-        Schema::dropIfExists((new Setting)->getTable());
+        Schema::dropIfExists((new BcSetting)->getTable());
     }
 };

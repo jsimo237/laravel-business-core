@@ -1,7 +1,7 @@
 <?php
 
-use Kirago\BusinessCore\Enums\Permissions;
-use Kirago\BusinessCore\Enums\PermissionsGroup;
+use Kirago\BusinessCore\Constants\Permissions;
+use Kirago\BusinessCore\Constants\PermissionsGroup;
 
 return [
 

@@ -16,16 +16,6 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 interface OrderableContrat
 {
 
-    public function getItemId(): string|int;
-
-    public function getSku(): string;
-
-    public function getName(): string;
-
-    public function getnote(): ?string;
-
-    public function getProductId(): string;
-
     public function getOrder(): ?BaseOrderContract;
     public function getInvoice(): ?BaseInvoiceContract;
     public function getInvoiceItem(): ?BaseInvoiceItemContrat;

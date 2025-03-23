@@ -5,10 +5,10 @@ namespace Kirago\BusinessCore\Modules\OrganizationManagement\Middlewares;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Kirago\BusinessCore\Enums\ReasonCode;
-use Kirago\BusinessCore\Enums\ServerStatus;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
-use Kirago\BusinessCore\Support\Exceptions\FieldHeaderRequiredException;
+use Kirago\BusinessCore\Constants\ReasonCode;
+use Kirago\BusinessCore\Constants\ServerStatus;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
+use Kirago\BusinessCore\Support\Exceptions\BcFieldHeaderRequiredException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Throwable;
@@ -29,7 +29,7 @@ class EnsureRequestHasOrganization
     {
         throw_if(
             !$request->hasHeader("x-organization-id"),
-            new FieldHeaderRequiredException(
+            new BcFieldHeaderRequiredException(
                 ReasonCode::REQUIRED_X_ORGANIZATION_ID_HEADER->value,
                 ServerStatus::BAD_REQUEST_HEADER->value,
             )
@@ -37,7 +37,7 @@ class EnsureRequestHasOrganization
 
         $organizationId = $request->header("x-organization-id");
 
-        $organization = Organization::firstWhere('id', $organizationId);
+        $organization = BcOrganization::firstWhere('id', $organizationId);
 
         throw_if(
             !$organization,
