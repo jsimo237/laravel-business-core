@@ -4,16 +4,16 @@ namespace Kirago\BusinessCore\Modules\OrganizationManagement\Models;
 
 use Kirago\BusinessCore\Modules\BaseBcModel;
 
-class Contact extends BaseBcModel {
+/**
+ * @property string fullname
+ */
+class BcContactForm extends BaseBcModel {
 
-    protected $table = "organization__mgt__contacts_forms";
-
-
-
+    protected $table = "organization__mgt_contacts_form";
 
 
     public function getObjectName(): string
     {
-        return $this->getKeyName();
+        return $this->fullname;
     }
 }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Contact;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcContactForm;
 
 return new class extends Migration {
     /**
@@ -12,7 +12,7 @@ return new class extends Migration {
      * @return void
      */
     public function up(){
-        Schema::create((new Contact)->getTable(), function (Blueprint $table) {
+        Schema::create((new BcContactForm)->getTable(), function (Blueprint $table) {
             $table->id();
             $table->string('name')
                 ->comment("Le nom de l'expéditeur");
@@ -33,6 +33,6 @@ return new class extends Migration {
      * @return void
      */
     public function down(){
-        Schema::dropIfExists((new Contact)->getTable());
+        Schema::dropIfExists((new BcContactForm)->getTable());
     }
 };

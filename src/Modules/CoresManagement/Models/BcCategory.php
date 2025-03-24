@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirago\BusinessCore\Modules\SettingManagment;
+namespace Kirago\BusinessCore\Modules\CoresManagement\Models;
 
 use AliBayat\LaravelCategorizable\Category as AlibatCategoryModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Kirago\BusinessCore\Modules\UserManagement\Traits\Auditable;
 use Kirago\BusinessCore\Support\Models\Bootables\Sluglable;
 
-class Category extends AlibatCategoryModel {
+class BcCategory extends AlibatCategoryModel {
     use HasFactory,SoftDeletes,
         Auditable,Sluglable;
 
-    const TABLE_NAME = "polymorph_mgt__categories";
+
     protected $guarded = ['id'];
-    protected $table = "polymorph_mgt__categories";
+    protected $table = "cores_mgt__categories";
 
     const FK_iD = "category_id";
     const MORPH_ID_COLUMN = "model_id";

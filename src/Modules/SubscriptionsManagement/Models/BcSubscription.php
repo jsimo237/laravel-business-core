@@ -65,7 +65,8 @@ class BcSubscription extends BaseBcModel implements OrderableContrat{
     /**
      * @return BelongsTo
      */
-    public function package(){
+    public function package(): BelongsTo
+    {
         return $this->belongsTo(BcPackage::class,"package_id");
     }
 

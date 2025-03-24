@@ -20,7 +20,7 @@ class UserFactory extends Factory{
      */
     public function definition() : array{
         return [
-            'password' => "123456", // password
+            'password' => "000000", // password
             'remember_token' => Str::random(10),
             BcUser::MORPH_ID_COLUMN => null, // Sera défini dynamiquement
             BcUser::MORPH_TYPE_COLUMN => null, // Sera défini dynamiquement
@@ -30,8 +30,8 @@ class UserFactory extends Factory{
     public function forModel(AuthenticatableModelContract $authenticable)
     {
         return $this->state(fn (array $attributes) => [
-                        'userable_id' => $authenticable->getKey(),
-                        'userable_type' => $authenticable->getMorphClass(),
+                        BcUser::MORPH_ID_COLUMN => $authenticable->getKey(),
+                        BcUser::MORPH_TYPE_COLUMN => $authenticable->getMorphClass(),
                     ]);
     }
 

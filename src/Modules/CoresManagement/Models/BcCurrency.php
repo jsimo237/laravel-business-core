@@ -1,15 +1,15 @@
 <?php
 
-namespace Kirago\BusinessCore\Modules\SettingManagment;
+namespace Kirago\BusinessCore\Modules\CoresManagement\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kirago\BusinessCore\Support\Bootables\Paginable;
 
-class Currency extends Model{
+class BcCurrency extends Model{
     use HasFactory,Paginable;
 
-    protected $table = "settings_mgt__currencies";
+    protected $table = "cores_mgt__currencies";
     public $timestamps = false;
     protected $guarded = [];
 }
