@@ -48,9 +48,9 @@ class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopa
     protected $table = "security_mgt__users";
    // protected string $primaryKey = "id";
 
-    const MORPH_ID_COLUMN = "userable_id";
-    const MORPH_TYPE_COLUMN = "userable_type";
-    const MORPH_FUNCTION_NAME = "userable";
+    const MORPH_ID_COLUMN = "entity_id";
+    const MORPH_TYPE_COLUMN = "entity_type";
+    const MORPH_FUNCTION_NAME = "entity";
 
     protected $guarded = [];
 
@@ -86,7 +86,7 @@ class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopa
      }
 
      public function guardName() : string{
-         return $this->userable->getGuardName();
+         return $this->entity->getGuardName();
          // return "web";
      }
 
@@ -105,7 +105,7 @@ class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopa
     /**
      * Relation polymorphique vers un autre model.
      */
-    public function userable(): MorphTo
+    public function entity(): MorphTo
     {
         return $this->morphTo(
                     self::MORPH_FUNCTION_NAME,

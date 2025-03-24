@@ -16,10 +16,12 @@ return new class extends Migration
         Schema::create((new BcSubscription)->getTable(), function (Blueprint $table) {
             $table->id();
 
-            $table->string("reference",60)->nullable()->unique(uniqid("UQ_"));
+            $table->string("reference",60)
+                ->unique(uniqid("UQ_"))
+                ->comment("La reference unique de la souscription");
 
-            $table->timestamp('start_at');
-            $table->timestamp('end_at');
+            $table->timestamp('start_at')->nullable();
+            $table->timestamp('end_at')->nullable();
 
             $table->decimal('amount',20,4)->default(0);
 

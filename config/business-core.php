@@ -39,7 +39,7 @@ return [
          * Simple BelongsTo RelationShips
          */
         \Kirago\BusinessCore\Modules\SecurityManagement\Models\BcRole::class ,
-        \Kirago\BusinessCore\Modules\OrganizationManagement\Models\Contact::class,
+        \Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcContactForm::class,
         \Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcSetting::class,
         \Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia::class,
         \Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder::class,
@@ -60,7 +60,7 @@ return [
 
         //CoreManagement
         "media" =>  \Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia::class,
-        "notification" => \Kirago\BusinessCore\Modules\SettingManagment\Notification::class,
+        "notification" => \Kirago\BusinessCore\Modules\CoresManagement\Models\Notification::class,
 
         //SecurityManagement
         "role" => \Kirago\BusinessCore\Modules\SecurityManagement\Models\BcRole::class,

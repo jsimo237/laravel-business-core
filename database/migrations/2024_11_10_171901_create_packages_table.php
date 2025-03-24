@@ -19,6 +19,7 @@ return new class extends Migration
 
             $table->string("name")->comment("Le nom");
             $table->bigInteger("count_days")->comment("Le nombre de jours");
+           // $table->bigInteger("maximum_persons")->comment("Le nombre max de personnes");
 
             $table->decimal("price",14,4)->comment("Le prix");
 
@@ -26,6 +27,8 @@ return new class extends Migration
 
             $table->string("type",100)->nullable()
                  ->comment("Le type package");
+
+           // $table->string("frequency",50)->nullable()->comment("La fréquence");
 
             $table->foreignIdFor(BcPlan::class,"plan_id")->nullable()
                 ->constrained((new BcPlan)->getTable(), (new BcPlan)->getKeyName(), uniqid("FK_"))

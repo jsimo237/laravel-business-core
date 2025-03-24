@@ -16,6 +16,7 @@ class BcTaxGroup  extends BaseBcModel
 {
 
 
+    protected $table = "sales_mgt__taxe_groups";
 
     protected $fillable = [
         'name',
@@ -34,27 +35,9 @@ class BcTaxGroup  extends BaseBcModel
     {
         return $this->belongsToMany(
                         BcTax::class,
-                        'taxes_tax_groups'
+                      (new self)->getTable()
                     )
                     ->withPivot('seq_number')
                     ->orderBy('seq_number');
-    }
-
-    /**
-     * @return mixed
-     */
-    public function scopeSearch($query, $search)
-    {
-        return $query->where('tax_groups.name', 'LIKE', "%$search%");
-    }
-
-    public function scopeIds(Builder $query, ?array $ids): Builder
-    {
-        return $query->whereIn('id', Arr::wrap($ids));
-    }
-
-    public function scopeIdsNotIn(Builder $query, ?array $ids): Builder
-    {
-        return $query->whereNotIn('id', $ids);
     }
 }

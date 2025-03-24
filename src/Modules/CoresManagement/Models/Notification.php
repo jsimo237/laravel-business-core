@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirago\BusinessCore\Modules\SettingManagment;
+namespace Kirago\BusinessCore\Modules\CoresManagement\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

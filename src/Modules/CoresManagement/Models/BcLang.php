@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirago\BusinessCore\Modules\SettingManagment;
+namespace Kirago\BusinessCore\Modules\CoresManagement\Models;
 
 use Kirago\BusinessCore\Modules\BaseBcModel;
 use Kirago\BusinessCore\Modules\HasCustomPrimaryKey;
@@ -10,7 +10,7 @@ use Kirago\BusinessCore\Modules\HasCustomPrimaryKey;
  * @property string label
  * @property string description
  */
-class Lang extends BaseBcModel {
+class BcLang extends BaseBcModel {
 
     use HasCustomPrimaryKey;
 

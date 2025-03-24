@@ -28,7 +28,7 @@ return new class extends Migration  {
             $table->rememberToken()
                 ->comment("le dernier token de réinitialisation du mot de passe");
 
-            $table->nullableUlidMorphs('userable', uniqid("POLY_INDEX_"));
+            $table->nullableUlidMorphs('entity', uniqid("POLY_INDEX_"));
 
 
             $table->boolean('is_2fa_enabled')->default(false);

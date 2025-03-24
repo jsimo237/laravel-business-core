@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\SettingManagment\Lang;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\BcLang;
 
 return new class extends Migration {
     /**
@@ -13,7 +13,7 @@ return new class extends Migration {
      */
     public function up(){
 
-        Schema::create((new Lang)->getTable(), function (Blueprint $table) {
+        Schema::create((new BcLang)->getTable(), function (Blueprint $table) {
             $table->string('label')->nullable()
                   ->comment("le nom");
 
@@ -33,6 +33,6 @@ return new class extends Migration {
      * @return void
      */
     public function down(){
-        Schema::dropIfExists((new Lang)->getTable());
+        Schema::dropIfExists((new BcLang)->getTable());
     }
 };

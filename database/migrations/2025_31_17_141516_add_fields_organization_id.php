@@ -8,7 +8,7 @@ use Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcSetting;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcStaff;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Contact;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcContactForm;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcCustomer;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
@@ -29,7 +29,7 @@ return new class extends Migration {
         $classes = [
             BcUser::class, BcRole::class,
             BcOrder::class,BcInvoice::class, BcCustomer::class, BcPayment::class,
-            BcSetting::class, Contact::class, BcStaff::class,
+            BcSetting::class, BcContactForm::class, BcStaff::class,
             BcTax::class, BcTaxGroup::class, BcProduct::class,
 
             BcMedia::class,

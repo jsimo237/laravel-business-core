@@ -3,7 +3,7 @@
 
 namespace Kirago\BusinessCore\Modules\LocalizationManagement\Models\Traits;
 
-use Kirago\BusinessCore\Modules\SettingManagment\Phone;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Phone;
 
 trait HasAdresses{
 
