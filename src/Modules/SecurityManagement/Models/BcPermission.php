@@ -2,18 +2,24 @@
 
 namespace Kirago\BusinessCore\Modules\SecurityManagement\Models;
 
-use Couchbase\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Traits\HasOrganization;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\Scopes\PermissionGlobalScope;
 use Spatie\Permission\Models\Permission as SpatiePermission;
 
+
+/**
+ * @property int id
+ * @property string name
+ * @property string guard_name
+ * @property string description
+ * @property string group
+ * @property BcRole[] permissions
+ */
 class BcPermission extends SpatiePermission {
 
-    use HasFactory,SoftDeletes,
-        HasOrganization;
+    use HasFactory,SoftDeletes;
 
     protected $guarded = ["created_at"];
 
@@ -28,7 +34,9 @@ class BcPermission extends SpatiePermission {
 
         static::created(function (self $permission){
 
-            // $roleSuper = Role::gi
+             $roleSuper = BcRole::findByName(BcRole::SUPER_ADMIN);
+
+             $roleSuper?->givePermissionTo($permission);
         });
     }
 
@@ -38,7 +46,7 @@ class BcPermission extends SpatiePermission {
      */
     public function group(): BelongsTo
     {
-        return $this->belongsTo(BcPermissionGroup::class,"group_code");
+        return $this->belongsTo(BcPermissionGroup::class,"group");
     }
 
 

@@ -58,9 +58,9 @@ class BcOrder extends BaseBcOrder
         // les options supplémentaire applicable à l'opération de decompte
         $options = [
             "prefix" => "INV".$organisation->getKey(),
-            "suffixe" => date("Ym"),
+            "suffix" => date("Ym"),
             "separator" => "-",
-            "count_by" => [
+            "countBy" => [
                 "column" => [
                     ["name" => "organization_id" , "value" => $organisation->getKey()],
                     ["name" => "created_at" , "value" => date("Y-m")],

@@ -2,15 +2,11 @@
 
 namespace Kirago\BusinessCore\Modules\SecurityManagement\Models;
 
-use App\Notifications\Auth\ResetPasswordNotification;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Kirago\BusinessCore\Database\Factories\SecurityManagement\UserFactory;
 use Kirago\BusinessCore\Modules\CoresManagement\Traits\Mediable;
@@ -24,7 +20,6 @@ use Spatie\MediaLibrary\HasMedia as SpatieHasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Traits\HasPermissions as SpatieHasPermissions;
 use Spatie\Permission\Traits\HasRoles as SpatieHasRoles;
-use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 //use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -144,7 +139,7 @@ class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopa
      */
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new ResetPasswordNotification($token));
+      //  $this->notify(new ResetPasswordNotification($token));
     }
 
     //FUNCTIONS
@@ -191,7 +186,7 @@ class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopa
      * @param $wallets
      * @return array
      */
-    public function syncWallets( $wallets){
+    public function syncRoles( $wallets){
 
 //        if ($wallets instanceof Wallet) $wallets = $wallets->getKey();
 //        if ($wallets instanceof Collection) $wallets = $wallets->pluck("id")->toArray();

@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Constants\BillingInformations;
+use Kirago\BusinessCore\Constants\BcBillingInformations;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
 
@@ -34,7 +34,7 @@ return new class extends Migration
                     ->comment("Le numéro de téléphone");
 
                 // Billing infos
-                $table->enum('billing_entity_type',BillingInformations::values())->default(BillingInformations::TYPE_COMPANY->value);
+                $table->enum('billing_entity_type',BcBillingInformations::values())->default(BcBillingInformations::TYPE_COMPANY->value);
                 $table->string('billing_company_name',60)->nullable();
                 $table->string('billing_firstname',60)->nullable();
                 $table->string('billing_lastname',60)->nullable();

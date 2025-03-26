@@ -2,7 +2,7 @@
 
 namespace Kirago\BusinessCore\Constants;
 
-enum InvoiceStatuses : string
+enum BcInvoiceStatuses : string
 {
 
     case CREATED = 'CREATED'; // La facture a été générée

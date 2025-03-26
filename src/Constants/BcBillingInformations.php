@@ -3,7 +3,7 @@ namespace Kirago\BusinessCore\Constants;
 
 use Illuminate\Validation\Rule;
 
-enum BillingInformations: string
+enum BcBillingInformations: string
 {
     case TYPE_INDIVIDUAL = 'INDIVIDUAL';
     case TYPE_COMPANY = 'COMPANY';

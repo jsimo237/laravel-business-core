@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use Kirago\BusinessCore\Constants\Settings;
+use Kirago\BusinessCore\Constants\BcSettingsKeys;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
 use Kirago\BusinessCore\Support\Exceptions\BcNewIdCannotGeneratedException;
@@ -24,10 +24,10 @@ if (!function_exists('format_amount')) {
 
         $organization = currentOrganization();
         if(isset($currency) and is_bool($currency) and $currency == true){
-            $currency = $organization->getSettingOf(Settings::AMOUNT_CURRENCY,"XAF");
+            $currency = $organization->getSettingOf(BcSettingsKeys::AMOUNT_CURRENCY,"XAF");
         }
 
-        $separator ??= $organization->getSettingOf(Settings::AMOUNT_CURRENCY," ");
+        $separator ??= $organization->getSettingOf(BcSettingsKeys::AMOUNT_CURRENCY," ");
         if (!empty($currency)){
             $currency = " ".$currency;
         }
@@ -332,7 +332,7 @@ if(!function_exists("newId")){
 
         // Définition des paramètres
         $prefix = $options['prefix'] ?? date('my');
-        $suffix = $options['suffixe'] ?? "";
+        $suffix = $options['suffix'] ?? "";
         $separator = $options['separator'] ?? "";
         $maxAttempts = $options['maxAttempts'] ?? 4;
 

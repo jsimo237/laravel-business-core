@@ -12,30 +12,32 @@ return new class extends Migration  {
      * @return void
      */
     public function up() {
-        Schema::create((new BcUser)->getTable(), function (Blueprint $table) {
+        if(!Schema::hasTable((new BcUser)->getTable())){
+                Schema::create((new BcUser)->getTable(), function (Blueprint $table) {
 
-            $table->id();
+                    $table->id();
 
-            $table->string('password')->nullable()
-                ->comment("Le mot de passe crypté");
+                    $table->string('password')->nullable()
+                        ->comment("Le mot de passe crypté");
 
-            $table->timestamp('email_verified_at')->nullable()
-                    ->comment("La date de vérification de l'email");
+                    $table->timestamp('email_verified_at')->nullable()
+                            ->comment("La date de vérification de l'email");
 
-            $table->boolean("is_active")->default(true)
-                ->comment("Détermine l'user le proprietaire");
+                    $table->boolean("is_active")->default(true)
+                        ->comment("Détermine l'user le proprietaire");
 
-            $table->rememberToken()
-                ->comment("le dernier token de réinitialisation du mot de passe");
+                    $table->rememberToken()
+                        ->comment("le dernier token de réinitialisation du mot de passe");
 
-            $table->nullableUlidMorphs('entity', uniqid("POLY_INDEX_"));
+                    $table->nullableUlidMorphs('entity', uniqid("POLY_INDEX_"));
 
 
-            $table->boolean('is_2fa_enabled')->default(false);
+                    $table->boolean('is_2fa_enabled')->default(false);
 
-            $table->timestamps();
-            $table->softDeletes();
-        });
+                    $table->timestamps();
+                    $table->softDeletes();
+                });
+         }
     }
 
     /**

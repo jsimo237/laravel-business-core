@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\MorpTo;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Carbon;
+use Kirago\BusinessCore\Constants\BcSubscriptionStatuses;
 use Kirago\BusinessCore\Database\Factories\SubscriptionsManagement\SubscriptionFactory;
 use Kirago\BusinessCore\Modules\BaseBcModel;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseInvoiceContract;
@@ -20,13 +21,17 @@ use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoiceItem;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrderItem;
+use Kirago\BusinessCore\Support\Exceptions\BcNewIdCannotGeneratedException;
 
 
 /**
  * @property string reference
+ * @property DateTime initiated_at
+ * @property DateTime completed_at
  * @property DateTime start_at
  * @property DateTime end_at
  * @property float amount
+ * @property string status
  * @property int|null package_id
  * @property string|null subscriber_id
  * @property string|null subscriber_type
@@ -50,9 +55,25 @@ class BcSubscription extends BaseBcModel implements OrderableContrat{
         return SubscriptionFactory::new();
     }
 
+    protected static function booted()
+    {
+        static::creating(function (BcSubscription $subscription) {
+            $subscription->generateCode();
+        });
+
+        static::saving(function (BcSubscription $subscription) {
+            if($subscription->status === BcSubscriptionStatuses::INIATED->value){
+                $subscription->initiated_at ??= now();
+            }
+            if($subscription->status === BcSubscriptionStatuses::COMPLETED->value){
+                $subscription->completed_at ??= now();
+            }
+        });
+
+    }
 
 
-    //RELATIONS
+        //RELATIONS
 
     /**
      * @return MorpTo
@@ -77,6 +98,29 @@ class BcSubscription extends BaseBcModel implements OrderableContrat{
         );
     }
 
+
+    /**
+     * @throws BcNewIdCannotGeneratedException
+     */
+    public function generateCode(): void
+    {
+        $organisation = $this->getOrganization();
+        // les options supplémentaire applicable à l'opération de decompte
+        $options = [
+            "prefix" => "SUB".$organisation->getKey(),
+            "suffix" => date("Ym"),
+            "separator" => "",
+            "charLengthNextId" => 3,
+            "countBy" => [
+                "column" => [
+                    ["name" => "organization_id" , "value" => $organisation->getKey()],
+                    ["name" => "created_at" , "value" => date("Y-m")],
+                ]
+            ],
+        ];
+
+        $this->reference = newId(static::class, $options);
+    }
 
     //SCOPES
 
@@ -132,7 +176,10 @@ class BcSubscription extends BaseBcModel implements OrderableContrat{
             'id',               // Clé primaire sur Product
             'invoice_id'         // Clé étrangère sur InvoiceItem (vers Invoice)
         )
-            ->where((new BcInvoiceItem)->getTable().".".BcInvoiceItem::MORPH_TYPE_COLUMN,(new static)->getMorphClass())
+        ->where(
+            (new BcInvoiceItem)->getTable().".".BcInvoiceItem::MORPH_TYPE_COLUMN,
+            (new static)->getMorphClass()
+        )
             ;
     }
 
@@ -155,7 +202,10 @@ class BcSubscription extends BaseBcModel implements OrderableContrat{
             'id',               // Clé primaire sur Product
             'order_id'         // Clé étrangère sur OrderItem (vers Order)
         )
-            ->where((new BcOrderItem)->getTable().".".BcOrderItem::MORPH_TYPE_COLUMN,(new static)->getMorphClass())
+        ->where(
+            (new BcOrderItem)->getTable().".".BcOrderItem::MORPH_TYPE_COLUMN,
+            (new static)->getMorphClass()
+        )
             ;
     }
 

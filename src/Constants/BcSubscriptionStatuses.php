@@ -2,7 +2,7 @@
 
 namespace Kirago\BusinessCore\Constants;
 
-enum SubscriptionStatuses : string
+enum BcSubscriptionStatuses : string
 {
 
     case INIATED = 'INIATED'; // Initiée

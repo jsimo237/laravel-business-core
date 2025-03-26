@@ -2,7 +2,7 @@
 
 namespace Kirago\BusinessCore\Constants;
 
-enum ServerStatus : int
+enum BcServerStatus : int
 {
 
     case  SUCCESS                              =    200;   // request success

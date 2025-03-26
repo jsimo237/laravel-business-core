@@ -14,7 +14,7 @@ class BcLang extends BaseBcModel {
 
     use HasCustomPrimaryKey;
 
-    protected $table = "settings_mgt__langs";
+    protected $table = "cores_mgt__langs";
 
     public function getObjectName(): string
     {

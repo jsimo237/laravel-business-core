@@ -3,8 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Constants\PaymentSource;
-use Kirago\BusinessCore\Constants\PaymentStatuses;
+use Kirago\BusinessCore\Constants\BcPaymentSource;
+use Kirago\BusinessCore\Constants\BcPaymentStatuses;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcPayment;
 
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->id();
             $table->string('code',50)->unique(uniqid("UQ_"));
 
-            $table->string('source_code',100)->default(PaymentSource::UNKNOWN->value);
+            $table->string('source_code',100)->default(BcPaymentSource::UNKNOWN->value);
             $table->string('source_reference',100)->nullable();
             $table->json('source_response')->nullable();
 
@@ -35,7 +35,7 @@ return new class extends Migration
                 ->comment("[FK] la facture");
 
 
-            $table->string("status",50)->default(PaymentStatuses::DRAFT->value)
+            $table->string("status",50)->default(BcPaymentStatuses::DRAFT->value)
                 ->comment("Le statut");
 
             $table->timestamp('paied_at')

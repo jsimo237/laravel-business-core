@@ -4,7 +4,7 @@ namespace Kirago\BusinessCore\Support\Helpers;
 
 use Carbon\Carbon;
 use Kirago\BusinessCore\Constants\BcInvoiceType;
-use Kirago\BusinessCore\Constants\InvoiceStatuses;
+use Kirago\BusinessCore\Constants\BcInvoiceStatuses;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
 
@@ -19,7 +19,7 @@ final class BcInvoiceHelper
       //  }
         $invoice = new BcInvoice();
 
-        $invoice->status = InvoiceStatuses::VALIDATED->value;
+        $invoice->status = BcInvoiceStatuses::VALIDATED->value;
         $invoice->invoice_type = BcInvoiceType::PRODUCT->value;
         $invoice->expired_at = Carbon::now()->addDays(30);
         $invoice->discounts = $order->discounts;

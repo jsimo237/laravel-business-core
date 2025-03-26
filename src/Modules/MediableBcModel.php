@@ -2,7 +2,7 @@
 
 namespace Kirago\BusinessCore\Modules;
 
-use Kirago\BusinessCore\Models\Str;
+use Illuminate\Support\Str;
 use Kirago\BusinessCore\Modules\CoresManagement\Traits\Mediable;
 use Spatie\MediaLibrary\HasMedia as SpatieHasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;

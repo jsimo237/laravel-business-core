@@ -4,8 +4,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Constants\BillingInformations;
-use Kirago\BusinessCore\Constants\OrderStatuses;
+use Kirago\BusinessCore\Constants\BcBillingInformations;
+use Kirago\BusinessCore\Constants\BcOrderStatuses;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
 
 return new class extends Migration
@@ -17,6 +17,7 @@ return new class extends Migration
      */
     public function up()
     {
+        if(!Schema::hasTable((new BcOrder)->getTable())){
         Schema::create((new BcOrder)->getTable(), function (Blueprint $table) {
             $table->id();
             $table->string('code',60)
@@ -26,7 +27,7 @@ return new class extends Migration
             $table->json('discounts');
             $table->text('note')->nullable();
 
-            $table->enum('billing_entity_type',BillingInformations::values())->default(BillingInformations::TYPE_INDIVIDUAL->value);
+            $table->enum('billing_entity_type',BcBillingInformations::values())->default(BcBillingInformations::TYPE_INDIVIDUAL->value);
             $table->string('billing_company_name',60)->nullable();
             $table->string('billing_firstname',60)->nullable();
             $table->string('billing_lastname',60)->nullable();
@@ -37,7 +38,7 @@ return new class extends Migration
             $table->string('billing_address',100)->nullable();
             $table->string('billing_email',100)->nullable();
 
-            $table->string("status",50)->default(OrderStatuses::DRAFT->value)
+            $table->string("status",50)->default(BcOrderStatuses::DRAFT->value)
                 ->comment("Le statut");
 
             $table->timestamp('expired_at')->nullable();
@@ -49,6 +50,7 @@ return new class extends Migration
             $table->softDeletes();
 
         });
+      }
     }
 
     /**

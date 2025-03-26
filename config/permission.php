@@ -29,7 +29,7 @@ return [
          */
 
        // 'role' => Spatie\Permission\Models\Role::class,
-        'role' => BcRole::class,
+        'role' => \Kirago\BusinessCore\Modules\SecurityManagement\Models\BcRole::class,
 
     ],
 

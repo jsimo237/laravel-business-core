@@ -12,19 +12,20 @@ return new class extends Migration {
      * @return void
      */
     public function up(){
+        if(!Schema::hasTable((new BcLang)->getTable())){
+            Schema::create((new BcLang)->getTable(), function (Blueprint $table) {
+                $table->string('label')->nullable()
+                      ->comment("le nom");
 
-        Schema::create((new BcLang)->getTable(), function (Blueprint $table) {
-            $table->string('label')->nullable()
-                  ->comment("le nom");
+                $table->string('code',10)->primary()
+                      ->comment("[PK] le code");
 
-            $table->string('code',10)->primary()
-                  ->comment("[PK] le code");
+                $table->text('decription')->nullable()
+                    ->comment("[PK] le code");
 
-            $table->text('decription')->nullable()
-                ->comment("[PK] le code");
-
-            $table->timestamps();
-        });
+                $table->timestamps();
+            });
+         }
     }
 
     /**

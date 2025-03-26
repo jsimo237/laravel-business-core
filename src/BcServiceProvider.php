@@ -139,9 +139,18 @@ class BcServiceProvider extends BaseServiceProvider {
     }
 
     private function configurePublishing(){
-        $this->publishes([
-            __DIR__.'/../config/business-core.php' => config_path('business-core.php'),
-        ], 'bc-config') ;
+        $this->publishes(
+                [
+                    __DIR__.'/../config/business-core.php' => config_path('business-core.php'),
+                    __DIR__.'/../config/eloquent-authorable.php' => config_path('eloquent-authorable.php'),
+                    __DIR__.'/../config/location.php' => config_path('location.php'),
+                    __DIR__.'/../config/permission.php' => config_path('permission.php'),
+                    __DIR__.'/../config/notification-manager.php' => config_path('notification-manager.php'),
+                    __DIR__.'/../config/eloquent-has-many-deep.php' => config_path('eloquent-has-many-deep.php'),
+                    __DIR__.'/../config/media-library.php' => config_path('media-library.php'),
+                 ],
+                'bc-config'
+            ) ;
 
         $this->publishes([
             __DIR__.'/../data/currencies.php' => config_path('bc-data/currencies.php'),
@@ -179,6 +188,7 @@ class BcServiceProvider extends BaseServiceProvider {
         $this->commands([
             Commands\Setup::class,
             Commands\Install\InstallPermissions::class,
+            Commands\Install\InstallRoleSuperAdmin::class,
         ]);
     }
 

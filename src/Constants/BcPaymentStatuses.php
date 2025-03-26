@@ -2,7 +2,7 @@
 
 namespace Kirago\BusinessCore\Constants;
 
-enum PaymentStatuses : string
+enum BcPaymentStatuses : string
 {
 
     case DRAFT = 'DRAFT'; //

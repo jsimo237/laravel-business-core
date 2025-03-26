@@ -3,8 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Constants\BillingInformations;
-use Kirago\BusinessCore\Constants\InvoiceStatuses;
+use Kirago\BusinessCore\Constants\BcBillingInformations;
+use Kirago\BusinessCore\Constants\BcInvoiceStatuses;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
 
@@ -28,7 +28,7 @@ return new class extends Migration
 
             $table->text('note')->nullable();
 
-            $table->enum('billing_entity_type',BillingInformations::values())->default(BillingInformations::TYPE_INDIVIDUAL->value);
+            $table->enum('billing_entity_type',BcBillingInformations::values())->default(BcBillingInformations::TYPE_INDIVIDUAL->value);
             $table->string('billing_company_name',60)->nullable();
             $table->string('billing_firstname',60)->nullable();
             $table->string('billing_lastname',60)->nullable();
@@ -41,7 +41,7 @@ return new class extends Migration
 
             $table->nullableUlidMorphs('recipient');
 
-            $table->string("status",50)->default(InvoiceStatuses::CREATED->value)
+            $table->string("status",50)->default(BcInvoiceStatuses::CREATED->value)
                   ->comment("Le statut");
 
             $table->timestamp('expired_at')->nullable();

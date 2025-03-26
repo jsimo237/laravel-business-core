@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Kirago\BusinessCore\Database\Factories\OrganizationManagement\OrganizationFactory;
-use Kirago\BusinessCore\Constants\Settings;
+use Kirago\BusinessCore\Constants\BcSettingsKeys;
 use Illuminate\Notifications\Notifiable;
 use Kirago\BusinessCore\Modules\HasSlug;
 use Kirago\BusinessCore\Modules\MediableBcModel;
@@ -91,11 +91,11 @@ class BcOrganization extends MediableBcModel {
     //FUNCTIONS
 
     /**
-     * @param Settings|string $key
+     * @param BcSettingsKeys|string $key
      * @param null $default
      * @return mixed
      */
-    function getSettingOf(Settings|string $key,mixed $default = null): mixed
+    function getSettingOf(BcSettingsKeys|string $key, mixed $default = null): mixed
     {
         return $this->settings()->firstWhere('key',$key?->value)?->value ?? $default;
     }

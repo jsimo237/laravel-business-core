@@ -2,7 +2,7 @@
 
 namespace Kirago\BusinessCore\Constants;
 
-enum PaymentSource : string
+enum BcPaymentSource : string
 {
 
     case XPEEDY = 'XPEEDY';

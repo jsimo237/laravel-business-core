@@ -11,11 +11,13 @@ return new class extends Migration  {
      * @return void
      */
     public function up() {
-        Schema::create('password_resets', function (BluePrint $table) {
-            $table->string('email')->index(uniqid("INDX_"));
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
-        });
+        if(!Schema::hasTable('password_resets')){
+            Schema::create('password_resets', function (BluePrint $table) {
+                $table->string('email')->index(uniqid("INDX_"));
+                $table->string('token');
+                $table->timestamp('created_at')->nullable();
+            });
+        }
     }
 
     /**

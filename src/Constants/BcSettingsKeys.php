@@ -2,11 +2,13 @@
 
 namespace Kirago\BusinessCore\Constants;
 
-enum Settings : string
+enum BcSettingsKeys : string
 {
 
     case AMOUNT_CURRENCY = 'AMOUNT_CURRENCY';
     case AMOUNT_SEPARATOR = 'AMOUNT_SEPARATOR';
+    case LOGOS = 'LOGOS';
+    case GOOGLE_TAG_MANAGER = 'GOOGLE_TAG_MANAGER';
 
 
     public static function allTypes(): array
@@ -18,7 +20,7 @@ enum Settings : string
             'boolean',
             'select-single',
             'select-multiple',
-            'json',
+            'object',
         ];
     }
 
