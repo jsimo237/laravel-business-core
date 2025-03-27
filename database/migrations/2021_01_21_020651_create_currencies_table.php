@@ -16,13 +16,17 @@ return new class extends Migration  {
         if(!Schema::hasTable((new BcCurrency)->getTable())){
                 Schema::create((new BcCurrency)->getTable(), function (Blueprint $table) {
 
-                    $table->string("code",50)->primary();
+                  //  $table->id();
+
+                    $table->string("code",10)->primary(uniqid("PK_"));
+
                     $table->string('title',100)->comment("Le nom");
 
-                    $table->char('symbol_left',2)->nullable();
-                    $table->char('symbol_right',2)->nullable();
-                    $table->bigInteger('decimal_place')->nullable();
-                    $table->decimal('value',10,9)->nullable();
+                    $table->char('symbol_left',10)->nullable();
+                    $table->char('symbol_right',10)->nullable();
+                    $table->bigInteger('decimal_place')->default(2);
+                    $table->decimal('value',20,12)->nullable();
+                    $table->char('decimal_point',2)->nullable();
                     $table->char('thousand_point',2)->nullable();
 
                     $table->timestamps();

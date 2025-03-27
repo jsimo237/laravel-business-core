@@ -30,8 +30,10 @@ class BcRole extends SpatieRole implements OrganizationScopable {
 
     protected $hidden = ['pivot'];
     // protected $dispatchesEvents = [];
+    const TABLE_NAME = "security_mgt__roles";
 
-    protected $table = "security_mgt__roles";
+    protected $table = self::TABLE_NAME;
+
 
     const SUPER_ADMIN = "Super-Admin";
     const MANAGER = "Main-Manager";

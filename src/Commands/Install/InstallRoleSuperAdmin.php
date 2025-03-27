@@ -26,21 +26,24 @@ class InstallRoleSuperAdmin extends Command{
                 'name' => BcRole::SUPER_ADMIN,
                 'editable' => false,
                 'description' => null,
-             //   'guard_name' => "api",
+                'guard_name' => "api",
+                'organization_id' =>  null,
             ];
 
             /**
              * @var BcRole $role
              */
-           $role = BcRole::updateOrCreate(['name'=>$role['name']],$role);
+           $role = BcRole::upsert($role,['name']);
+
+           echo ((new  BcRole)->getTable());
 
          //  $role->givePermissionTo(BcPermission::pluck('id')->toArray());
 
-            $this->info('Le role Super-Admin est crée');
+            $this->info('Role Super-Admin has been created!');
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
-            $this->error("Erreu creation role : " . $e->getMessage());
+            $this->error("Error during {$this->signature}  : " . $e->getMessage());
         }
 
     }

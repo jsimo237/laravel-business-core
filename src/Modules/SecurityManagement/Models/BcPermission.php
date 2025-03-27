@@ -25,7 +25,9 @@ class BcPermission extends SpatiePermission {
 
     protected $hidden = ['pivot'];
 
-    protected $table = "security_mgt__permissions";
+    const TABLE_NAME = "security_mgt__permissions";
+
+    protected $table = self::TABLE_NAME;
 
 
     protected static function booted(){
@@ -35,6 +37,9 @@ class BcPermission extends SpatiePermission {
         static::created(function (self $permission){
 
              $roleSuper = BcRole::findByName(BcRole::SUPER_ADMIN);
+
+             write_log("permission",$permission);
+             write_log("role",$roleSuper);
 
              $roleSuper?->givePermissionTo($permission);
         });

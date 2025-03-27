@@ -2,8 +2,6 @@
 
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 return [
 
@@ -117,5 +115,9 @@ return [
         \Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcSubscription::class,
 
         \Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcAddress::class,
+    ],
+
+    "console-commands" => [
+
     ]
 ];

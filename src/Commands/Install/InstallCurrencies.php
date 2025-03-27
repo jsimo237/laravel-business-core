@@ -28,11 +28,11 @@ class InstallCurrencies extends Command{
 
             DB::commit();
 
-            $this->info('All devises have been installed!');
+            $this->info('All currencies data have been installed!');
 
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->error("Error during install:currencies : " . $e->getMessage());
+            $this->error("Error during {$this->signature}  : " . $e->getMessage());
         }
 
     }

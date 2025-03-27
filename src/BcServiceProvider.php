@@ -25,39 +25,50 @@ class BcServiceProvider extends BaseServiceProvider {
 
     public function register(){
 
-        //$this->mergeConfigFrom(__DIR__.'/../config/xpeedy-models-manager.php', 'xpeedy-models-manager');
-        //$this->mergeConfigFrom(__DIR__.'/../config/notification-manager.php', 'xpeedy-notification-manager');
-        //$this->mergeConfigFrom(__DIR__.'/../config/eloquent-authorable.php', 'xpeedy-eloquent-authorable');
-        //$this->mergeConfigFrom(__DIR__.'/../config/location.php', 'xpeedy-location');
-        //$this->mergeConfigFrom(__DIR__ . '/../config/presets/permission.php', 'xpeedy-permission');
-
         //toutes le colonnes 'varchar' seront par defaut (255 caractères)
-//        Schema::defaultStringLength(255);
-//
-//        //types par défaut pour les colonnes polymorphiques
-//        Builder::defaultMorphKeyType("ulid");
-//
-//        Sanctum::ignoreMigrations();
+        Schema::defaultStringLength(255);
+
+        //types par défaut pour les colonnes polymorphiques
+        Builder::defaultMorphKeyType("ulid");
+
+        Sanctum::ignoreMigrations();
     }
 
     public function boot(){
 
-//        $this->offerPublishing();
-//
-//        $this->registerMacroHelpers();
-//
-//        $this->loadMacro();
-//
-//        $this->registerConsoleCommands();
-//
-//        if ($this->app->runningInConsole()) {
-//            $this->configurePublishing();
-//        }
+        $this->offerPublishing();
+
+        $this->registerMacroHelpers();
+
+        $this->loadMacro();
+
+        $this->registerConsoleCommands();
+
+        $this->mergePackageConfigsFiles();
+
+        if ($this->app->runningInConsole()) {
+            $this->configurePublishing();
+        }
 
         // Charger les routes API
        // $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
 
        // $this->loadRoutesFrom(__DIR__ . '/routes/api.php'); // bas = src
+    }
+
+    protected function mergePackageConfigsFiles(){
+
+        $this->mergeConfigFrom(__DIR__.'/../config/business-core.php', 'bc-config');
+        $this->mergeConfigFrom(__DIR__.'/../config/eloquent-has-many-deep.php', 'eloquent-has-many-deep');
+        $this->mergeConfigFrom(__DIR__.'/../config/permission.php', 'permission-config');
+        $this->mergeConfigFrom(__DIR__.'/../config/media-library.php', 'bc-config-permission');
+        //        $this->mergeConfigFrom(__DIR__.'/../config/notification-manager.php', 'laravel-notifications');
+//        $this->mergeConfigFrom(__DIR__.'/../config/sanctum.php', 'sanctum-config');
+//        $this->mergeConfigFrom(__DIR__.'/../config/eloquent-authorable.php', 'eloquent-authorable');
+//        $this->mergeConfigFrom(__DIR__.'/../config/location.php', 'bc-config-location');
+
+
+
     }
 
     protected function loadMacro(){
@@ -144,13 +155,20 @@ class BcServiceProvider extends BaseServiceProvider {
         $this->publishes(
                 [
                     __DIR__.'/../config/business-core.php' => config_path('business-core.php'),
-                    __DIR__.'/../config/eloquent-authorable.php' => config_path('eloquent-authorable.php'),
+                 //   __DIR__.'/../config/eloquent-authorable.php' => config_path('eloquent-authorable.php'),
                     __DIR__.'/../config/location.php' => config_path('location.php'),
                     __DIR__.'/../config/permission.php' => config_path('permission.php'),
                     __DIR__.'/../config/notification-manager.php' => config_path('notification-manager.php'),
                     __DIR__.'/../config/eloquent-has-many-deep.php' => config_path('eloquent-has-many-deep.php'),
                     __DIR__.'/../config/media-library.php' => config_path('media-library.php'),
                  ],
+                'bc-config-all'
+            ) ;
+
+        $this->publishes(
+                [
+                    __DIR__.'/../config/business-core.php' => config_path('business-core.php'),
+                ],
                 'bc-config'
             ) ;
 
@@ -190,11 +208,16 @@ class BcServiceProvider extends BaseServiceProvider {
             return;
         }
 
+        if ($commands = config("business-core.console-commands") ?? []){
+            $this->commands($commands);
+        }
         $this->commands([
-            Commands\Setup::class,
-            Commands\Install\InstallCurrencies::class,
-            Commands\Install\InstallRoleSuperAdmin::class,
+            \Kirago\BusinessCore\Commands\Setup::class,
+            \Kirago\BusinessCore\Commands\Install\InstallCurrencies::class,
+            \Kirago\BusinessCore\Commands\Install\InstallRoleSuperAdmin::class,
+            \Kirago\BusinessCore\Commands\Install\InstallPermissions::class,
         ]);
+
     }
 
 
