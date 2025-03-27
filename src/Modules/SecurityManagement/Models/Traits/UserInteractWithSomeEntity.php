@@ -10,6 +10,7 @@ trait UserInteractWithSomeEntity{
 
 
     public static function bootUserInteractWithSomeEntity(){
+
         static::saved(function (self $user) {
 
             $user->entity?->update([
@@ -27,7 +28,7 @@ trait UserInteractWithSomeEntity{
             /**
              * Si c'est user du staff et que son email n'est pas vérifié
              */
-            if ($user->is_staff and !$user->hasVerifiedEmail()){
+            if ($user->isStaff() and !$user->hasVerifiedEmail()){
                 $user->markEmailAsVerified(); // Marquer son email comme "verifié"!
             }
 

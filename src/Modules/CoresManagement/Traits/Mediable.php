@@ -7,7 +7,7 @@ namespace Kirago\BusinessCore\Modules\CoresManagement\Traits;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Artisan;
-use Kirago\BusinessCore\Support\Bootables\FlushTempMediasDeletions;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\FlushTempMediasDeletions;
 
 trait Mediable{
 

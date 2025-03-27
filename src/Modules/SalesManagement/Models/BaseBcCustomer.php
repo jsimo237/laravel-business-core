@@ -23,7 +23,7 @@ abstract class BaseBcCustomer extends MediableBcModel
     use HasUser,Personnable;
 
     //FUNCTIONS
-    public function getAuthIdentifiersFields(): array
+    public static function getAuthIdentifiersFields(): array
     {
         return ["email","username",'phone'];
     }

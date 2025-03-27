@@ -35,7 +35,7 @@ class BcStaff extends MediableBcModel implements AuthenticatableModelContract {
     //FUNCTIONS
 
 
-    public function getAuthIdentifiersFields(): array
+    public static function getAuthIdentifiersFields(): array
     {
         return ["email","username"];
     }

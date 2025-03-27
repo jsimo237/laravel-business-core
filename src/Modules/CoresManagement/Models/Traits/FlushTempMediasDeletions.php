@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirago\BusinessCore\Support\Bootables;
+namespace Kirago\BusinessCore\Modules\CoresManagement\Models\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Kirago\BusinessCore\Modules\CoresManagement\Repositories\MediaDeletionRepository;

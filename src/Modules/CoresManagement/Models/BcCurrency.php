@@ -4,12 +4,24 @@ namespace Kirago\BusinessCore\Modules\CoresManagement\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Kirago\BusinessCore\Support\Bootables\Paginable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Kirago\BusinessCore\Modules\HasCustomPrimaryKey;
 
+
+/**
+ * @property string code
+ * @property string symbol_left
+ * @property string symbol_right
+ * @property string decimal_place
+ * @property float value
+ * @property string decimal_point
+ * @property string thousand_point
+ */
 class BcCurrency extends Model{
-    use HasFactory,Paginable;
+
+    use HasFactory,SoftDeletes,HasCustomPrimaryKey;
 
     protected $table = "cores_mgt__currencies";
-    public $timestamps = false;
+
     protected $guarded = [];
 }

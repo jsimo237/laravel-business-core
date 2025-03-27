@@ -29,7 +29,7 @@ class BcCustomer extends BaseBcCustomer implements AuthenticatableModelContract 
     }
 
     //FUNCTIONS
-    public function getAuthIdentifiersFields(): array
+    public static function getAuthIdentifiersFields(): array
     {
         return ["email","username",'phone'];
     }

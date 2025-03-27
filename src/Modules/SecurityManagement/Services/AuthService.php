@@ -60,7 +60,7 @@ class AuthService
         /**
          * @var array
          */
-        $identifiers = $model->getAuthIdentifiersFields();
+        $identifiers = $model::getAuthIdentifiersFields();
 
         return $model->whereMultiple($identifiers,$identifier);
 

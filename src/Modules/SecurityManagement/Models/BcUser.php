@@ -2,6 +2,7 @@
 
 namespace Kirago\BusinessCore\Modules\SecurityManagement\Models;
 
+use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -11,14 +12,16 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Kirago\BusinessCore\Database\Factories\SecurityManagement\UserFactory;
 use Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Activable;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Auditable;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\InteractWithCommonsScopeFilter;
 use Kirago\BusinessCore\Modules\CoresManagement\Traits\Mediable;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Contrats\OrganizationScopable;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Traits\HasOrganization;
+use Kirago\BusinessCore\Modules\SecurityManagement\Contracts\AuthenticatableModelContract;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\Traits\UserInteractWithSomeEntity;
 use Kirago\BusinessCore\Modules\SecurityManagement\Observers\UserObserver;
 use Kirago\BusinessCore\Modules\SecurityManagement\Traits\HasAuthTokens;
-use Kirago\BusinessCore\Support\Bootables\Activable;
-use Kirago\BusinessCore\Support\Bootables\InteractWithCommonsScopeFilter;
 use Spatie\MediaLibrary\HasMedia as SpatieHasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Traits\HasPermissions as SpatieHasPermissions;
@@ -47,16 +50,21 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property Collection<BcRole> $roles
  * @property Collection<BcPermission> $permissions
  * @property Collection<BcMedia> $media
+ * @property AuthenticatableModelContract $entity
  */
 class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopable {
-    use  Notifiable,SoftDeletes,HasFactory,
-        HasOrganization,Activable,HasAuthTokens,
+
+   use  HasFactory,SoftDeletes,HasAuthTokens,
         SpatieHasRoles,SpatieHasPermissions,
-        InteractsWithMedia,
-        Mediable,
+        InteractsWithMedia;
+
+    use MustVerifyEmail,Notifiable;
+    use HasRelationships;
+
+    use HasOrganization,Mediable,
+        Activable,Auditable,
         InteractWithCommonsScopeFilter;
 
-    use HasRelationships;
     use UserInteractWithSomeEntity;
 //    use TwoFactorAuthenticatable;
 //    use HasProfilePhoto;
@@ -102,9 +110,20 @@ class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopa
          return "id";
      }
 
+     public function getIdentifiersFields(): array
+     {
+         return $this->entity::getAuthIdentifiersFields()
+                    ?? ['email'];
+     }
+
+    public function getPasswordField(): string
+    {
+        return $this->entity::getAuthPasswordField()
+               ?? "password";
+    }
+
      public function guardName() : string{
-         return $this->entity->getGuardName();
-         // return "web";
+         return $this->entity?->getGuardName() ?? "api";
      }
 
     protected static function newFactory(){

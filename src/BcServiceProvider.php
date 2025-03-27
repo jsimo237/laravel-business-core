@@ -32,27 +32,27 @@ class BcServiceProvider extends BaseServiceProvider {
         //$this->mergeConfigFrom(__DIR__ . '/../config/presets/permission.php', 'xpeedy-permission');
 
         //toutes le colonnes 'varchar' seront par defaut (255 caractères)
-        Schema::defaultStringLength(255);
-
-        //types par défaut pour les colonnes polymorphiques
-        Builder::defaultMorphKeyType("ulid");
-
-        Sanctum::ignoreMigrations();
+//        Schema::defaultStringLength(255);
+//
+//        //types par défaut pour les colonnes polymorphiques
+//        Builder::defaultMorphKeyType("ulid");
+//
+//        Sanctum::ignoreMigrations();
     }
 
     public function boot(){
 
-        $this->offerPublishing();
-
-        $this->registerMacroHelpers();
-
-        $this->loadMacro();
-
-        $this->registerConsoleCommands();
-
-        if ($this->app->runningInConsole()) {
-            $this->configurePublishing();
-        }
+//        $this->offerPublishing();
+//
+//        $this->registerMacroHelpers();
+//
+//        $this->loadMacro();
+//
+//        $this->registerConsoleCommands();
+//
+//        if ($this->app->runningInConsole()) {
+//            $this->configurePublishing();
+//        }
 
         // Charger les routes API
        // $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
@@ -192,7 +192,7 @@ class BcServiceProvider extends BaseServiceProvider {
 
         $this->commands([
             Commands\Setup::class,
-            Commands\Install\InstallPermissions::class,
+            Commands\Install\InstallCurrencies::class,
             Commands\Install\InstallRoleSuperAdmin::class,
         ]);
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirago\BusinessCore\Support\Bootables;
+namespace Kirago\BusinessCore\Modules\CoresManagement\Models\Traits;
 
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;

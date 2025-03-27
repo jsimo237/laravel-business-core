@@ -5,11 +5,11 @@ namespace Kirago\BusinessCore\Modules\SecurityManagement\Models;
 use Axn\EloquentAuthorable\AuthorableTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Activable;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Contrats\OrganizationScopable;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Traits\HasOrganization;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\Observers\RoleObserver;
-use Kirago\BusinessCore\Support\Bootables\Activable;
 use Spatie\Permission\Models\Role as SpatieRole;
 
 /**
