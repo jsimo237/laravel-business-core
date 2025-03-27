@@ -28,11 +28,11 @@ return new class extends Migration {
 
         $classes = [
             BcUser::class, BcRole::class,
-            BcOrder::class,BcInvoice::class, BcCustomer::class, BcPayment::class,
+            BcOrder::class,BcInvoice::class, BcCustomer::class, BcPayment::class,BcProduct::class,
             BcSetting::class, BcContactForm::class, BcStaff::class,
             BcTax::class, BcTaxGroup::class, BcProduct::class,
 
-            BcMedia::class,
+            BcMedia::class,BcContactForm::class,
             BcPlan::class, BcPackage::class, BcSubscription::class
         ];
 

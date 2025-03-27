@@ -1,5 +1,5 @@
 <?php
-namespace Kirago\BusinessCore\Constants;
+namespace Kirago\BusinessCore\Support\Constants;
 
 use Illuminate\Validation\Rule;
 

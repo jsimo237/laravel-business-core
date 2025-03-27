@@ -2,11 +2,11 @@
 
 namespace Kirago\BusinessCore\Modules\OrganizationManagement\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Kirago\BusinessCore\Constants\BcSettingsKeys;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Kirago\BusinessCore\Modules\BaseBcModel;
+use Kirago\BusinessCore\Support\Constants\BcSettingsKeys;
 
 
 /**

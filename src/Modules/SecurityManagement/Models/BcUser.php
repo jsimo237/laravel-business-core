@@ -7,11 +7,14 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Kirago\BusinessCore\Database\Factories\SecurityManagement\UserFactory;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia;
 use Kirago\BusinessCore\Modules\CoresManagement\Traits\Mediable;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Contrats\OrganizationScopable;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Traits\HasOrganization;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\Traits\UserInteractWithSomeEntity;
 use Kirago\BusinessCore\Modules\SecurityManagement\Observers\UserObserver;
 use Kirago\BusinessCore\Modules\SecurityManagement\Traits\HasAuthTokens;
 use Kirago\BusinessCore\Support\Bootables\Activable;
@@ -27,6 +30,24 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 //use Laravel\Jetstream\HasProfilePhoto;
 
 
+/**
+ * {@inheritDoc}
+ * @property string $firstname
+ * @property string|null $lastname
+ * @property string|null $fullname
+ * @property string|null $initials
+ * @property string|null $email
+ * @property string|null $username
+ * @property string|null $phone
+ * @property string|null $country
+ * @property string|null $state
+ * @property string|null $city
+ * @property string|null $zipcode
+ * @property string|null $address
+ * @property Collection<BcRole> $roles
+ * @property Collection<BcPermission> $permissions
+ * @property Collection<BcMedia> $media
+ */
 class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopable {
     use  Notifiable,SoftDeletes,HasFactory,
         HasOrganization,Activable,HasAuthTokens,
@@ -36,6 +57,7 @@ class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopa
         InteractWithCommonsScopeFilter;
 
     use HasRelationships;
+    use UserInteractWithSomeEntity;
 //    use TwoFactorAuthenticatable;
 //    use HasProfilePhoto;
 

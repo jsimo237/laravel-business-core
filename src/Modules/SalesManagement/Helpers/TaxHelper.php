@@ -2,10 +2,8 @@
 
 namespace Kirago\BusinessCore\Modules\SalesManagement\Helpers;
 
-use Kirago\BusinessCore\Constants\TaxeType;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
-
 use Illuminate\Support\Collection;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcTax;
 
 final class TaxHelper

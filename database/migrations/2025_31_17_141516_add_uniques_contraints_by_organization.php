@@ -11,6 +11,7 @@ use Kirago\BusinessCore\Modules\SalesManagement\Models\BcCustomer;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcProduct;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
 
 return new class extends Migration {
 
@@ -37,6 +38,10 @@ return new class extends Migration {
 
            BcSetting::class => [
                 "columns" => ['key']
+            ],
+
+            BcUser::class => [
+                "columns" => ['email',"phone","username"]
             ],
         ];
 

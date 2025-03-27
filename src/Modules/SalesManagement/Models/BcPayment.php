@@ -6,9 +6,9 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
-use Kirago\BusinessCore\Constants\Statuses;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseInvoiceContract;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseOrderContract;
+use Kirago\BusinessCore\Support\Constants\Statuses;
 use Kirago\BusinessCore\Support\Exceptions\BcNewIdCannotGeneratedException;
 
 class BcPayment extends BaseBcPayment

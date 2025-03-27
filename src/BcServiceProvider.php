@@ -56,6 +56,8 @@ class BcServiceProvider extends BaseServiceProvider {
 
         // Charger les routes API
        // $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
+
+       // $this->loadRoutesFrom(__DIR__ . '/routes/api.php'); // bas = src
     }
 
     protected function loadMacro(){
@@ -173,6 +175,9 @@ class BcServiceProvider extends BaseServiceProvider {
         $this->loadMigrationsFrom([
             database_path('migrations'),
             database_path('migrations/business-core'),
+
+
+            //__DIR__ . '/database/migrations'
         ]);
         $this->registerMigrations(__DIR__."/../database/migrations");
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirago\BusinessCore\Constants;
+namespace Kirago\BusinessCore\Support\Constants;
 
 enum BcSettingsKeys : string
 {

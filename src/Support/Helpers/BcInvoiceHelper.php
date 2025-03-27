@@ -3,10 +3,10 @@
 namespace Kirago\BusinessCore\Support\Helpers;
 
 use Carbon\Carbon;
-use Kirago\BusinessCore\Constants\BcInvoiceType;
-use Kirago\BusinessCore\Constants\BcInvoiceStatuses;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
+use Kirago\BusinessCore\Support\Constants\BcInvoiceStatuses;
+use Kirago\BusinessCore\Support\Constants\BcInvoiceType;
 
 final class BcInvoiceHelper
 {

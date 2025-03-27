@@ -3,10 +3,10 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Constants\BcBillingInformations;
-use Kirago\BusinessCore\Constants\BcInvoiceStatuses;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
+use Kirago\BusinessCore\Support\Constants\BcBillingInformations;
+use Kirago\BusinessCore\Support\Constants\BcInvoiceStatuses;
 
 return new class extends Migration
 {

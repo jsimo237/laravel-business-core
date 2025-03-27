@@ -1,7 +1,7 @@
 <?php
 
-use Kirago\BusinessCore\Constants\BcPermissions;
-use Kirago\BusinessCore\Constants\PermissionsGroup;
+use Kirago\BusinessCore\Support\Constants\BcPermissions;
+use Kirago\BusinessCore\Support\Constants\PermissionsGroup;
 
 return [
 

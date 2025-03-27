@@ -1,6 +1,8 @@
 <?php
 
-namespace Kirago\BusinessCore\Constants;
+namespace Kirago\BusinessCore\Support\Constants;
+
+use function Kirago\BusinessCore\Constants\collect;
 
 enum BcPermissions : string
 {

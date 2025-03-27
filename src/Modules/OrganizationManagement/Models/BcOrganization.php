@@ -3,16 +3,15 @@
 namespace Kirago\BusinessCore\Modules\OrganizationManagement\Models;
 
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Kirago\BusinessCore\Database\Factories\OrganizationManagement\OrganizationFactory;
-use Kirago\BusinessCore\Constants\BcSettingsKeys;
 use Illuminate\Notifications\Notifiable;
+use Kirago\BusinessCore\Database\Factories\OrganizationManagement\OrganizationFactory;
 use Kirago\BusinessCore\Modules\HasSlug;
 use Kirago\BusinessCore\Modules\MediableBcModel;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
-
+use Kirago\BusinessCore\Support\Constants\BcSettingsKeys;
 
 
 /**

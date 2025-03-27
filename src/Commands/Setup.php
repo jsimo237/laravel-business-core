@@ -52,8 +52,6 @@ class Setup extends Command
         $this->info("✅ All Permissions data created .");
 
 
-
-
         Artisan::call("optimize:clear");
         // Créee les permissions
        // Artisan::call("bc:install/permissions");
