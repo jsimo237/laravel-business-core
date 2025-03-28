@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Contrats\OrganizationScopable;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
 
+/**
+ * @property string|int $organization_id
+ * @property BcOrganization $organization
+ */
 trait HasOrganization
 {
 
@@ -16,20 +20,12 @@ trait HasOrganization
 
       //  static::addGlobalScope(new HasOrganizationGlobalScope);
 
-        static::saving(function (OrganizationScopable $model) {
+        static::saving(function (self $model) {
 
-            /** @var ?User */
             // $user = auth(activeGuard())->user();
 
-            if ($currentOrganization = currentOrganization()) {
-                if (!$model->getOrganization()) {
-                    $model->organization()->associate($currentOrganization->getKey());
-                }
-                else {
-                    if (!$model->getOrganization()->is($currentOrganization->getKey())) {
-                        abort(403, 'You are not allowed to edit this model');
-                    }
-                }
+            if (!$model->organization_id && $currentOrganization = currentOrganization()) {
+                $model->setAttribute('organization_id', $currentOrganization->getKey());
             }
         });
 
@@ -93,7 +89,7 @@ trait HasOrganization
                 );
     }
 
-    public function scopeOrganization(Builder $query, string|int|BcOrganization $organization): Builder
+    public function scopeOrganizatioSzn(Builder $query, string|int|BcOrganization $organization): Builder
     {
         if ($organization) {
 //            if ($this->hasSystemObjects()) {

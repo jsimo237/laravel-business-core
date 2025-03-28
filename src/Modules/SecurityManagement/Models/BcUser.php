@@ -5,6 +5,7 @@ namespace Kirago\BusinessCore\Modules\SecurityManagement\Models;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -60,7 +61,7 @@ class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopa
         InteractsWithMedia;
 
     use MustVerifyEmail,Notifiable;
-    use HasRelationships;
+   // use HasRelationships;
 
     use HasOrganization,Mediable,
         Activable,Auditable,

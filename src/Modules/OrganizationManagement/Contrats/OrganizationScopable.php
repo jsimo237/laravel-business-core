@@ -32,5 +32,6 @@ interface OrganizationScopable
     /**
      * Undocumented function
      */
-    public function scopeOrganization(Builder $query, string|int|BcOrganization $organization): Builder;
+   // public function scopeOrganization(Builder $query, string|int|BcOrganization $organization): ?Builder;
+    public function scopeOrganizationId(Builder $query, string|int|BcOrganization $organization): ?Builder;
 }

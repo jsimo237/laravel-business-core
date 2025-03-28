@@ -29,7 +29,7 @@ trait UserInteractWithSomeEntity{
              * Si c'est user du staff et que son email n'est pas vérifié
              */
             if ($user->isStaff() and !$user->hasVerifiedEmail()){
-                $user->markEmailAsVerified(); // Marquer son email comme "verifié"!
+              //  $user->markEmailAsVerified(); // Marquer son email comme "verifié"!
             }
 
         });
