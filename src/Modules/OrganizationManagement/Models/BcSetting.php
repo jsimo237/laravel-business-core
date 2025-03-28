@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kirago\BusinessCore\Modules\BaseBcModel;
 use Kirago\BusinessCore\Support\Constants\BcSettingsKeys;
+use Kirago\BusinessCore\Support\Helpers\BcSettingHelper;
 
 
 /**
@@ -28,38 +29,54 @@ class BcSetting extends BaseBcModel {
     const TYPE_BOOLEAN = "boolean";
     const TYPE_NUMBER = "number";
 
+    protected $appends = [
+        'display_name',
+    ];
+
+    protected $casts = [
+     //   'value' => "array",
+    ];
+
+
     protected static function booted()
     {
-        static::saved(function (BcSetting $setting) {
-            $setting->processToUploadFiles();
+        static::saving(function (self $setting) {
+            $attributes = $setting->getAttributes();
+            $setting->formatValueAsTring();
+
+        });
+
+        static::created(function (self $setting) {
+
         });
 
     }
 
     /** Un seul fichier rataché à l'enregistrement
-     * @return Attribute
+     * @return mixed
      */
-    public function value(): Attribute
+    public function getValueAttribute($value): mixed
     {
-        return Attribute::make(
-            set : function ($value){
-                if(($this->type === self::TYPE_OBJECT)
-                    or is_array($value) or
-                    is_object(is_array($value))
-                ){
-                    return json_encode($value);
-                }
-                return $value;
-            },
-            get : function ($value){
-                return match ($this->type){
-                        self::TYPE_OBJECT => json_decode($value,true),
-                        self::TYPE_BOOLEAN => boolval($value),
-                        default => $value
-                    };
-            },
-        );
+        return $this->formatValueAsCorrectType($value);
     }
+
+    private function formatValueAsTring($value = null) : void{
+        $value ??= $this->attributes['value'];
+        if((is_array($value) or is_object($value))){
+            $value = json_encode($value);
+        }
+        $this->setAttribute("value",(string) $value);
+    }
+    private function formatValueAsCorrectType($value = null){
+        $type = $this->attributes['type'];
+        $value ??= $this->attributes['value'];
+        return match ($type) {
+                self::TYPE_OBJECT => json_decode($value,true),
+                self::TYPE_BOOLEAN => boolval($value),
+                default => $value
+            };
+    }
+
 
     public function getDisplayNameAttribute(): string
     {
@@ -71,10 +88,10 @@ class BcSetting extends BaseBcModel {
         return $this->key;
     }
 
-    private function processToUploadFiles(): bool
+    protected function processToUploadFiles(): bool
     {
         if($this->key === BcSettingsKeys::LOGOS->value && $this->type === self::TYPE_OBJECT){
-
+           return  false;
         }
         return true;
     }

@@ -3,10 +3,8 @@
 namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
 
 
-use Kirago\BusinessCore\Modules\MediableBcModel;
 use Kirago\BusinessCore\Modules\SecurityManagement\Contracts\AuthenticatableModelContract;
 use Kirago\BusinessCore\Modules\SecurityManagement\Traits\HasUser;
-use Kirago\BusinessCore\Support\Bootables\Personnable;
 
 /**
  * @property int id
@@ -19,14 +17,9 @@ use Kirago\BusinessCore\Support\Bootables\Personnable;
  */
 class BcCustomer extends BaseBcCustomer implements AuthenticatableModelContract {
 
-    use HasUser,Personnable;
-
     protected $table = "sales_mgt__customers";
 
     //RELATIONS
-    protected static function newFactory(){
-      //  return CompanyFactory::new();
-    }
 
     //FUNCTIONS
     public static function getAuthIdentifiersFields(): array

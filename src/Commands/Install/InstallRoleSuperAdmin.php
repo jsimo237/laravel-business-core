@@ -7,9 +7,8 @@ namespace Kirago\BusinessCore\Commands\Install;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcPermission;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcRole;
-
+use Spatie\Permission\PermissionRegistrar;
 
 class InstallRoleSuperAdmin extends Command{
 
@@ -21,6 +20,8 @@ class InstallRoleSuperAdmin extends Command{
 
         DB::beginTransaction();
         try {
+
+            app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
             $role = [
                 'name' => BcRole::SUPER_ADMIN,
@@ -34,8 +35,6 @@ class InstallRoleSuperAdmin extends Command{
              * @var BcRole $role
              */
            $role = BcRole::upsert($role,['name']);
-
-           echo ((new  BcRole)->getTable());
 
          //  $role->givePermissionTo(BcPermission::pluck('id')->toArray());
 

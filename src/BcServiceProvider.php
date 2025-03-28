@@ -87,7 +87,7 @@ class BcServiceProvider extends BaseServiceProvider {
             $bindings  = json_encode($query->bindings);
             $content   = "[SQL] {$query->sql} in {$query->time} s\n
                               [bindinds]: {$bindings}\n [userAgent]: {$userAgent} \n";
-            write_log("queries-timeout",$content);
+            write_log("sql-queries",$content);
         });
 
         /**

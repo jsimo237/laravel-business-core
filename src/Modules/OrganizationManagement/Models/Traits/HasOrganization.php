@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Contrats\OrganizationScopable;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Scopes\HasOrganizationGlobalScope;
 
 trait HasOrganization
 {
@@ -88,12 +87,23 @@ trait HasOrganization
 
     public function scopeOrganizationId(Builder $query, string|int|BcOrganization $organization): Builder
     {
-
+        return  $query->where(
+                    $query->getModel()->getTable() . '.organization_id',
+                    $organization?->getKey()
+                );
     }
 
     public function scopeOrganization(Builder $query, string|int|BcOrganization $organization): Builder
     {
+        if ($organization) {
+//            if ($this->hasSystemObjects()) {
+//                return $query->where('system', '1')->orWhere($query->getModel()->getTable() . '.organization_id', '=', $organization);
+//            }
 
+            return $query->organizationId($organization);
+        } else {
+            return $query->whereNull($query->getModel()->getTable() . '.organization_id');
+        }
     }
 
 }

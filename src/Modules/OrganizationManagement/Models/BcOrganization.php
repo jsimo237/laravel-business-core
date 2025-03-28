@@ -3,15 +3,24 @@
 namespace Kirago\BusinessCore\Modules\OrganizationManagement\Models;
 
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Kirago\BusinessCore\Database\Factories\OrganizationManagement\OrganizationFactory;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Activable;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Auditable;
+use Kirago\BusinessCore\Modules\CoresManagement\Traits\Mediable;
 use Kirago\BusinessCore\Modules\HasSlug;
-use Kirago\BusinessCore\Modules\MediableBcModel;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
 use Kirago\BusinessCore\Support\Constants\BcSettingsKeys;
+use Spatie\MediaLibrary\HasMedia as SpatieHasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Sluggable\SlugOptions;
 
 
 /**
@@ -25,12 +34,22 @@ use Kirago\BusinessCore\Support\Constants\BcSettingsKeys;
  * @property string $logo
  * @property BcUser $owner
  */
-class BcOrganization extends MediableBcModel {
+class BcOrganization extends Model implements SpatieHasMedia {
 
-    use Notifiable,HasSlug;
+    use HasFactory,SoftDeletes;
+        // AuthorableTrait,
+    use  Activable,Auditable,HasSlug;
 
+    use Notifiable;
+
+    use InteractsWithMedia,Mediable;
 
     protected $table = "organization_mgt__organizations";
+
+    protected $casts = [
+     //   'taxes' => "array",
+     //   'payments_methods' => "array",
+    ];
 
     //RELATIONS
 
@@ -102,5 +121,24 @@ class BcOrganization extends MediableBcModel {
     public function getObjectName(): string
     {
         return $this->name;
+    }
+
+    public function registerMediaCollections(): void{
+        $this->addMediaCollection(Str::plural($this->getMorphClass()))
+            ->singleFile() // ne doit contenir qu'un seul fichier sur la collection ( utilisateur n'a qu'un seul avatar )
+            ->useFallbackUrl(get_gravatar($this->email ?? fake()->email)) // retouné lorsque getUrl = null
+            //->useFallbackUrl(url("img/avatar.png")) // retouné lorsque getUrl = null
+        ;
+
+    }
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+                ->generateSlugsFrom('name')
+                ->saveSlugsTo('slug');
     }
 }

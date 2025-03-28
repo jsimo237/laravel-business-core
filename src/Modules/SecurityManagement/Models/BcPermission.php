@@ -36,12 +36,8 @@ class BcPermission extends SpatiePermission {
 
         static::created(function (self $permission){
 
-             $roleSuper = BcRole::findByName(BcRole::SUPER_ADMIN);
+            static::syncAllPermissionsToSuperAdminRole();
 
-             write_log("permission",$permission);
-             write_log("role",$roleSuper);
-
-             $roleSuper?->givePermissionTo($permission);
         });
     }
 
@@ -52,6 +48,16 @@ class BcPermission extends SpatiePermission {
     public function group(): BelongsTo
     {
         return $this->belongsTo(BcPermissionGroup::class,"group");
+    }
+
+    public static function syncAllPermissionsToSuperAdminRole(){
+        try {
+            $roleSuper = BcRole::firstWhere("name",BcRole::SUPER_ADMIN);
+
+            $roleSuper?->givePermissionTo(self::pluck('id')->toArray());
+        }catch (\Exception $exception){
+          write_log("permissions/syncAllPermissionsToSuperAdminRole",$exception);
+        }
     }
 
 

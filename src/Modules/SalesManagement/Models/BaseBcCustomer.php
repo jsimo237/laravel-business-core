@@ -20,21 +20,16 @@ use Kirago\BusinessCore\Support\Bootables\Personnable;
 abstract class BaseBcCustomer extends MediableBcModel
     implements AuthenticatableModelContract {
 
-    use HasUser,Personnable;
+    use HasUser;
 
     //FUNCTIONS
-    public static function getAuthIdentifiersFields(): array
-    {
-        return ["email","username",'phone'];
-    }
 
-    public function getGuardName(): string
-    {
-        return "customer";
-    }
+   /************ Abstract functions ************/
+    abstract public static function getAuthIdentifiersFields() : array;
+    abstract public function getGuardName() : string;
+
 
     //
-
     public function getObjectName(): string
     {
         return $this->fullname;

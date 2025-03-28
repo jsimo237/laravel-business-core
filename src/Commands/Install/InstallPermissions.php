@@ -27,6 +27,8 @@ class InstallPermissions extends Command{
 
             BcPermission::upsert($rows, ['name',"guard_name"]);
 
+            BcPermission::syncAllPermissionsToSuperAdminRole();
+
             $this->info('All permissions data have been created!');
         } catch (\Exception $e) {
             $this->error("Error during {$this->signature}  : " . $e->getMessage());

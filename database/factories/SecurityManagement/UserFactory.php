@@ -20,8 +20,15 @@ class UserFactory extends Factory{
      */
     public function definition() : array{
         return [
-            'password' => "000000", // password
-            'remember_token' => Str::random(10),
+            'firstname'             => $this->faker->firstName,
+            'lastname'              => $this->faker->lastName,
+            'username'              => $this->faker->unique()->userName,
+            'email'                 => $this->faker->unique()->safeEmail(),
+            'phone'                 =>$this->faker->unique()->phoneNumber(),
+            'password'              => "000000",
+            'remember_token'        => Str::random(10),
+            'email_verified_at'     => now(),
+            'phone_verified_at'     => now(),
             BcUser::MORPH_ID_COLUMN => null, // Sera défini dynamiquement
             BcUser::MORPH_TYPE_COLUMN => null, // Sera défini dynamiquement
         ];

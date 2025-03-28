@@ -17,6 +17,7 @@ use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Auditable;
 use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\InteractWithCommonsScopeFilter;
 use Kirago\BusinessCore\Modules\CoresManagement\Traits\Mediable;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Contrats\OrganizationScopable;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcStaff;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Traits\HasOrganization;
 use Kirago\BusinessCore\Modules\SecurityManagement\Contracts\AuthenticatableModelContract;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\Traits\UserInteractWithSomeEntity;
@@ -88,6 +89,7 @@ class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopa
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'phone_verified_at' => 'datetime',
     ];
 
 
@@ -134,6 +136,19 @@ class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopa
         //static::addGlobalScope(new UserGlobalScope);
 
         self::observe([UserObserver::class]);
+
+        static::saving(function (self $user) {
+            $attributes = $user->getAttributes();
+
+            if($user->isStaff()){
+                if (blank($attributes['email_verified_at'])){
+                    $user->setAttribute("email_verified_at",now());
+                }
+                if (blank($attributes['phone_verified_at'])){
+                    $user->setAttribute("phone_verified_at",now());
+                }
+            }
+        });
     }
 
 
@@ -211,23 +226,16 @@ class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopa
         return $this->hasRole(BcRole::SUPER_ADMIN);
     }
 
-    public function isManager(){
-        return $this->is_manager;
-    }
-
-    /**
-     * getActivitylogOptions
-     */
-    public function getActivitylogOptions(): LogOptions
+    public function isStaff(): bool
     {
-        return LogOptions::defaults()->logAll();
+        return ($this->entity instanceof BcStaff);
     }
 
     /**
-     * @param $wallets
-     * @return array
+     * @param $roles
+     * @return void
      */
-    public function syncRoles( $wallets){
+    public function syncRoles( $roles){
 
 //        if ($wallets instanceof Wallet) $wallets = $wallets->getKey();
 //        if ($wallets instanceof Collection) $wallets = $wallets->pluck("id")->toArray();

@@ -38,7 +38,7 @@ abstract class BaseBcModel extends Model
 
     use HasFactory,SoftDeletes,
        // AuthorableTrait,
-        Activable,Auditable,
+
         HasOrganization,
         InteractWithCommonsScopeFilter;
 
