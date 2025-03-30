@@ -4,7 +4,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcSetting;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcStaff;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcCustomer;
@@ -51,20 +50,12 @@ return new class extends Migration {
             if ($columns = $options['columns'] ?? []){
                 $columns[] = "organization_id";
 
-//                Schema::whenTableDoesntHaveColumn($model->getTable(), "organization_id",function (Blueprint $table) use ($column) {
-//
-//                    $table->foreignIdFor(Organization::class,"organization_id")->nullable()
-//                        ->constrained((new Organization)->getTable(), (new Organization)->getKeyName(), uniqid("FK_"))
-//                        ->cascadeOnUpdate()->cascadeOnDelete()
-//                        ->comment("[FK] l'organisation");
-//                });
-
-                Schema::table($model->getTable(),function (Blueprint $table) use ($columns) {
-                    $table->unique($columns,uniqid("UQ_"));
-                });
+                if(Schema::hasTable($model->getTable())){
+                    Schema::table($model->getTable(),function (Blueprint $table) use ($columns) {
+                        $table->unique($columns,uniqid("UQ_"));
+                    });
+                }
             }
-
-
         }
     }
 

@@ -48,16 +48,6 @@ abstract class BaseBcOrder extends BaseBcModel implements
 
     const INVOICING_TYPE_AMOUNT = 'AMOUNT';
 
-    protected static function booted()
-    {
-        static::creating(function (self $order) {
-            $order->generateUniqueValue();
-        });
-
-        static::saving(function (self $order) {
-            $order->refreshOrder();
-        });
-    }
 
     public function getRelationsMethods(): array
     {

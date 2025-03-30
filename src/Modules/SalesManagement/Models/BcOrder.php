@@ -6,13 +6,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Kirago\BusinessCore\Modules\HasCustomPrimaryKey;
 use Kirago\BusinessCore\Support\Exceptions\BcNewIdCannotGeneratedException;
 
 class BcOrder extends BaseBcOrder
 {
-    use HasCustomPrimaryKey;
-
     protected $table = "sales_mgt__orders";
 
     protected $fillable = [
@@ -32,7 +29,6 @@ class BcOrder extends BaseBcOrder
     protected $casts = [
         "discounts" => "array"
     ];
-
 
     public function refreshOrder(): void
     {
@@ -60,7 +56,7 @@ class BcOrder extends BaseBcOrder
             "key" => $field,
             "prefix" => "ORD".$organisation->getKey(),
             "suffix" => date("Ym"),
-            "separator" => "",
+            "separator" => "-",
             "charLengthNextId" => 0,
             "uniquesBy" => [
                 ["column" => "organization_id" , "value" => $organisation->getKey()]
@@ -70,8 +66,7 @@ class BcOrder extends BaseBcOrder
                 ["column" => "created_at" , "value" => date("Y-m")],
             ]
         ];
-
-        $this->$field = newId(static::class, $options);
+        $this->{$field} = newId(static::class, $options);
     }
 
     public function send(): void

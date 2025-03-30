@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('code',60)
                 ->unique(uniqid("UQ_"));
             
-            $table->json('discounts');
+            $table->json('discounts')->nullable();
 
             $table->text('note')->nullable();
 

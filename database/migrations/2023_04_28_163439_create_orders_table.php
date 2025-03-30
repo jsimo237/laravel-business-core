@@ -24,7 +24,7 @@ return new class extends Migration
                 ->unique(uniqid("UQ_"));
 
 
-            $table->json('discounts');
+            $table->json('discounts')->nullable();
             $table->text('note')->nullable();
 
             $table->enum('billing_entity_type',BcBillingInformations::values())->default(BcBillingInformations::TYPE_INDIVIDUAL->value);

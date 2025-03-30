@@ -22,10 +22,14 @@ return new class extends Migration {
         foreach ($classes as $class) {
             $model = (new $class);
 
-            Schema::whenTableDoesntHaveColumn($model->getTable(), $column,function (Blueprint $table) use ($column) {
-                $table->boolean($column)->default(true)
-                    ->comment("Détermine si la ligne est active(visible par le front-ent)");
-            });
+            if(Schema::hasTable($model->getTable())){
+                Schema::whenTableDoesntHaveColumn($model->getTable(), $column,function (Blueprint $table) use ($column) {
+                    $table->boolean($column)->default(true)
+                        ->comment("Détermine si la ligne est active(visible par le front-ent)");
+                });
+            }
+
+
         }
     }
 

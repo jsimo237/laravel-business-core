@@ -45,14 +45,16 @@ return new class extends Migration {
 
                 $model = (new $class);
 
-                Schema::whenTableDoesntHaveColumn($model->getTable(), $column,function (Blueprint $table) use ($column) {
+                if(Schema::hasTable($model->getTable())){
+                    Schema::whenTableDoesntHaveColumn($model->getTable(), $column,function (Blueprint $table) use ($column) {
 
-                    $table->foreignIdFor(BcOrganization::class,$column)->nullable()
-                        ->constrained((new BcOrganization)->getTable(), (new BcOrganization)->getKeyName(), uniqid("FK_"))
-                        ->cascadeOnUpdate()->cascadeOnDelete()
-                        ->comment("[FK] l'organisation");
+                        $table->foreignIdFor(BcOrganization::class,$column)->nullable()
+                            ->constrained((new BcOrganization)->getTable(), (new BcOrganization)->getKeyName(), uniqid("FK_"))
+                            ->cascadeOnUpdate()->cascadeOnDelete()
+                            ->comment("[FK] l'organisation");
 
-                });
+                    });
+                }
             }
         }
     }
