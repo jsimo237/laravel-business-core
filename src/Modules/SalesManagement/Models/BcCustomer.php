@@ -3,6 +3,7 @@
 namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
 
 
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Kirago\BusinessCore\Modules\SecurityManagement\Contracts\AuthenticatableModelContract;
 use Kirago\BusinessCore\Modules\SecurityManagement\Traits\HasUser;
 
@@ -37,5 +38,15 @@ class BcCustomer extends BaseBcCustomer implements AuthenticatableModelContract 
     public function getObjectName(): string
     {
         return $this->fullname;
+    }
+
+    public function orders(): MorphMany
+    {
+        return $this->morphMany(static::class, 'recipient');
+    }
+
+    public function invoices(): MorphMany
+    {
+        return $this->morphMany(static::class, 'recipient');
     }
 }

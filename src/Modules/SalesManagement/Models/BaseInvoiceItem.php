@@ -6,13 +6,13 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
  use Illuminate\Database\Eloquent\SoftDeletes;
  use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Auditable;
  use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
+ use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseInvoiceContract;
  use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseInvoiceItemContrat;
  use Kirago\BusinessCore\Modules\SalesManagement\Contrats\InvoiceableContract;
  use Kirago\BusinessCore\Modules\SalesManagement\Contrats\TaxableItemContrat;
  use Kirago\BusinessCore\Modules\SalesManagement\Helpers\TaxHelper;
  use Kirago\BusinessCore\Modules\SalesManagement\Traits\HasTaxGroup;
  use Kirago\BusinessCore\Support\Contracts\EventNotifiableContract;
-
 
  abstract class BaseInvoiceItem extends Model implements
     EventNotifiableContract,
@@ -46,7 +46,7 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
 
 
     /************ Abstract functions ************/
-    abstract public function getInvoice() : BaseBcInvoice;
+    abstract public function getInvoice() : BaseInvoiceContract;
 
     abstract public function getInvoiceable() : ?InvoiceableContract;
 

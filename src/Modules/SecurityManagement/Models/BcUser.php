@@ -126,7 +126,7 @@ class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopa
     }
 
      public function guardName() : string{
-         return $this->entity?->getGuardName() ?? "api";
+         return  "api";
      }
 
     protected static function newFactory(){

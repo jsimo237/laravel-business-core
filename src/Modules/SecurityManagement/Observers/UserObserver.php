@@ -19,11 +19,11 @@ class UserObserver{
         $isManager = $user->is_manager ?? false;
 
         if ($isManager){
-            $user->setAttribute("manager_id",$user->id);
+          //  $user->setAttribute("manager_id",$user->id);
         }
 
         if ($isManager) {
-            $user->assignRole(BcRole::MANAGER);
+          //  $user->assignRole(BcRole::MANAGER);
         }
     }
 }

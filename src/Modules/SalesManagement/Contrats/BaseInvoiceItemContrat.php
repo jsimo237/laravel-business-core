@@ -18,7 +18,7 @@ use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
  * @property array<string, mixed> $taxes
  * @property BaseOrderContract $order
  * @property BaseInvoiceContract $invoice
- * @property BaseInvoiceContract $invoiceable
+ * @property InvoiceableContract $invoiceable
  */
 interface BaseInvoiceItemContrat
 {

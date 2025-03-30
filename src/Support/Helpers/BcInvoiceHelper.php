@@ -13,11 +13,7 @@ final class BcInvoiceHelper
 
     public static function generateInvoiceForOrder(BcOrder $order): BcInvoice
     {
-       // $exist = $order->invoice()->where('status', InvoiceStatuses::VALIDATED->value)->exists();
-        //if (!$exist) {
-       //     $invoice = new BcInvoice();
-      //  }
-        $invoice = new BcInvoice();
+        $invoice = $order->invoice ?? new BcInvoice();
 
         $invoice->status = BcInvoiceStatuses::VALIDATED->value;
         $invoice->invoice_type = BcInvoiceType::PRODUCT->value;

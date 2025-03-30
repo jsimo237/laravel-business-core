@@ -3,13 +3,17 @@
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Contrats\OrganizationScopable;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+use Kirago\BusinessCore\Modules\SecurityManagement\Services\AuthService;
 use Kirago\BusinessCore\Support\Constants\BcSettingsKeys;
 use Kirago\BusinessCore\Support\Exceptions\BcNewIdCannotGeneratedException;
 use Monolog\Handler\RotatingFileHandler;
@@ -149,7 +153,7 @@ if (!function_exists('activeGuard')) {
         $guards = new Collection(array_keys(config('auth.guards')));
 
         return $guards->first(fn(string $guard) => auth($guard)->check())
-                       ?? request()->header('x-guard-name')
+                       ?? request()->header('x-guard')
                        ?? "web";
     }
 }
@@ -161,10 +165,23 @@ if (!function_exists('currentOrganization')) {
      */
     function currentOrganization(): ?BcOrganization
     {
-        if ($organizationId = request()->header('x-organization-id')){
-            return BcOrganization::find($organizationId);
-        }
-       return null;
+//        $organizationId = request()->header('x-organization-id');
+//
+//        if (blank($organizationId) && request()->hasHeader("x-guard")){
+//            $guardName = request()->header("x-guard");
+//          //   $serc = AuthService::getAuthenticable(request()->header("x-guard"));
+//
+//            /**
+//             * @var OrganizationScopable $user
+//             */
+//           if ($user = auth($guardName)->user()){
+//               $organizationId = $user->organization_id;
+//           }
+//        }
+
+//       return BcOrganization::find($organizationId);
+
+        return null;
     }
 }
 
@@ -296,10 +313,6 @@ if(!function_exists("action_message")){
     }
 }
 
-if(!function_exists("newReference")){
-
-}
-
 if(!function_exists("newId")){
 
     /**
@@ -320,15 +333,23 @@ if(!function_exists("newId")){
 
         $instance = new $model;
 
-        if (!($instance instanceof Model)) {
-            throw new BcNewIdCannotGeneratedException("$errorMsg [Raison] : " . __("Le modèle fourni n'est pas une instance de [Illuminate\Database\Eloquent\Model]"));
-        }
+        throw_if(
+            !($instance instanceof Model),
+            new BcNewIdCannotGeneratedException(
+                "$errorMsg [Raison] : " . __("Le modèle fourni n'est pas une instance de [Illuminate\Database\Eloquent\Model]")
+            )
+        );
 
-        $keyName = $options['keyName'] ?? $instance->getKeyName();
 
-        if (!isset($instance->$keyName)) {
-            throw new BcNewIdCannotGeneratedException("$errorMsg [Raison] : " . __("Le champ '$keyName' n'existe pas dans le modèle $model"));
-        }
+        $keyName = $options['key'] ?? $instance->getKeyName();
+
+//        throw_if(
+//            !(isset($instance->{$keyName})),
+//            new BcNewIdCannotGeneratedException(
+//                "$errorMsg [Raison] : " .__("Le champ '$keyName' n'existe pas dans le modèle $model")
+//            )
+//
+//        );
 
         // Définition des paramètres
         $prefix = $options['prefix'] ?? date('my');
@@ -346,16 +367,27 @@ if(!function_exists("newId")){
                                             ]
                                         ];
 
-        // Initialisation de la requête
-        $query = $model::withoutGlobalScopes();
+        $uniquesBy = $options['uniquesBy'] ?? [];
 
-        if (isset($countBy['column'], $countBy['value'])) {
-            if (is_array($countBy['value'])) {
-                $query->whereBetween($countBy['column'], $countBy['value']);
-            } else {
-                $query->where($countBy['column'], $countBy['value']);
-            }
-        }
+        // Initialisation de la requête
+        /**
+         * @var Builder $query
+         */
+        $query = $model::withoutGlobalScopes()
+                ->when(method_exists($model, 'bootSoftDeletes'),function ($query){
+                    $query->withTrashed();
+                })
+                ->when($countBy,function ($query) use($countBy){
+                    foreach (Arr::wrap($countBy) as $attribute) {
+                        if (is_array($attribute['value'])) {
+                            $query->whereBetween($attribute['column'], $attribute['value']);
+                        } else {
+                            $query->where($attribute['column'], $attribute['value']);
+                        }
+                        return $query;
+                    }
+                })
+        ;
 
         // Génération d'un identifiant unique avec retry
         $attempts = 0;
@@ -368,8 +400,15 @@ if(!function_exists("newId")){
 
             $newId = strtoupper("{$prefix}{$separator}{$formattedId}{$separator}{$suffix}");
 
+            $exist = $model::where($keyName, $newId)
+                            ->when($uniquesBy,function ($query) use($uniquesBy){
+                                foreach (Arr::wrap($uniquesBy) as $attribute) {
+                                    $query->where($attribute['column'],$attribute['value']);
+                                }
+                            })
+                           ->exists();
             // Vérification d'unicité
-            if (!$model::where($keyName, $newId)->exists()) {
+            if (!$exist) {
                 return $newId;
             }
         } 
@@ -430,20 +469,6 @@ if(!function_exists("get_gravatar")){
         }
 
         return $url;
-    }
-}
-
-
-
-if (! function_exists('preset')) {
-    /**
-     * retourne un preset
-     * @param $file
-     * @return  array
-     */
-    function preset($file): array
-    {
-        return ($file) ? config("presets.$file") : [];
     }
 }
 

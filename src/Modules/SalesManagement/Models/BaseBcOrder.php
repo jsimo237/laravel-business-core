@@ -29,6 +29,7 @@ use Kirago\BusinessCore\Support\Contracts\GenerateUniqueValueContrat;
 * @property string code
 * @property string note
 * @property string invoice_type
+* @property BcInvoice invoice
 * @property bool has_no_taxes
 * @property \Illuminate\Database\Eloquent\Collection payments
 * @property BaseOrderItemContrat[] items

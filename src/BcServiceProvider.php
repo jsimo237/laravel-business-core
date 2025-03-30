@@ -63,7 +63,8 @@ class BcServiceProvider extends BaseServiceProvider {
         $this->mergeConfigFrom(__DIR__.'/../config/permission.php', 'permission-config');
         $this->mergeConfigFrom(__DIR__.'/../config/media-library.php', 'bc-config-permission');
         //        $this->mergeConfigFrom(__DIR__.'/../config/notification-manager.php', 'laravel-notifications');
-//        $this->mergeConfigFrom(__DIR__.'/../config/sanctum.php', 'sanctum-config');
+        $this->mergeConfigFrom(__DIR__.'/../config/sanctum.php', 'sanctum-config');
+        $this->mergeConfigFrom(__DIR__.'/../config/activitylog.php', 'activitylog-config');
 //        $this->mergeConfigFrom(__DIR__.'/../config/eloquent-authorable.php', 'eloquent-authorable');
 //        $this->mergeConfigFrom(__DIR__.'/../config/location.php', 'bc-config-location');
 
@@ -161,6 +162,8 @@ class BcServiceProvider extends BaseServiceProvider {
                     __DIR__.'/../config/notification-manager.php' => config_path('notification-manager.php'),
                     __DIR__.'/../config/eloquent-has-many-deep.php' => config_path('eloquent-has-many-deep.php'),
                     __DIR__.'/../config/media-library.php' => config_path('media-library.php'),
+                    __DIR__.'/../config/sanctum.php' => config_path('sanctum.php'),
+                    __DIR__.'/../config/activitylog.php' => config_path('activitylog.php'),
                  ],
                 'bc-config-all'
             ) ;

@@ -33,6 +33,7 @@ use Kirago\BusinessCore\Support\Exceptions\BcNewIdCannotGeneratedException;
  * @property float amount
  * @property string status
  * @property int|null package_id
+ * @property BcPackage package
  * @property string|null subscriber_id
  * @property string|null subscriber_type
  * @property mixed subscriber
@@ -43,7 +44,7 @@ class BcSubscription extends BaseBcModel implements OrderableContrat{
 
 
     protected $appends = [
-        'active',
+        //'active',
     ];
 
     protected $casts = [
@@ -57,11 +58,16 @@ class BcSubscription extends BaseBcModel implements OrderableContrat{
 
     protected static function booted()
     {
-        static::creating(function (BcSubscription $subscription) {
-            $subscription->generateCode();
+        static::creating(/**
+         * @throws BcNewIdCannotGeneratedException
+         */ function (BcSubscription $subscription) {
+            $subscription->generateReference();
         });
 
         static::saving(function (BcSubscription $subscription) {
+          //  $status = $subscription->status;
+            $subscription->status ??= BcSubscriptionStatuses::INIATED->value;
+
             if($subscription->status === BcSubscriptionStatuses::INIATED->value){
                 $subscription->initiated_at ??= now();
             }
@@ -102,21 +108,23 @@ class BcSubscription extends BaseBcModel implements OrderableContrat{
     /**
      * @throws BcNewIdCannotGeneratedException
      */
-    public function generateCode(): void
+    public function generateReference(): void
     {
         $organisation = $this->getOrganization();
         // les options supplémentaire applicable à l'opération de decompte
         $options = [
-            "prefix" => "SUB".$organisation->getKey(),
+            "key" => "reference",
+            "prefix" => "SUB".$organisation?->getKey(),
             "suffix" => date("Ym"),
-            "separator" => "",
+            "separator" => "-",
             "charLengthNextId" => 3,
-            "countBy" => [
-                "column" => [
-                    ["name" => "organization_id" , "value" => $organisation->getKey()],
-                    ["name" => "created_at" , "value" => date("Y-m")],
-                ]
+            "uniquesBy" => [
+                ["column" => "organization_id" , "value" => $organisation->getKey()]
             ],
+            "countBy" => [
+                    ["column" => "organization_id" , "value" => $organisation->getKey()],
+                    ["column" => "created_at" , "value" => date("Y-m")],
+                ]
         ];
 
         $this->reference = newId(static::class, $options);
@@ -128,7 +136,8 @@ class BcSubscription extends BaseBcModel implements OrderableContrat{
      * @param Builder $query
      * @return Builder
      */
-    public function scopeActives(Builder $query){
+    public function scopeActives(Builder $query): Builder
+    {
         $now = date("Y-m-d");
         return $query->whereDate("start_at","<=",$now)
                      ->whereDate("end_at",">=",$now);
@@ -186,35 +195,35 @@ class BcSubscription extends BaseBcModel implements OrderableContrat{
     public function invoiceItem(): MorphOne
     {
         return $this->morphOne(
-            BcInvoiceItem::class,
-            BcInvoiceItem::MORPH_FUNCTION_NAME,
-            BcInvoiceItem::MORPH_TYPE_COLUMN,
-        );
+                    BcInvoiceItem::class,
+                    BcInvoiceItem::MORPH_FUNCTION_NAME,
+                    BcInvoiceItem::MORPH_TYPE_COLUMN,
+                );
     }
 
     public function order(): HasOneThrough
     {
         return $this->hasOneThrough(
-            BcOrder::class,
-            BcOrderItem::class,
-            BcOrderItem::MORPH_ID_COLUMN,  // Clé étrangère sur InvoiceItem (vers Product)
-            'id',               // Clé primaire sur Order
-            'id',               // Clé primaire sur Product
-            'order_id'         // Clé étrangère sur OrderItem (vers Order)
-        )
-        ->where(
-            (new BcOrderItem)->getTable().".".BcOrderItem::MORPH_TYPE_COLUMN,
-            (new static)->getMorphClass()
-        )
-            ;
+                    BcOrder::class,
+                    BcOrderItem::class,
+                    BcOrderItem::MORPH_ID_COLUMN,  // Clé étrangère sur InvoiceItem (vers Product)
+                    'id',               // Clé primaire sur Order
+                    'id',               // Clé primaire sur Product
+                    'order_id'         // Clé étrangère sur OrderItem (vers Order)
+                )
+                ->where(
+                    (new BcOrderItem)->getTable().".".BcOrderItem::MORPH_TYPE_COLUMN,
+                    (new static)->getMorphClass()
+                )
+                    ;
     }
 
     public function orderItem(): MorphOne
     {
         return $this->morphOne(
-            BcOrderItem::class,
-            BcOrderItem::MORPH_FUNCTION_NAME,
-            BcOrderItem::MORPH_TYPE_COLUMN,
-        );
+                    BcOrderItem::class,
+                    BcOrderItem::MORPH_FUNCTION_NAME,
+                    BcOrderItem::MORPH_TYPE_COLUMN,
+                );
     }
 }

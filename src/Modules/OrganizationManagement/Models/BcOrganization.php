@@ -25,14 +25,16 @@ use Spatie\Sluggable\SlugOptions;
 
 /**
  * @property string|int id
- * @property array $other_phones
  * @property string $name
  * @property string $email
  * @property string $phone
+ * @property string $slug
+ * @property string $description
  * @property string $phone_extension
  * @property string $phone_type
  * @property string $logo
  * @property BcUser $owner
+ * @property BcSetting $settings
  */
 class BcOrganization extends Model implements SpatieHasMedia {
 
@@ -98,7 +100,6 @@ class BcOrganization extends Model implements SpatieHasMedia {
 
         return $this->hasMany($target, "organization_id");
     }
-
 
 
     protected static function newFactory(){

@@ -57,15 +57,18 @@ class BcOrder extends BaseBcOrder
         $organisation = $this->getOrganization();
         // les options supplémentaire applicable à l'opération de decompte
         $options = [
-            "prefix" => "INV".$organisation->getKey(),
+            "key" => $field,
+            "prefix" => "ORD".$organisation->getKey(),
             "suffix" => date("Ym"),
-            "separator" => "-",
-            "countBy" => [
-                "column" => [
-                    ["name" => "organization_id" , "value" => $organisation->getKey()],
-                    ["name" => "created_at" , "value" => date("Y-m")],
-                ]
+            "separator" => "",
+            "charLengthNextId" => 0,
+            "uniquesBy" => [
+                ["column" => "organization_id" , "value" => $organisation->getKey()]
             ],
+            "countBy" => [
+                ["column" => "organization_id" , "value" => $organisation->getKey()],
+                ["column" => "created_at" , "value" => date("Y-m")],
+            ]
         ];
 
         $this->$field = newId(static::class, $options);

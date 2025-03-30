@@ -37,6 +37,7 @@ class Setup extends Command
         // Demander à l'utilisateur s'il veut publier les migrations
         if ($this->confirm("Dou you want to publish all business-core migration files ?", true)) {
             Artisan::call("vendor:publish", [  "--tag" => "bc-migrations" ]);
+            Artisan::call("vendor:publish", [  "--tag" => "activitylog-migrations" ]);
             $this->info("✅  Migrations files published.");
 
         } else {
@@ -52,14 +53,14 @@ class Setup extends Command
         // Exécuter les migrations depuis le dossier de l'application
         Artisan::call("migrate:fresh", ['--force' => true]);
 
-        Artisan::call("bc:install.currencies");
-        $this->info("✅ All Currencies data have been created .");
-
-        Artisan::call("bc:install.role-super-admin");
-        $this->info("✅ Role Super-Admin created .");
-
-        Artisan::call("bc:install.permissions");
-        $this->info("✅ All Permissions data have been created .");
+//        Artisan::call("bc:install.currencies");
+//        $this->info("✅ All Currencies data have been created .");
+//
+//        Artisan::call("bc:install.role-super-admin");
+//        $this->info("✅ Role Super-Admin created .");
+//
+//        Artisan::call("bc:install.permissions");
+//        $this->info("✅ All Permissions data have been created .");
 
 
         Artisan::call("optimize:clear");

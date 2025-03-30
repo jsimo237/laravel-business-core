@@ -33,22 +33,27 @@ return new class extends Migration {
             BcTax::class, BcTaxGroup::class, BcProduct::class,
 
             BcMedia::class,BcContactForm::class,
-            BcPlan::class, BcPackage::class, BcSubscription::class
+            BcPlan::class, BcPackage::class, BcSubscription::class,
+            config('activitylog.activity_model') ?? null,
         ];
 
         $column = "organization_id";
 
         foreach ($classes as $class) {
-            $model = (new $class);
 
-            Schema::whenTableDoesntHaveColumn($model->getTable(), $column,function (Blueprint $table) use ($column) {
+            if($class){
 
-                $table->foreignIdFor(BcOrganization::class,$column)->nullable()
+                $model = (new $class);
+
+                Schema::whenTableDoesntHaveColumn($model->getTable(), $column,function (Blueprint $table) use ($column) {
+
+                    $table->foreignIdFor(BcOrganization::class,$column)->nullable()
                         ->constrained((new BcOrganization)->getTable(), (new BcOrganization)->getKeyName(), uniqid("FK_"))
                         ->cascadeOnUpdate()->cascadeOnDelete()
                         ->comment("[FK] l'organisation");
 
-            });
+                });
+            }
         }
     }
 

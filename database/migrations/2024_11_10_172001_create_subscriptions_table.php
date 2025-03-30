@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create((new BcSubscription)->getTable(), function (Blueprint $table) {
             $table->id();
 
-            $table->string("reference",60)
+            $table->string("reference",100)
                 ->unique(uniqid("UQ_"))
                 ->comment("La reference unique de la souscription");
 
