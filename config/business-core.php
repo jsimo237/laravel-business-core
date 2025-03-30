@@ -76,9 +76,9 @@ return [
 
         //SalesManagegement
         "order" => \Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder::class,
-        "order-item" => \Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder::class,
-        "invoice" => \Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder::class,
-        "invoice-item" => \Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder::class,
+        "order-item" => \Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrderItem::class,
+        "invoice" => \Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice::class,
+        "invoice-item" => \Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoiceItem::class,
         "tax" => \Kirago\BusinessCore\Modules\SalesManagement\Models\BcTax::class,
         "tax-group" => \Kirago\BusinessCore\Modules\SalesManagement\Models\BcTaxGroup::class,
         "customer" => \Kirago\BusinessCore\Modules\SalesManagement\Models\BaseBcCustomer::class,

@@ -4,6 +4,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
@@ -374,9 +375,10 @@ if(!function_exists("newId")){
          * @var Builder $query
          */
         $query = $model::withoutGlobalScopes()
-                ->when(method_exists($model, 'bootSoftDeletes'),function ($query){
-                    $query->withTrashed();
+                ->when(method_exists($model, 'bootSoftDeletes'),function ($query)use ($model){
+                    $query->withGlobalScope('SoftDeletes',new SoftDeletingScope);
                 })
+
                 ->when($countBy,function ($query) use($countBy){
                     foreach (Arr::wrap($countBy) as $attribute) {
                         if (is_array($attribute['value'])) {

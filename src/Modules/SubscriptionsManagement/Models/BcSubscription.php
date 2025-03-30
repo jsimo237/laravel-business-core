@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Illuminate\Database\Eloquent\Relations\MorpTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Carbon;
 use Kirago\BusinessCore\Database\Factories\SubscriptionsManagement\SubscriptionFactory;
 use Kirago\BusinessCore\Modules\BaseBcModel;
@@ -74,6 +74,10 @@ class BcSubscription extends BaseBcModel implements OrderableContrat{
             if($subscription->status === BcSubscriptionStatuses::COMPLETED->value){
                 $subscription->completed_at ??= now();
             }
+
+            if (!$subscription->amount && $subscription->package){
+                $subscription->amount = $subscription->package->price;
+            }
         });
 
     }
@@ -82,11 +86,11 @@ class BcSubscription extends BaseBcModel implements OrderableContrat{
         //RELATIONS
 
     /**
-     * @return MorpTo
+     * @return MorphTo
      */
-    public function subscriber(): MorpTo
+    public function subscriber(): MorphTo
     {
-        return $this->morphTo( __FUNCTION__, "subscriber" );
+        return $this->morphTo(__FUNCTION__);
     }
 
     /**

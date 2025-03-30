@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Collection;
-use Kirago\BusinessCore\Modules\HasCustomPrimaryKey;
 use Kirago\BusinessCore\Support\Exceptions\BcNewIdCannotGeneratedException;
 use Kirago\BusinessCore\Support\Helpers\BcPDFHelper;
 use Illuminate\Support\Str;
@@ -14,12 +13,7 @@ use Illuminate\Support\Str;
 class BcInvoice extends BaseBcInvoice
 {
 
-    use HasCustomPrimaryKey;
-
     protected $table = "sales_mgt__invoices";
-
-
-
 
     public function refreshInvoice(): void
     {

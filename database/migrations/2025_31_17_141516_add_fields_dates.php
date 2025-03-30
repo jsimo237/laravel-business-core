@@ -32,20 +32,22 @@ return new class extends Migration {
         $classes = config("business-core.models-has-authors");
 
         foreach ($classes as $class) {
-
             $model = (new $class);
-            $table_name = $model->getTable();
+            $tableName = $model->getTable();
 
-            Schema::whenTableDoesntHaveColumn($table_name, "created_at",function (Blueprint $table)  {
-                $table->timestamp('created_at')->nullable();
-            });
-            Schema::whenTableDoesntHaveColumn($table_name, "updated_at",function (Blueprint $table)  {
-                $table->timestamp('updated_at')->nullable();
-            });
+            if(Schema::hasTable($tableName)){
+                Schema::whenTableDoesntHaveColumn($tableName, "created_at",function (Blueprint $table)  {
+                    $table->timestamp('created_at')->nullable();
+                });
+                Schema::whenTableDoesntHaveColumn($tableName, "updated_at",function (Blueprint $table)  {
+                    $table->timestamp('updated_at')->nullable();
+                });
 
-            Schema::whenTableDoesntHaveColumn($table_name, "deleted_at",function (Blueprint $table)  {
-                $table->timestamp('deleted_at')->nullable();
-            });
+                Schema::whenTableDoesntHaveColumn($tableName, "deleted_at",function (Blueprint $table)  {
+                    $table->timestamp('deleted_at')->nullable();
+                });
+
+            }
         }
 
 
