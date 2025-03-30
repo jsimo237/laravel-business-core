@@ -2,8 +2,6 @@
 
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 return [
 
@@ -38,12 +36,14 @@ return [
         /**
          * Simple BelongsTo RelationShips
          */
+        \Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser::class ,
         \Kirago\BusinessCore\Modules\SecurityManagement\Models\BcRole::class ,
         \Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcContactForm::class,
         \Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcSetting::class,
         \Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia::class,
         \Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder::class,
-        \Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder::class,
+        \Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice::class,
+        \Kirago\BusinessCore\Modules\SalesManagement\Models\BcPayment::class,
         \Kirago\BusinessCore\Modules\SalesManagement\Models\BcTax::class,
         \Kirago\BusinessCore\Modules\SalesManagement\Models\BcTaxGroup::class,
         \Kirago\BusinessCore\Modules\SalesManagement\Models\BaseBcCustomer::class,
@@ -90,4 +90,34 @@ return [
         "package" =>  \Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcPackage::class,
         //"advantage" =>  \Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcAdvantage::class,
     ],
+
+    "models-has-authors" => [
+        \Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization::class ,
+        \Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcStaff::class ,
+
+        \Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser::class ,
+        \Kirago\BusinessCore\Modules\SecurityManagement\Models\BcRole::class ,
+        \Kirago\BusinessCore\Modules\SecurityManagement\Models\BcPermission::class ,
+        \Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcContactForm::class,
+        \Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcSetting::class,
+        \Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia::class,
+        \Kirago\BusinessCore\Modules\SalesManagement\Models\BcCustomer::class,
+        \Kirago\BusinessCore\Modules\SalesManagement\Models\BcProduct::class,
+        \Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder::class,
+        \Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrderItem::class,
+        \Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice::class,
+        \Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoiceItem::class,
+        \Kirago\BusinessCore\Modules\SalesManagement\Models\BcTax::class,
+        \Kirago\BusinessCore\Modules\SalesManagement\Models\BcPayment::class,
+        \Kirago\BusinessCore\Modules\SalesManagement\Models\BcTaxGroup::class,
+        \Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcPlan::class,
+        \Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcPackage::class,
+        \Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcSubscription::class,
+
+        \Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcAddress::class,
+    ],
+
+    "console-commands" => [
+
+    ]
 ];

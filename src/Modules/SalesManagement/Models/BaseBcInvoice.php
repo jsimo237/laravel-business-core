@@ -7,8 +7,10 @@ use Carbon\Carbon;
 use DateTime;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Collection;
-use Kirago\BusinessCore\Constants\Statuses;
 use Kirago\BusinessCore\Modules\BaseBcModel;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseInvoiceContract;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseInvoiceItemContrat;
@@ -18,11 +20,9 @@ use Kirago\BusinessCore\Modules\SalesManagement\Contrats\ContainItemsContrat;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\HasBillingDetails;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\HasRecipient;
 use Kirago\BusinessCore\Modules\SalesManagement\Traits\WithOrderCapacities;
+use Kirago\BusinessCore\Support\Constants\Statuses;
 use Kirago\BusinessCore\Support\Contracts\EventNotifiableContract;
 use Kirago\BusinessCore\Support\Contracts\GenerateUniqueValueContrat;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
 

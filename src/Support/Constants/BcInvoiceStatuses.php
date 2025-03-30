@@ -1,8 +1,8 @@
 <?php
 
-namespace Kirago\BusinessCore\Constants;
+namespace Kirago\BusinessCore\Support\Constants;
 
-enum InvoiceStatuses : string
+enum BcInvoiceStatuses : string
 {
 
     case CREATED = 'CREATED'; // La facture a été générée

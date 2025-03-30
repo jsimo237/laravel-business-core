@@ -122,7 +122,6 @@ return   [
         'thousand_point' => ',',
     ],
     [
-        'id' => 12,
         'title' => 'Mexican Peso',
         'symbol_left' => '$',
         'symbol_right' => '',
@@ -266,7 +265,6 @@ return   [
 
     ],
     [
-        'id' => 25,
         'title' => 'Romanian leu',
         'symbol_left' => 'lei ',
         'symbol_right' => '',
@@ -278,7 +276,6 @@ return   [
 
     ],
     [
-        'id' => 26,
         'title' => 'Bulgarian lev',
         'symbol_left' => 'лв.',
         'symbol_right' => '',
@@ -290,7 +287,6 @@ return   [
 
     ],
     [
-        'id' => 27,
         'title' => 'Turkish lira',
         'symbol_left' => '₺',
         'symbol_right' => '',

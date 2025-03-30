@@ -14,18 +14,18 @@ class AuthService
 {
 
 
-    public function __construct(protected string $type)
+    public function __construct(protected string $guardName)
     {
         $guards = array_keys(static::getAllAuthenticables());
 
-        if (!in_array($this->type, $guards)) {
-            throw new \InvalidArgumentException("Invalid guard type: {$this->type}");
+        if (!in_array($this->guardName, $guards)) {
+            throw new \InvalidArgumentException("Invalid guard type: {$this->guardName}");
         }
     }
 
 
     protected function getModelInstance(): AuthenticatableModelContract{
-        $modelClass = static::getAuthenticable($this->type);
+        $modelClass = static::getAuthenticable($this->guardName);
         return (new $modelClass);
     }
 
@@ -60,7 +60,7 @@ class AuthService
         /**
          * @var array
          */
-        $identifiers = $model->getAuthIdentifiersFields();
+        $identifiers = $model::getAuthIdentifiersFields();
 
         return $model->whereMultiple($identifiers,$identifier);
 

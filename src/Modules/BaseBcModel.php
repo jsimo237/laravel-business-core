@@ -10,11 +10,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Activable;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Auditable;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\InteractWithCommonsScopeFilter;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Contrats\OrganizationScopable;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Traits\HasOrganization;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
-use Kirago\BusinessCore\Support\Bootables\Activable;
-use Kirago\BusinessCore\Support\Bootables\InteractWithCommonsScopeFilter;
 use Kirago\BusinessCore\Support\Contracts\EventNotifiableContract;
 
 
@@ -37,7 +38,7 @@ abstract class BaseBcModel extends Model
 
     use HasFactory,SoftDeletes,
        // AuthorableTrait,
-        Activable,
+
         HasOrganization,
         InteractWithCommonsScopeFilter;
 

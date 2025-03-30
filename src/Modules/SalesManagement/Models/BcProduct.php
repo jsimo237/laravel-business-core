@@ -5,13 +5,7 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Kirago\BusinessCore\Modules\BaseBcModel;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseInvoiceContract;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseInvoiceItemContrat;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseOrderContract;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseOrderItemContrat;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BillableProduct;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\OrderableContrat;
-
 
 /**
  * @property string|int id

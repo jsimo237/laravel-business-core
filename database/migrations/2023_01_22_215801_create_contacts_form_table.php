@@ -12,19 +12,21 @@ return new class extends Migration {
      * @return void
      */
     public function up(){
-        Schema::create((new BcContactForm)->getTable(), function (Blueprint $table) {
-            $table->id();
-            $table->string('name')
-                ->comment("Le nom de l'expéditeur");
-            $table->string('email')->nullable()
-                ->comment("l'email de l'expéditeur");
-            $table->string('subject')->nullable()
-                ->comment("L'object de la requete");
-            $table->longText('message')->nullable()
-                ->comment("Le contenu de la requête");
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if(!Schema::hasTable((new BcContactForm)->getTable())){
+            Schema::create((new BcContactForm)->getTable(), function (Blueprint $table) {
+                $table->id();
+                $table->string('name')
+                    ->comment("Le nom de l'expéditeur");
+                $table->string('email')->nullable()
+                    ->comment("l'email de l'expéditeur");
+                $table->string('subject')->nullable()
+                    ->comment("L'object de la requete");
+                $table->longText('message')->nullable()
+                    ->comment("Le contenu de la requête");
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**

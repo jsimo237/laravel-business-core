@@ -20,7 +20,12 @@ class PackageFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name'                  => $this->faker->text(30),
+            'count_days'            => $this->faker->randomNumber(3),
+            'frequency'             => null,
+            'price'                 => null,
+            'description'           => $this->faker->paragraph,
+            'plan_id'               => null,
         ];
     }
 }

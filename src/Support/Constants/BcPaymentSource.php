@@ -1,8 +1,8 @@
 <?php
 
-namespace Kirago\BusinessCore\Constants;
+namespace Kirago\BusinessCore\Support\Constants;
 
-enum PaymentSource : string
+enum BcPaymentSource : string
 {
 
     case XPEEDY = 'XPEEDY';

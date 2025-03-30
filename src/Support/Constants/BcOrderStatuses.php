@@ -1,8 +1,8 @@
 <?php
 
-namespace Kirago\BusinessCore\Constants;
+namespace Kirago\BusinessCore\Support\Constants;
 
-enum OrderStatuses : string
+enum BcOrderStatuses : string
 {
 
     case DRAFT = 'DRAFT'; // La facture a été générée

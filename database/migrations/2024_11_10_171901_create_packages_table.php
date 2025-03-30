@@ -18,8 +18,10 @@ return new class extends Migration
             $table->id();
 
             $table->string("name")->comment("Le nom");
-            $table->bigInteger("count_days")->comment("Le nombre de jours");
-           // $table->bigInteger("maximum_persons")->comment("Le nombre max de personnes");
+            $table->bigInteger("count_days")->nullable()
+                ->comment("Le nombre de jours");
+            $table->bigInteger("maximum_persons")->nullable()
+                ->comment("Le nombre max de personnes");
 
             $table->decimal("price",14,4)->comment("Le prix");
 

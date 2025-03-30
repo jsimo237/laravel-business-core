@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Auditable;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\InteractWithCommonsScopeFilter;
 use Kirago\BusinessCore\Modules\CoresManagement\Observers\MediaObserver;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Traits\HasOrganization;
-use Kirago\BusinessCore\Support\Bootables\Auditable;
-use Kirago\BusinessCore\Support\Bootables\InteractWithCommonsScopeFilter;
 use Spatie\MediaLibrary\MediaCollections\Models\Media as SpatieMediaModel;
 
 

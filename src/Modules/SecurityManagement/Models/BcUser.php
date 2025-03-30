@@ -2,29 +2,32 @@
 
 namespace Kirago\BusinessCore\Modules\SecurityManagement\Models;
 
-use App\Notifications\Auth\ResetPasswordNotification;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Kirago\BusinessCore\Database\Factories\SecurityManagement\UserFactory;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Activable;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Auditable;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\InteractWithCommonsScopeFilter;
 use Kirago\BusinessCore\Modules\CoresManagement\Traits\Mediable;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Contrats\OrganizationScopable;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcStaff;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Traits\HasOrganization;
+use Kirago\BusinessCore\Modules\SecurityManagement\Contracts\AuthenticatableModelContract;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\Traits\UserInteractWithSomeEntity;
 use Kirago\BusinessCore\Modules\SecurityManagement\Observers\UserObserver;
 use Kirago\BusinessCore\Modules\SecurityManagement\Traits\HasAuthTokens;
-use Kirago\BusinessCore\Support\Bootables\Activable;
-use Kirago\BusinessCore\Support\Bootables\InteractWithCommonsScopeFilter;
 use Spatie\MediaLibrary\HasMedia as SpatieHasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Traits\HasPermissions as SpatieHasPermissions;
 use Spatie\Permission\Traits\HasRoles as SpatieHasRoles;
-use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 //use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -32,15 +35,39 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 //use Laravel\Jetstream\HasProfilePhoto;
 
 
+/**
+ * {@inheritDoc}
+ * @property string $firstname
+ * @property string|null $lastname
+ * @property string|null $fullname
+ * @property string|null $initials
+ * @property string|null $email
+ * @property string|null $username
+ * @property string|null $phone
+ * @property string|null $country
+ * @property string|null $state
+ * @property string|null $city
+ * @property string|null $zipcode
+ * @property string|null $address
+ * @property Collection<BcRole> $roles
+ * @property Collection<BcPermission> $permissions
+ * @property Collection<BcMedia> $media
+ * @property AuthenticatableModelContract $entity
+ */
 class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopable {
-    use  Notifiable,SoftDeletes,HasFactory,
-        HasOrganization,Activable,HasAuthTokens,
+
+   use  HasFactory,SoftDeletes,HasAuthTokens,
         SpatieHasRoles,SpatieHasPermissions,
-        InteractsWithMedia,
-        Mediable,
+        InteractsWithMedia;
+
+    use MustVerifyEmail,Notifiable;
+   // use HasRelationships;
+
+    use HasOrganization,Mediable,
+        Activable,Auditable,
         InteractWithCommonsScopeFilter;
 
-    use HasRelationships;
+    use UserInteractWithSomeEntity;
 //    use TwoFactorAuthenticatable;
 //    use HasProfilePhoto;
 
@@ -63,6 +90,7 @@ class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopa
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'phone_verified_at' => 'datetime',
     ];
 
 
@@ -85,9 +113,20 @@ class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopa
          return "id";
      }
 
+     public function getIdentifiersFields(): array
+     {
+         return $this->entity::getAuthIdentifiersFields()
+                    ?? ['email'];
+     }
+
+    public function getPasswordField(): string
+    {
+        return $this->entity::getAuthPasswordField()
+               ?? "password";
+    }
+
      public function guardName() : string{
-         return $this->entity->getGuardName();
-         // return "web";
+         return  "api";
      }
 
     protected static function newFactory(){
@@ -98,6 +137,19 @@ class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopa
         //static::addGlobalScope(new UserGlobalScope);
 
         self::observe([UserObserver::class]);
+
+        static::saving(function (self $user) {
+            $attributes = $user->getAttributes();
+
+            if($user->isStaff()){
+                if (blank($attributes['email_verified_at'])){
+                    $user->setAttribute("email_verified_at",now());
+                }
+                if (blank($attributes['phone_verified_at'])){
+                    $user->setAttribute("phone_verified_at",now());
+                }
+            }
+        });
     }
 
 
@@ -144,7 +196,7 @@ class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopa
      */
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new ResetPasswordNotification($token));
+      //  $this->notify(new ResetPasswordNotification($token));
     }
 
     //FUNCTIONS
@@ -175,23 +227,16 @@ class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopa
         return $this->hasRole(BcRole::SUPER_ADMIN);
     }
 
-    public function isManager(){
-        return $this->is_manager;
-    }
-
-    /**
-     * getActivitylogOptions
-     */
-    public function getActivitylogOptions(): LogOptions
+    public function isStaff(): bool
     {
-        return LogOptions::defaults()->logAll();
+        return ($this->entity instanceof BcStaff);
     }
 
     /**
-     * @param $wallets
-     * @return array
+     * @param $roles
+     * @return void
      */
-    public function syncWallets( $wallets){
+    public function syncRoles( $roles){
 
 //        if ($wallets instanceof Wallet) $wallets = $wallets->getKey();
 //        if ($wallets instanceof Collection) $wallets = $wallets->pluck("id")->toArray();

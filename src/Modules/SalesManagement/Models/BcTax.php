@@ -3,8 +3,8 @@
 namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
 
 
-use Kirago\BusinessCore\Constants\TaxeType;
 use Kirago\BusinessCore\Modules\BaseBcModel;
+use Kirago\BusinessCore\Support\Constants\TaxeType;
 use Kirago\BusinessCore\Support\Contracts\EventNotifiableContract;
 
 /**

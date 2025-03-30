@@ -21,8 +21,8 @@ class PermissionGlobalScope implements Scope{
         $builder->when($guardName = request()->get("guard_name"),function ($query) use ($guardName){
                     return $query->where((new BcPermission)->getTable().".guard_name",$guardName);
                 })
-                ->when($groupCode = request()->get("group_code"),function ($query) use ($groupCode){
-                    return $query->where("group_code",$groupCode);
+                ->when($groupCode = request()->get("group"),function ($query) use ($groupCode){
+                    return $query->where("group",$groupCode);
                 })
         ;
     }

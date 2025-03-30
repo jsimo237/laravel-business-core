@@ -18,6 +18,7 @@ return new class extends Migration {
 
             $table->string('key');
             $table->longText('value')->nullable();
+            $table->string('type',30)->nullable();
 
             $table->foreignIdFor(BcOrganization::class,"organization_id")->nullable()
                 ->constrained((new BcOrganization)->getTable(), (new BcOrganization)->getKeyName(), uniqid("FK_"))

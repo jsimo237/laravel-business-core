@@ -1,8 +1,8 @@
 <?php
 
-namespace Kirago\BusinessCore\Constants;
+namespace Kirago\BusinessCore\Support\Constants;
 
-enum ServerStatus : int
+enum BcServerStatus : int
 {
 
     case  SUCCESS                              =    200;   // request success

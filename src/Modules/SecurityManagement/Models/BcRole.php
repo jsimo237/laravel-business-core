@@ -5,12 +5,23 @@ namespace Kirago\BusinessCore\Modules\SecurityManagement\Models;
 use Axn\EloquentAuthorable\AuthorableTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Activable;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Contrats\OrganizationScopable;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Traits\HasOrganization;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\Observers\RoleObserver;
-use Kirago\BusinessCore\Support\Bootables\Activable;
 use Spatie\Permission\Models\Role as SpatieRole;
 
-class BcRole extends SpatieRole{
+/**
+ * @property int id
+ * @property string name
+ * @property string guard_name
+ * @property string description
+ * @property bool editable
+ * @property BcPermission[] permissions
+ * @property BcOrganization oganization
+ */
+class BcRole extends SpatieRole implements OrganizationScopable {
 
     use HasFactory,SoftDeletes,
         AuthorableTrait,
@@ -19,11 +30,14 @@ class BcRole extends SpatieRole{
 
     protected $hidden = ['pivot'];
     // protected $dispatchesEvents = [];
+    const TABLE_NAME = "security_mgt__roles";
 
-    protected $table = "security_mgt__roles";
+    protected $table = self::TABLE_NAME;
+
 
     const SUPER_ADMIN = "Super-Admin";
     const MANAGER = "Main-Manager";
+    const ADMIN_RESSELER = "Admin-Resseller";
 
     protected $appends = [
         "permissions_ids"

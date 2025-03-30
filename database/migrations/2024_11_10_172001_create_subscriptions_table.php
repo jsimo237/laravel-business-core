@@ -3,9 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Constants\SubscriptionStatuses;
 use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcPackage;
 use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcSubscription;
+use Kirago\BusinessCore\Support\Constants\BcSubscriptionStatuses;
 
 return new class extends Migration
 {
@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create((new BcSubscription)->getTable(), function (Blueprint $table) {
             $table->id();
 
-            $table->string("reference",60)
+            $table->string("reference",100)
                 ->unique(uniqid("UQ_"))
                 ->comment("La reference unique de la souscription");
 
@@ -34,8 +34,14 @@ return new class extends Migration
                 ->cascadeOnUpdate()->cascadeOnDelete()
                 ->comment("[FK] le package");
 
-            $table->string("status",50)->default(SubscriptionStatuses::UNPROCESSED->value)
+            $table->string("status",50)->default(BcSubscriptionStatuses::INIATED->value)
                 ->comment("Le statut");
+
+            $table->timestamp('initiated_at')->nullable()
+                ->comment("La date a la quelle ça été initée");
+
+            $table->timestamp('completed_at')->nullable()
+                ->comment("La date de confirmation");
 
             $table->nullableUlidMorphs('subscriber',uniqid("INDX_"));
 

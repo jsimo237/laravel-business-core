@@ -1,8 +1,8 @@
 <?php
 
-namespace Kirago\BusinessCore\Constants;
+namespace Kirago\BusinessCore\Support\Constants;
 
-enum SubscriptionStatuses : string
+enum BcSubscriptionStatuses : string
 {
 
     case INIATED = 'INIATED'; // Initiée

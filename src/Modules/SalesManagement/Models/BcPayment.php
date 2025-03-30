@@ -6,9 +6,9 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
-use Kirago\BusinessCore\Constants\Statuses;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseInvoiceContract;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseOrderContract;
+use Kirago\BusinessCore\Support\Constants\Statuses;
 use Kirago\BusinessCore\Support\Exceptions\BcNewIdCannotGeneratedException;
 
 class BcPayment extends BaseBcPayment
@@ -48,9 +48,9 @@ class BcPayment extends BaseBcPayment
         // les options supplémentaire applicable à l'opération de decompte
         $options = [
             "prefix" => "PAY".$organisation->getKey(),
-            "suffixe" => date("Ym"),
+            "suffix" => date("Ym"),
             "separator" => "-",
-            "count_by" => [
+            "countBy" => [
                 "column" => [
                     ["name" => "organization_id" , "value" => $organisation->getKey()],
                     ["name" => "created_at" , "value" => date("Y-m")],

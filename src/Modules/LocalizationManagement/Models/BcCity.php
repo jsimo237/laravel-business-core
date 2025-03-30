@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Auditable;
 use Kirago\BusinessCore\Modules\LocalizationManagement\Database\Factories\CityFactory;
-use Kirago\BusinessCore\Support\Bootables\Auditable;
 use Kirago\BusinessCore\Support\Contracts\EventNotifiableContract;
 
 /**

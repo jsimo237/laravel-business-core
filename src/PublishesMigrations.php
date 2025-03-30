@@ -20,7 +20,7 @@ trait PublishesMigrations {
         if ($this->app->runningInConsole()) {
 
             $generator = function(string $directory)  : Generator {
-                          $subPath = config("business-core.migrations.sub-path");
+                          $subPath = config("business-core.migrations.sub-path") ?? "business-core";
                             foreach ($this->app->make('files')->allFiles($directory) as $file) {
                                 yield $file->getPathname() => $this->app->databasePath(
                                    // 'migrations/' . now()->format('Y_m_d_His') . Str::after($file->getFilename(), '00_00_00_000000')

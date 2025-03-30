@@ -14,27 +14,29 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create((new BcProduct)->getTable(), function (Blueprint $table) {
-            $table->id();
+        if(!Schema::hasTable((new BcProduct)->getTable())){
+            Schema::create((new BcProduct)->getTable(), function (Blueprint $table) {
+                $table->id();
 
-            $table->string('sku',60)->nullable(false);
-            $table->string('name');
-            $table->longText('description')->nullable();
-            $table->decimal('buying_price',20,4)->comment("le prix d'achat");
-            $table->decimal('selling_price',20,4)->comment("le prix de vente");
+                $table->string('sku',60)->nullable(false);
+                $table->string('name');
+                $table->longText('description')->nullable();
+                $table->decimal('buying_price',20,4)->comment("le prix d'achat");
+                $table->decimal('selling_price',20,4)->comment("le prix de vente");
 
-            $table->json('buying_taxes')->nullable()
-                ->comment("les taxes a l'achat");
+                $table->json('buying_taxes')->nullable()
+                    ->comment("les taxes a l'achat");
 
-            $table->json('selling_taxes')->nullable()
-                ->comment("les taxes a la vente");
+                $table->json('selling_taxes')->nullable()
+                    ->comment("les taxes a la vente");
 
-            $table->boolean('can_be_sold')->default(false);
-            $table->boolean('can_be_purchased')->default(false);
+                $table->boolean('can_be_sold')->default(false);
+                $table->boolean('can_be_purchased')->default(false);
 
-            $table->timestamps();
-            $table->softDeletes();
-        });
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**

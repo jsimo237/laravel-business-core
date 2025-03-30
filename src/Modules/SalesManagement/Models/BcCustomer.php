@@ -3,10 +3,9 @@
 namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
 
 
-use Kirago\BusinessCore\Modules\MediableBcModel;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Kirago\BusinessCore\Modules\SecurityManagement\Contracts\AuthenticatableModelContract;
 use Kirago\BusinessCore\Modules\SecurityManagement\Traits\HasUser;
-use Kirago\BusinessCore\Support\Bootables\Personnable;
 
 /**
  * @property int id
@@ -19,17 +18,12 @@ use Kirago\BusinessCore\Support\Bootables\Personnable;
  */
 class BcCustomer extends BaseBcCustomer implements AuthenticatableModelContract {
 
-    use HasUser,Personnable;
-
     protected $table = "sales_mgt__customers";
 
     //RELATIONS
-    protected static function newFactory(){
-      //  return CompanyFactory::new();
-    }
 
     //FUNCTIONS
-    public function getAuthIdentifiersFields(): array
+    public static function getAuthIdentifiersFields(): array
     {
         return ["email","username",'phone'];
     }
@@ -44,5 +38,15 @@ class BcCustomer extends BaseBcCustomer implements AuthenticatableModelContract 
     public function getObjectName(): string
     {
         return $this->fullname;
+    }
+
+    public function orders(): MorphMany
+    {
+        return $this->morphMany(static::class, 'recipient');
+    }
+
+    public function invoices(): MorphMany
+    {
+        return $this->morphMany(static::class, 'recipient');
     }
 }

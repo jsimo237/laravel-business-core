@@ -35,16 +35,6 @@ return new class extends Migration {
                 $table->string('email')
                     ->comment("L'email");
 
-                $table->timestamp('email_verified_at')->nullable()
-                    ->comment("La date de vérification de l'email");
-
-                $table->timestamp('phone_verified_at')->nullable()
-                    ->comment("La date de vérification du numéro de téléphone");
-
-                $table->rememberToken()
-                    ->comment("le dernier token de réinitialisation du mot de passe");
-
-
             });
         }
 

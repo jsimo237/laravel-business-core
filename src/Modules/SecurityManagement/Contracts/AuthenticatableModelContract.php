@@ -13,9 +13,9 @@ interface AuthenticatableModelContract
     /**
      * Retourne la liste des champs utilisables pour l'authentification
      */
-    public function getAuthIdentifiersFields(): array;
+    public static function getAuthIdentifiersFields(): array;
 
-    public function getAuthPasswordField(): ?string;
+    public static function getAuthPasswordField(): ?string;
 
     public function getUser(): ?BcUser;
     public function user(): ?MorphOne;

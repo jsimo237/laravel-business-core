@@ -21,7 +21,6 @@ return new class extends Migration {
                 $table->string('phone',20)->nullable()
                     ->comment("Le numéro de téléphone");
 
-
                 $table->string('fullname')
                         ->storedAs("concat(firstname,' ',lastname)")
                         ->comment("Le nom complet");
@@ -30,23 +29,11 @@ return new class extends Migration {
                     ->storedAs("concat(upper(left(firstname,1)), upper(left(lastname,1)))")
                     ->comment("Les initiales du prénom et du nom");
 
-                $table->string('username',20)
-                    ->nullable()
+                $table->string('username',20)->nullable()
                     ->comment("Le nom d'utilisateur");
 
-                $table->string('email')
-                    ->comment("L'email");
-
-                $table->timestamp('email_verified_at')->nullable()
-                    ->comment("La date de vérification de l'email");
-
-                $table->timestamp('phone_verified_at')->nullable()
-                    ->comment("La date de vérification du numéro de téléphone");
-
-                $table->rememberToken()
-                    ->comment("le dernier token de réinitialisation du mot de passe");
-
-
+                $table->string('email')->nullable()
+                      ->comment("L'email");
             });
         }
 

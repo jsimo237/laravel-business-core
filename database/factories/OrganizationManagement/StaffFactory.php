@@ -23,9 +23,7 @@ class StaffFactory extends Factory{
             'lastname'              => $this->faker->lastName,
             'username'              => $this->faker->unique()->userName,
             'email'                 => $this->faker->unique()->safeEmail(),
-            'phone'                 =>$this->faker->unique()->phoneNumber(),
-            'email_verified_at'     => now(),
-            'phone_verified_at'     => now(),
+            'phone'                 => $this->faker->unique()->phoneNumber(),
         ];
     }
 

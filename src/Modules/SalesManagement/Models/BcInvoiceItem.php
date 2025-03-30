@@ -7,12 +7,8 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\InvoiceableContract;
 
-
-
-class BcInvoiceItem extends BaseInvoiceitem
+class BcInvoiceItem extends BaseInvoiceItem
 {
-
-
     protected $table = "sales_mgt__invoice_items";
 
     const MORPH_ID_COLUMN = "invoiceable_id";
@@ -53,12 +49,12 @@ class BcInvoiceItem extends BaseInvoiceitem
 
     public function getItemId(): string|int
     {
-        // TODO: Implement getItemId() method.
+        return $this->getInvoiceable()?->getKey();
     }
 
     public function getSku(): string
     {
-        return $this->invoiceable?->code;
+        return $this->getInvoiceable()?->sku;
     }
 
     public function getName(): string
@@ -68,7 +64,7 @@ class BcInvoiceItem extends BaseInvoiceitem
 
     public function getNote(): ?string
     {
-        // TODO: Implement getNote() method.
+        return $this->note;
     }
 
     public function order(): HasOneThrough
@@ -76,10 +72,10 @@ class BcInvoiceItem extends BaseInvoiceitem
         return $this->hasOneThrough(
                         BcOrder::class,  // Modèle cible (Order)
                         BcInvoice::class, // Modèle intermédiaire (Invoice)
-                        'id',          // Clé primaire de Invoice (intermédiaire)
-                        'id',          // Clé primaire de Order
-                        'invoice_id',  // Clé étrangère dans InvoiceItem (vers Invoice)
-                        'order_id'     // Clé étrangère dans Invoice (vers Order)
+                        'id',             // Clé primaire de Invoice (intermédiaire)
+                        'id',             // Clé primaire de Order
+                        'invoice_id',     // Clé étrangère dans InvoiceItem (vers Invoice)
+                        'order_id'        // Clé étrangère dans Invoice (vers Order)
                     );
 
     }

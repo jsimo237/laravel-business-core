@@ -27,9 +27,11 @@ class InstallPermissions extends Command{
 
             BcPermission::upsert($rows, ['name',"guard_name"]);
 
-            $this->info('Toutes les permissions ont été installées');
+            BcPermission::syncAllPermissionsToSuperAdminRole();
+
+            $this->info('All permissions data have been created!');
         } catch (\Exception $e) {
-            $this->error("Erreur lors de l'installation des permissions : " . $e->getMessage());
+            $this->error("Error during {$this->signature}  : " . $e->getMessage());
         }
 
     }

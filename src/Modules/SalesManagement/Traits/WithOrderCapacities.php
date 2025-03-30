@@ -2,12 +2,10 @@
 
 namespace Kirago\BusinessCore\Modules\SalesManagement\Traits;
 
-use Kirago\BusinessCore\Constants\DiscountType;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\TaxableItemContrat;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BaseBcInvoice;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BaseOrderItem;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Kirago\BusinessCore\Modules\SalesManagement\Contrats\TaxableItemContrat;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+use Kirago\BusinessCore\Support\Constants\DiscountType;
 
 trait WithOrderCapacities
 {

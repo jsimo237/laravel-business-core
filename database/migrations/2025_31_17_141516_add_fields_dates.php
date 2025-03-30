@@ -29,15 +29,10 @@ return new class extends Migration {
      */
     public function up(){
 
-        $classes = [
-            BcRole::class, BcPermission::class, BcUser::class, BcOrganization::class,
-            BcOrder::class,BcInvoice::class, BcOrderItem::class, BcInvoiceItem::class,
-            BcProduct::class, BcCustomer::class, BcStaff::class,
-            BcCountry::class, BcState::class, BcCity::class, BcQuarter::class, BcAddress::class,
-            BcMedia::class,
-        ];
+        $classes = config("business-core.models-has-authors");
 
         foreach ($classes as $class) {
+
             $model = (new $class);
             $table_name = $model->getTable();
 

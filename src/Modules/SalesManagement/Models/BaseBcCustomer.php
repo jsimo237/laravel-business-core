@@ -2,11 +2,12 @@
 
 namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
 
-
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Kirago\BusinessCore\Modules\MediableBcModel;
+use Kirago\BusinessCore\Modules\SalesManagement\Contrats\RecipientInteractWithOrderAndInvoice;
 use Kirago\BusinessCore\Modules\SecurityManagement\Contracts\AuthenticatableModelContract;
 use Kirago\BusinessCore\Modules\SecurityManagement\Traits\HasUser;
-use Kirago\BusinessCore\Support\Bootables\Personnable;
+
 
 /**
  * @property int id
@@ -18,23 +19,21 @@ use Kirago\BusinessCore\Support\Bootables\Personnable;
  * @property string phone
  */
 abstract class BaseBcCustomer extends MediableBcModel
-    implements AuthenticatableModelContract {
+    implements AuthenticatableModelContract,
+    RecipientInteractWithOrderAndInvoice {
 
-    use HasUser,Personnable;
+    use HasUser;
 
     //FUNCTIONS
-    public function getAuthIdentifiersFields(): array
-    {
-        return ["email","username",'phone'];
-    }
 
-    public function getGuardName(): string
-    {
-        return "customer";
-    }
+   /************ Abstract functions ************/
+    abstract public static function getAuthIdentifiersFields() : array;
+    abstract public function getGuardName() : string;
+    abstract public function orders() : MorphMany;
+    abstract public function invoices() : MorphMany;
+
 
     //
-
     public function getObjectName(): string
     {
         return $this->fullname;

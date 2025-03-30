@@ -9,6 +9,11 @@ use Kirago\BusinessCore\Modules\BaseBcModel;
 /**
  * @property string name
  * @property float price
+ * @property int count_days
+ * @property string description
+ * @property string frequency
+ * @property string maximum_persons
+ * @property string type
  * @property Advantage[] advantages
  */
 class BcPackage extends BaseBcModel {

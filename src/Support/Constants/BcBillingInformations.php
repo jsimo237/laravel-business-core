@@ -1,9 +1,9 @@
 <?php
-namespace Kirago\BusinessCore\Constants;
+namespace Kirago\BusinessCore\Support\Constants;
 
 use Illuminate\Validation\Rule;
 
-enum BillingInformations: string
+enum BcBillingInformations: string
 {
     case TYPE_INDIVIDUAL = 'INDIVIDUAL';
     case TYPE_COMPANY = 'COMPANY';
@@ -27,19 +27,19 @@ enum BillingInformations: string
     /**
      * @return string[][]
      */
-    public function baseRules(): array
+    public static function baseRules(): array
     {
         return [
-            'billing_entity_type' => ['required', Rule::in(self::values())], // ✅
-            'billing_company_name' => ['required', 'string', 'min:1', 'max:128'], // ✅ min:1 au lieu de min:0
-            'billing_firstname' => ['required', 'string', 'min:1', 'max:128'],
-            'billing_lastname' => ['required', 'string', 'min:1', 'max:128'],
-            'billing_country' => ['required', 'string', 'min:1', 'max:128'],
-            'billing_state' => ['required', 'string', 'min:1', 'max:128'],
-            'billing_city' => ['required', 'string', 'min:1', 'max:128'],
-            'billing_zipcode' => ['required', 'string', 'min:1', 'max:128'],
+            'billing_entity_type' => ['nullable', Rule::in(self::values())], // ✅
+            'billing_company_name' => ['nullable', 'string', 'min:1', 'max:128'], // ✅ min:1 au lieu de min:0
+            'billing_firstname' => ['nullable', 'string', 'min:1', 'max:128'],
+            'billing_lastname' => ['nullable', 'string', 'min:1', 'max:128'],
+            'billing_country' => ['nullable', 'string', 'min:1', 'max:128'],
+            'billing_state' => ['nullable', 'string', 'min:1', 'max:128'],
+            'billing_city' => ['nullable', 'string', 'min:1', 'max:128'],
+            'billing_zipcode' => ['nullable', 'string', 'min:1', 'max:128'],
             'billing_address' => ['nullable', 'string', 'max:128'], // ✅ "min:0" inutile
-            'billing_email' => ['required', 'email'],
+            'billing_email' => ['nullable', 'email'],
         ];
     }
 
