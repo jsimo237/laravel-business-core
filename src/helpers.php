@@ -166,23 +166,21 @@ if (!function_exists('currentOrganization')) {
      */
     function currentOrganization(): ?BcOrganization
     {
-//        $organizationId = request()->header('x-organization-id');
+        $organizationId = request()->header('x-organization-id');
 //
-//        if (blank($organizationId) && request()->hasHeader("x-guard")){
-//            $guardName = request()->header("x-guard");
-//          //   $serc = AuthService::getAuthenticable(request()->header("x-guard"));
-//
-//            /**
-//             * @var OrganizationScopable $user
-//             */
-//           if ($user = auth($guardName)->user()){
-//               $organizationId = $user->organization_id;
-//           }
-//        }
+        if (blank($organizationId) && request()->hasHeader("x-guard")){
+            $guardName = request()->header("x-guard");
+          //   $serc = AuthService::getAuthenticable(request()->header("x-guard"));
 
-//       return BcOrganization::find($organizationId);
+            /**
+             * @var OrganizationScopable $user
+             */
+           if ($user = auth($guardName)->user()){
+               $organizationId = $user->organization_id;
+           }
+        }
 
-        return null;
+       return BcOrganization::find($organizationId);
     }
 }
 

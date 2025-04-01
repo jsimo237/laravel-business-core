@@ -2,11 +2,14 @@
 
 namespace Kirago\BusinessCore\Support\Constants;
 
+
+use Symfony\Component\HttpFoundation\Response;
+
 enum BcServerStatus : int
 {
 
     case  SUCCESS                              =    200;   // request success
-    case  NOT_FOUND                            =    404;   // page/resource not found
+    case  NOT_FOUND                            =    404;   // Response::HTTP_NOT_FOUND page/resource not found
     case  AUTH_REQUIRED                        =    401;   // authentification required
     case  ALREADY_AUTHENTICATE                 =    302;   // already  authenticate
     case  PERMISSION_DENIED                    =    403;   // permissions denied
