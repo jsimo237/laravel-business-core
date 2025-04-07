@@ -116,7 +116,10 @@ class BcOrganization extends Model implements SpatieHasMedia {
      */
     function getSettingOf(BcSettingsKeys|string $key, mixed $default = null): mixed
     {
-        return $this->settings()->firstWhere('key',$key?->value)?->value ?? $default;
+        if(!is_string($key)){
+            $key = $key?->value;
+        }
+        return $this->settings()->firstWhere('key',$key)?->value ?? $default;
     }
 
     public function getObjectName(): string
