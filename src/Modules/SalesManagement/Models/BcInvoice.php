@@ -88,7 +88,7 @@ class BcInvoice extends BaseBcInvoice
 
     public function recipient(): MorphTo
     {
-        return $this->morphTo(BcCustomer::class,"recipient");
+        return $this->morphTo( __FUNCTION__);
     }
 
     public function getTotalPaied(): float

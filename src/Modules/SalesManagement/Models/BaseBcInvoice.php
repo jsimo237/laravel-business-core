@@ -30,8 +30,6 @@ use Kirago\BusinessCore\Support\Contracts\GenerateUniqueValueContrat;
  * @property string status
  * @property string code
  * @property string note
- * @property string code_folio
- * @property string invoice_type
  * @property bool has_no_taxes
  * @property \Illuminate\Database\Eloquent\Collection payments
  * @property BaseInvoiceItemContrat[] items
@@ -49,32 +47,20 @@ abstract class BaseBcInvoice extends BaseBcModel implements
 
     use WithOrderCapacities;
 
-    protected $fillable = [
-        'code',
-        'note',
-        'status',
-        'has_no_taxes',
-        'is_opened',
-        'discounts',
-        'invoice_type',
-        'expired_at',
-        'processed_at',
-    ];
-
     protected $dates = [
         'expired_at',
         'processed_at',
     ];
 
     protected $casts = [
-        'is_opened' => 'boolean',
+     //   'is_opened' => 'boolean',
         'discounts' => 'array',
     ];
 
     protected $attributes = [
         'status' => Statuses::INVOICE_CREATED,
-        'invoice_type' =>  BaseBcOrder::INVOICING_TYPE_PRODUCT,
-        'is_opened' =>  true,
+     //   'invoice_type' =>  BaseBcOrder::INVOICING_TYPE_PRODUCT,
+      //  'is_opened' =>  true,
     ];
 
 
@@ -96,25 +82,10 @@ abstract class BaseBcInvoice extends BaseBcModel implements
             $order = $invoice->order;
 
             if ($order) {
-                if (!$order->invoicing_type) {
-                    $order->invoicing_type = BaseBcOrder::INVOICING_TYPE_PRODUCT;
-                    $order->save();
-                }
-                if (blank($invoice->items)) {
-
-                    foreach ($order->items as $item) {
-                        $invoiceItem = new BcInvoiceItem();
-                        $invoiceItem->code = $item->code;
-                        $invoiceItem->note = $item->note;
-                        $invoiceItem->unit_price = $item->unit_price;
-                        $invoiceItem->quantity = $item->quantity;
-                        $invoiceItem->discount = $item->discount;
-                        $invoiceItem->taxes = $item->taxes;
-                        $invoiceItem->invoiceable()->associate($item->salesOrderable);
-                        $invoiceItem->salesInvoice()->associate($invoice);
-                        $invoiceItem->save();
-                    }
-                }
+               // if (!$order->invoicing_type) {
+                //    $order->invoicing_type = BaseBcOrder::INVOICING_TYPE_PRODUCT;
+                //    $order->save();
+               // }
             }
         });
 

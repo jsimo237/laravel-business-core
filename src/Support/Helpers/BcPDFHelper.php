@@ -3,6 +3,9 @@
 namespace Kirago\BusinessCore\Support\Helpers;
 
 use Illuminate\Support\Str;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\DomPDF\PDF as DomPDF;
+
 final class BcPDFHelper
 {
 
@@ -42,7 +45,7 @@ final class BcPDFHelper
         $pageTextX = $pageText['X'] ?? 15;
         $pageTextY = $pageText['Y'] ?? 25;
         $pageTextSize = $pageText['size'] ?? 8;
-        $pageTextLabel = $pageText['label'] ?? __('invoices.page', "Page") . ' {PAGE_NUM} ' . __('invoices.of', "Sur") . ' {PAGE_COUNT}';
+        $pageTextLabel = $pageText['label'] ?? __('Pages') . ' {PAGE_NUM} ' . __("Of") . ' {PAGE_COUNT}';
         $pageTextColor = $pageText['color'] ?? [140 / 255, 143 / 255, 149 / 255];
 
         $defaultViewData = [
