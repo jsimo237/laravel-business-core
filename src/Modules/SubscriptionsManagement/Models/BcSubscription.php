@@ -104,7 +104,7 @@ class BcSubscription extends BaseBcModel implements OrderableContrat{
     public function advantages(){
         return $this->hasManyThrough(
             Advantage::class,
-            ''
+
         );
     }
 

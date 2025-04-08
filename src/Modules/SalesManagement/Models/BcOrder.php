@@ -76,6 +76,6 @@ class BcOrder extends BaseBcOrder
 
     public function recipient(): MorphTo
     {
-        return $this->morphTo(BcCustomer::class,"recipient");
+        return $this->morphTo( __FUNCTION__);
     }
 }

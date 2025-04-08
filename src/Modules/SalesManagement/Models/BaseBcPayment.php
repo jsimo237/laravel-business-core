@@ -30,11 +30,17 @@ abstract class BaseBcPayment extends BaseBcModel implements
     EventNotifiableContract,BasePaymentContract,GenerateUniqueValueContrat
 {
 
-
     protected static function booted(){
 
-        static::saved(function (self $payment){
+        static::creating(function (self $payment) {
+            $payment->generateUniqueValue();
 
+            if (!$payment->paied_at){
+                $payment->paied_at = now();
+            }
+        });
+
+        static::saved(function (self $payment){
             $payment->handlePaymentCompleted();
         });
     }

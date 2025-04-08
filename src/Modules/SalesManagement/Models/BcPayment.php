@@ -47,20 +47,24 @@ class BcPayment extends BaseBcPayment
         $organisation = $this->getOrganization();
         // les options supplémentaire applicable à l'opération de decompte
         $options = [
+            "key" => $field,
             "prefix" => "PAY".$organisation->getKey(),
             "suffix" => date("Ym"),
             "separator" => "-",
-            "countBy" => [
-                "column" => [
-                    ["name" => "organization_id" , "value" => $organisation->getKey()],
-                    ["name" => "created_at" , "value" => date("Y-m")],
-                ]
+            "charLengthNextId" => 0,
+            "uniquesBy" => [
+                ["column" => "organization_id" , "value" => $organisation->getKey()]
             ],
+            "countBy" => [
+                ["column" => "organization_id" , "value" => $organisation->getKey()],
+                ["column" => "created_at" , "value" => date("Y-m")],
+            ]
         ];
 
         $this->$field = newId(static::class, $options);
 
     }
+
 
 
     /**

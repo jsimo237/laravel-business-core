@@ -3,20 +3,26 @@
 namespace Kirago\BusinessCore\Support\Helpers;
 
 use Carbon\Carbon;
+use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseOrderContract;
+use Kirago\BusinessCore\Modules\SalesManagement\Contrats\RecipientInteractWithOrderAndInvoice;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
+use Kirago\BusinessCore\Support\Constants\BcBillingInformations;
 use Kirago\BusinessCore\Support\Constants\BcInvoiceStatuses;
 use Kirago\BusinessCore\Support\Constants\BcInvoiceType;
+use Kirago\BusinessCore\Support\Constants\BcOrderStatuses;
 
 final class BcInvoiceHelper
 {
 
-    public static function generateInvoiceForOrder(BcOrder $order): BcInvoice
+    public static function generateInvoiceForOrder(BaseOrderContract $order): BcInvoice
     {
         $invoice = $order->invoice ?? new BcInvoice();
 
+        $recipient = $order->recipient;
+
         $invoice->status = BcInvoiceStatuses::VALIDATED->value;
-      //  $invoice->invoice_type = BcInvoiceType::PRODUCT->value;
+        $invoice->billing_entity_type = BcBillingInformations::TYPE_INDIVIDUAL->value;
         $invoice->expired_at = $order->expired_at ?? Carbon::now()->addDays(30);
         $invoice->discounts = $order->discounts ?? [];
 
@@ -30,10 +36,14 @@ final class BcInvoiceHelper
         $invoice->billing_address         = $order->billing_address ?? "N/A";
         $invoice->billing_email           = $order->billing_email ?? "N/A";
 
-        $invoice->organization()->associate($order->organization);
         $invoice->order()->associate($order);
-        $invoice->recipient()->associate($order->recipient);
+        $invoice->recipient()->associate($recipient);
+        $invoice->organization()->associate($order->organization);
         $invoice->save();
+
+        $order->status = BcOrderStatuses::VALIDATED;
+        $order->save();
+
 
         return $invoice;
     }
