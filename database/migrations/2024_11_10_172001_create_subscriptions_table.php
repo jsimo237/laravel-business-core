@@ -34,7 +34,7 @@ return new class extends Migration
                 ->cascadeOnUpdate()->cascadeOnDelete()
                 ->comment("[FK] le package");
 
-            $table->string("status",50)->default(BcSubscriptionStatuses::INIATED->value)
+            $table->string("status",50)->default(BcSubscriptionStatuses::INITIATED->value)
                 ->comment("Le statut");
 
             $table->timestamp('initiated_at')->nullable()

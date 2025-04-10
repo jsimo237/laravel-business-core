@@ -411,7 +411,7 @@ if(!function_exists("newId")){
             if (!$exist) {
                 return $newId;
             }
-        } 
+        }
         while ($attempts < $maxAttempts);
 
         throw new BcNewIdCannotGeneratedException("$errorMsg [Échec après $maxAttempts tentatives]");
