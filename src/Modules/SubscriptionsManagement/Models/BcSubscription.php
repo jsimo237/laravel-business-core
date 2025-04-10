@@ -66,9 +66,9 @@ class BcSubscription extends BaseBcModel implements OrderableContrat{
 
         static::saving(function (BcSubscription $subscription) {
           //  $status = $subscription->status;
-            $subscription->status ??= BcSubscriptionStatuses::INIATED->value;
+            $subscription->status ??= BcSubscriptionStatuses::INITIATED->value;
 
-            if($subscription->status === BcSubscriptionStatuses::INIATED->value){
+            if($subscription->status === BcSubscriptionStatuses::INITIATED->value){
                 $subscription->initiated_at ??= now();
             }
             if($subscription->status === BcSubscriptionStatuses::COMPLETED->value){
