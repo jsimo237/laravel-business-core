@@ -8,7 +8,6 @@ use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
 trait HasUser
 {
 
-
     public static function bootHasUser(){
 
     }
@@ -19,8 +18,8 @@ trait HasUser
         return $this->morphOne(
                     BcUser::class,
                     BcUser::MORPH_FUNCTION_NAME,
-                    BcUser::MORPH_ID_COLUMN,
                     BcUser::MORPH_TYPE_COLUMN,
+                    BcUser::MORPH_ID_COLUMN,
                 );
     }
 
