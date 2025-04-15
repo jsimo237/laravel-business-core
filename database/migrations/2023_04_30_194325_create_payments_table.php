@@ -38,7 +38,7 @@ return new class extends Migration
             $table->string("status",50)->default(BcPaymentStatuses::DRAFT->value)
                 ->comment("Le statut");
 
-            $table->timestamp('paied_at')
+            $table->timestamp('paid_at')
                 ->comment("La date auquel le paiement a été effectué");
 
             $table->timestamps();

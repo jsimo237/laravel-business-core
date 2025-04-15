@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Collection;
+use Kirago\BusinessCore\Support\Constants\BcPaymentStatuses;
 use Kirago\BusinessCore\Support\Exceptions\BcNewIdCannotGeneratedException;
 use Kirago\BusinessCore\Support\Helpers\BcPDFHelper;
 use Illuminate\Support\Str;
@@ -35,7 +36,7 @@ class BcInvoice extends BaseBcInvoice
         return $this->belongsTo(BcOrder::class,"order_id");
     }
 
-    public function handleInvoicePaied(): void
+    public function handleInvoicePaid(): void
     {
         // TODO: Implement handleInvoicePaied() method.
     }
@@ -91,8 +92,15 @@ class BcInvoice extends BaseBcInvoice
         return $this->morphTo( __FUNCTION__);
     }
 
-    public function getTotalPaied(): float
+    public function getTotalPaid(): float
     {
-        // TODO: Implement getTotalPaied() method.
+       return $this->payments()
+                    ->where('status',BcPaymentStatuses::VALIDATED->value)
+                    ->sum("amount");
+    }
+
+    public function getTotalRemaining(): float
+    {
+       return $this->getTotalAmount() - $this->getTotalPaid();
     }
 }

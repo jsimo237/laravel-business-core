@@ -374,7 +374,7 @@ if(!function_exists("newId")){
          */
         $query = $model::withoutGlobalScopes()
                 ->when(method_exists($model, 'bootSoftDeletes'),function ($query)use ($model){
-                    $query->withGlobalScope('SoftDeletes',new SoftDeletingScope);
+                    $query->withoutGlobalScope('SoftDeletes',new SoftDeletingScope);
                 })
 
                 ->when($countBy,function ($query) use($countBy){

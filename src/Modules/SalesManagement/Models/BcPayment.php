@@ -107,10 +107,10 @@ class BcPayment extends BaseBcPayment
         if ($this->status === Statuses::PAYMENT_COMPLETED->value) {
 
             $totalAmountFmt = number_format($invoice->getTotalAmount(), $precision, '.', '');
-            $totalPaidFmt = number_format($invoice->getTotalPaied(), $precision, '.', '');
+            $totalPaidFmt = number_format($invoice->getTotalPaid(), $precision, '.', '');
 
             if (bccomp($totalAmountFmt, $totalPaidFmt) == 0) {
-                $invoice->handleInvoicePaied();
+                $invoice->handleInvoicePaid();
             }
         }
 
