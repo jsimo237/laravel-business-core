@@ -39,6 +39,11 @@ class BcRole extends SpatieRole implements OrganizationScopable {
     const MANAGER = "Main-Manager";
     const ADMIN_RESSELER = "Admin-Resseller";
 
+
+    protected $casts = [
+        'editable' => 'boolean',
+    ];
+
     protected $appends = [
         "permissions_ids"
     ];

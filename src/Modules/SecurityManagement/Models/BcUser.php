@@ -91,6 +91,8 @@ class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopa
     protected $casts = [
         'email_verified_at' => 'datetime',
         'phone_verified_at' => 'datetime',
+        'is_active' => 'boolean',
+        'is_2fa_enabled' => 'boolean',
     ];
 
 
