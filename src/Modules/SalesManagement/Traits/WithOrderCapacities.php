@@ -13,7 +13,6 @@ trait WithOrderCapacities
 
     public static function bootWithOrderCapacities(){
 
-
     }
 
 
@@ -69,7 +68,7 @@ trait WithOrderCapacities
     /**
      * Get the order total amount
      *
-     * @return array<string, array<int|string, mixed>|float|int>
+     * @return array
      */
     public function getTaxes(): array
     {
@@ -114,7 +113,7 @@ trait WithOrderCapacities
     /**
      * Get the order total discount amount
      *
-     * @return array<string, array<int, mixed>|float|int>
+     * @return array
      */
     public function getDiscounts(): array
     {
@@ -127,14 +126,15 @@ trait WithOrderCapacities
 
         // Initialiser les réductions calculées
         $calculatedDiscounts = [
-                                    'details' => [
-                                        [
-                                            'name' => 'ITEMS_DISCOUNTS',
-                                            'type' => DiscountType::PERCENTAGE->value,
-                                            'amount' => $itemsDiscountsAmount,
-                                            'value' => $itemsDiscountsValue,
-                                        ],
-                                    ],
+                                    'details' => [],
+//                                    'details' => [
+//                                        [
+//                                            'name' => 'ITEMS_DISCOUNTS',
+//                                            'type' => DiscountType::PERCENTAGE->value,
+//                                            'amount' => $itemsDiscountsAmount,
+//                                            'value' => $itemsDiscountsValue,
+//                                        ],
+//                                    ],
                                     'total' => 0,
                                 ];
 

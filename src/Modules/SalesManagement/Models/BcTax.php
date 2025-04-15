@@ -4,6 +4,7 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
 
 
 use Kirago\BusinessCore\Modules\BaseBcModel;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Activable;
 use Kirago\BusinessCore\Support\Constants\TaxeType;
 use Kirago\BusinessCore\Support\Contracts\EventNotifiableContract;
 
@@ -22,6 +23,9 @@ use Kirago\BusinessCore\Support\Contracts\EventNotifiableContract;
  */
 class BcTax extends BaseBcModel implements EventNotifiableContract
 {
+
+    use  Activable;
+
     const TAX_CALCULATION_TYPE_AMOUNT = 'AMOUNT';
 
     const TAX_CALCULATION_TYPE_PERCENTAGE = 'PERCENTAGE';

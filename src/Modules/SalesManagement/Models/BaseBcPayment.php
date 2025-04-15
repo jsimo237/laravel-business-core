@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
  * @property string source_reference
  * @property array<string, mixed> source_response
  * @property string status
- * @property DateTime paied_at
+ * @property DateTime paid_at
  * @property int invoice_id
  */
 
@@ -35,8 +35,8 @@ abstract class BaseBcPayment extends BaseBcModel implements
         static::creating(function (self $payment) {
             $payment->generateUniqueValue();
 
-            if (!$payment->paied_at){
-                $payment->paied_at = now();
+            if (!$payment->paid_at){
+                $payment->paid_at = now();
             }
         });
 

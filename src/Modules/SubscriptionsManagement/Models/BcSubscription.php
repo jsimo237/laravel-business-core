@@ -42,11 +42,6 @@ class BcSubscription extends BaseBcModel implements OrderableContrat{
 
     protected $table = "subscriptions_mgt__subscriptions";
 
-
-    protected $appends = [
-        //'active',
-    ];
-
     protected $casts = [
         'start_at' => "datetime",
         'end_at' => "datetime",

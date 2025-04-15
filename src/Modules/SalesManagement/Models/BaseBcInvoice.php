@@ -103,7 +103,7 @@ abstract class BaseBcInvoice extends BaseBcModel implements
 
     abstract public function recipient() : MorphTo;
 
-    abstract public function handleInvoicePaied() :void;
+    abstract public function handleInvoicePaid() :void;
 
     abstract public function send() :void;
 

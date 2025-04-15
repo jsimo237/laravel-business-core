@@ -40,6 +40,7 @@ abstract class BaseBcModel extends Model
        // AuthorableTrait,
 
         HasOrganization,
+        Auditable,
         InteractWithCommonsScopeFilter;
 
     protected $guarded = [];

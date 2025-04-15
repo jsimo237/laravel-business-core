@@ -23,9 +23,10 @@ interface BaseInvoiceContract
 
     public function recipient() : MorphTo | RecipientInteractWithOrderAndInvoice;
 
-    public function handleInvoicePaied() :void;
+    public function handleInvoicePaid() :void;
 
-    public function getTotalPaied() : float;
+    public function getTotalPaid() : float;
+    public function getTotalRemaining() : float;
 
     public function send() :void;
 }

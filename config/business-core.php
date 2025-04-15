@@ -82,7 +82,7 @@ return [
         "tax" => \Kirago\BusinessCore\Modules\SalesManagement\Models\BcTax::class,
         "tax-group" => \Kirago\BusinessCore\Modules\SalesManagement\Models\BcTaxGroup::class,
         "customer" => \Kirago\BusinessCore\Modules\SalesManagement\Models\BaseBcCustomer::class,
-
+        "payment" => \Kirago\BusinessCore\Modules\SalesManagement\Models\BcPayment::class,
 
         //SubscriptionsManagement
         "subscription" =>  \Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcSubscription::class,
