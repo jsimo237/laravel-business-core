@@ -73,32 +73,41 @@ class BcOrganization extends Model implements SpatieHasMedia {
      */
     public function relatedEntities(string $target): HasMany|BelongsToMany
     {
-
         $configs = config('business-core.models-interact-with-organization');
 
-        $allTargets = array_keys($configs);
+        // Récupère toutes les classes, que ce soit avec ou sans config
+        $allTargets = collect($configs)->mapWithKeys(function ($value, $key) {
+            // Cas 1 : modèle avec config (clé = class)
+            if (is_string($key) && is_array($value)) {
+                return [$key => $value];
+            }
 
-        if (!in_array($target, $allTargets)) {
-            throw new \InvalidArgumentException("Invalid target type: {$target}. Yo can add it in config/business-core.php key 'models-interact-with-organization'");
+            // Cas 2 : modèle simple (valeur = class)
+            if (is_string($value)) {
+                return [$value => null];
+            }
+
+            return []; // sécurité
+        });
+
+        if (!$allTargets->has($target)) {
+            throw new \InvalidArgumentException("Invalid target type: {$target}. Add it to config('business-core.models-interact-with-organization').");
         }
 
-        $config = $allTargets[$target];
-        $type = $config['type'] ?? null;
+        $config = $allTargets->get($target);
 
-        if ($type === BelongsToMany::class){
+        // Relation BelongsToMany
+        if (is_array($config) && ($config['type'] ?? null) === BelongsToMany::class) {
             return $this->belongsToMany(
-                            $target,
-                            (new $config['related_model'])->getTable(),
-                            "organization_id",
-                            $config['related_column_name'],
-
-                        )
-                      //  ->as('subscription')
-                      //  ->withPivot('value as count_value')
-                ;
+                $target,
+                (new $config['related_model'])->getTable(),
+                'organization_id',
+                $config['related_column_name']
+            );
         }
 
-        return $this->hasMany($target, "organization_id");
+        // Relation HasMany
+        return $this->hasMany($target, 'organization_id');
     }
 
 

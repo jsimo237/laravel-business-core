@@ -18,6 +18,7 @@ use Kirago\BusinessCore\Modules\SalesManagement\Contrats\Billable;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\ContainItemsContrat;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\HasBillingDetails;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\HasRecipient;
+use Kirago\BusinessCore\Modules\SalesManagement\Traits\WithOrderCapacities;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
 use Kirago\BusinessCore\Support\Contracts\EventNotifiableContract;
 use Kirago\BusinessCore\Support\Contracts\GenerateUniqueValueContrat;
@@ -42,6 +43,8 @@ abstract class BaseBcOrder extends BaseBcModel implements
     ContainItemsContrat,BaseOrderContract,HasRecipient
 {
 
+
+    use WithOrderCapacities;
 
     const INVOICING_TYPE_PRODUCT = 'PRODUCT';
 

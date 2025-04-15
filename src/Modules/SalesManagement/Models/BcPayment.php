@@ -17,7 +17,7 @@ class BcPayment extends BaseBcPayment
     protected $table = "sales_mgt__payments";
 
     protected $fillable = [
-        'date',
+        'paid_at',
         'code',
         'status',
         'note',
