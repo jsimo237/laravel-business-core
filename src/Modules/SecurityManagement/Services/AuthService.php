@@ -29,6 +29,10 @@ class AuthService
         return (new $modelClass);
     }
 
+    protected function getModelClass(): string{
+        return static::getAuthenticable($this->guardName);
+    }
+
     public static function getAllAuthenticables(){
         return config("business-core.authenticables");
     }
@@ -60,9 +64,10 @@ class AuthService
         /**
          * @var array
          */
-        $identifiers = $model::getAuthIdentifiersFields();
+        $identifiers = $this->getModelClass()::getAuthIdentifiersFields();
 
-        return $model->whereMultiple($identifiers,$identifier);
+        return $model->whereMultiple($identifiers,$identifier)
+                    ->first();
 
     }
 
@@ -88,12 +93,12 @@ class AuthService
          */
         $model = $this->findModelByIdentifier($identifier);
 
-        $passwordField = $model->getAuthPasswordField();
+        $passwordField = $this->getModelClass()::getAuthPasswordField();
 
         /**
          * @var BcUser
          */
-        $user = $model->getUser();
+        $user = $model?->getUser();
 
         //si l'user n'exite pas
         if (!$user) {
@@ -125,6 +130,8 @@ class AuthService
             $abilities       = $user?->privileges ?? $user?->permissions?->pluck("name")->toArray() ?? ["*"];
 
             $newAccessToken  = $user->createToken($userAgent,$abilities,$expiredAt);
+
+         //   $refreshToken = $user->createToken('refresh-token', ['refresh'])->plainTextToken;
 
             $token           = $newAccessToken->plainTextToken;
 

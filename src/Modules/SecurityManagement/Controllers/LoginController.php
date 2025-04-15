@@ -5,7 +5,10 @@ namespace Kirago\BusinessCore\Modules\SecurityManagement\Controllers;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Carbon;
+use Illuminate\Validation\ValidationException;
 use Kirago\BusinessCore\Modules\SecurityManagement\Requests\Auth\AuthRequest;
 use Kirago\BusinessCore\Modules\SecurityManagement\Services\AuthService;
 
@@ -17,11 +20,11 @@ class LoginController extends Controller
     /**
      * Tentative d'authentification
      * @param AuthRequest $request
-     * @return mixed
+     * @throws ValidationException
      */
-    public function login(AuthRequest $request): mixed
+    public function login(AuthRequest $request): JsonResponse
     {
-        // On instancie le service avec la boone garde
+        // On instancie le service avec la bonne garde
         $authService = new AuthService($request->guard);
 
         /**
@@ -31,8 +34,7 @@ class LoginController extends Controller
 
         return response()->json([
                     'access_token' => $accessToken,
-                    'token_expired_at' => $tokenExpiredAt,
-                    'user' => $user
+                    'token_expired_at' => Carbon::parse($tokenExpiredAt)->timestamp,
                 ]);
     }
 

@@ -155,7 +155,7 @@ if (!function_exists('activeGuard')) {
 
         return $guards->first(fn(string $guard) => auth($guard)->check())
                        ?? request()->header('x-guard')
-                       ?? "web";
+                       ?? "api";
     }
 }
 
@@ -169,7 +169,7 @@ if (!function_exists('currentOrganization')) {
         $organizationId = request()->header('x-organization-id');
 //
         if (blank($organizationId) && request()->hasHeader("x-guard")){
-            $guardName = request()->header("x-guard");
+            $guardName = request()->header("x-guard") ?? "api";
           //   $serc = AuthService::getAuthenticable(request()->header("x-guard"));
 
             /**
