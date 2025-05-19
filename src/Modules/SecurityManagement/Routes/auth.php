@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use Kirago\BusinessCore\Modules\SecurityManagement\Controllers\LoginController;
 
-
+Route::get('/test-auth', function () {
+    return response()->json(['message' => 'Auth route loaded']);
+});
 Route::prefix('auth')->name('auth.')->group(function () {
 
     Route::group(function () {

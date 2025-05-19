@@ -4,12 +4,12 @@ namespace Kirago\BusinessCore\Modules\OrganizationManagement\Models;
 
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Notifications\Notifiable;
 use Kirago\BusinessCore\Database\Factories\OrganizationManagement\CustomerFactory;
-use Kirago\BusinessCore\Database\Factories\OrganizationManagement\StaffFactory;
 use Kirago\BusinessCore\Modules\MediableBcModel;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Factories\StaffFactory;
 use Kirago\BusinessCore\Modules\SecurityManagement\Contracts\AuthenticatableModelContract;
 use Kirago\BusinessCore\Modules\SecurityManagement\Traits\HasUser;
-use Illuminate\Notifications\Notifiable;
 
 
 /**

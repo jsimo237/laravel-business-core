@@ -6,18 +6,18 @@ namespace Kirago\BusinessCore\Modules\OrganizationManagement\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
-use Kirago\BusinessCore\Database\Factories\OrganizationManagement\OrganizationFactory;
 use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Activable;
 use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Auditable;
-use Kirago\BusinessCore\Modules\CoresManagement\Traits\Mediable;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Mediable;
 use Kirago\BusinessCore\Modules\HasSlug;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Constants\BcSettingsKeys;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Factories\OrganizationFactory;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
-use Kirago\BusinessCore\Support\Constants\BcSettingsKeys;
 use Spatie\MediaLibrary\HasMedia as SpatieHasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\SlugOptions;
@@ -119,7 +119,7 @@ class BcOrganization extends Model implements SpatieHasMedia {
     //FUNCTIONS
 
     /**
-     * @param BcSettingsKeys|string $key
+     * @param \Kirago\BusinessCore\Modules\LocalizationManagement\Constants\BcSettingsKeys|string $key
      * @param null $default
      * @return mixed
      */

@@ -16,6 +16,7 @@ return [
     "migrations" => [
         'sub-path' => "business-core",
     ],
+    "model_publish_path" => "app/Models",
 
 
     "models-interact-with-organization" => [
@@ -38,6 +39,7 @@ return [
          */
         \Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser::class ,
         \Kirago\BusinessCore\Modules\SecurityManagement\Models\BcRole::class ,
+        \Kirago\BusinessCore\Modules\SecurityManagement\Models\BcOtpCode::class ,
         \Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcContactForm::class,
         \Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcSetting::class,
         \Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia::class,
@@ -66,13 +68,13 @@ return [
         "role" => \Kirago\BusinessCore\Modules\SecurityManagement\Models\BcRole::class,
         "permission" => \Kirago\BusinessCore\Modules\SecurityManagement\Models\BcPermission::class,
         "user" => \Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser::class,
+        "otp-code" =>  \Kirago\BusinessCore\Modules\SecurityManagement\Models\BcOtpCode::class,
 
         //LocalizationManagement
         "country" => \Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcCountry::class,
         "state" => \Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcState::class,
         "city" => \Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcCity::class,
         "quarter" => \Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcQuarter::class,
-
 
         //SalesManagegement
         "order" => \Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder::class,
@@ -89,6 +91,7 @@ return [
         "plan" =>  \Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcPlan::class,
         "package" =>  \Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcPackage::class,
         //"advantage" =>  \Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcAdvantage::class,
+
     ],
 
     "models-has-authors" => [

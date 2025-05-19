@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\File;
 class Setup extends Command
 {
     protected $signature = 'bc:setup';
-    protected $description = "Install all tables in the database";
+
+    protected $description = "Install all business-core tables in the database";
 
     public function handle()
     {
-
         // Désactiver les contraintes de clé étrangère temporairement
         DB::statement("SET FOREIGN_KEY_CHECKS=0");
 
@@ -25,13 +25,15 @@ class Setup extends Command
             Artisan::call("vendor:publish", [ "--tag" => "bc-config-all" ]);
             $this->info("✅  all orthers configs files published.");
        // }
-//        if ($this->confirm("Dou you want to publish orthers configs files ?", false)) {
-//            Artisan::call("vendor:publish", [ "--tag" => "bc-config-all" ]);
-//            $this->info("✅  all orthers configs files published.");
-//        }
+
         if ($this->confirm("Dou you want to publish all business-core data files ?", true)) {
             Artisan::call("vendor:publish", [ "--tag" => "bc-data" ]);
             $this->info("✅ Published! You can see directory config/bc-data .");
+        }
+        if ($this->confirm("Dou you want to publish all business-core src files ?", true)) {
+            Artisan::call("vendor:publish", [ "--tag" => "bc-src" ]);
+            Artisan::call("bc:fix-namespaces", []);
+            $this->info("✅ Published! You can customize JsonApi,Models and more .");
         }
 
         // Demander à l'utilisateur s'il veut publier les migrations
@@ -63,7 +65,7 @@ class Setup extends Command
 //        $this->info("✅ All Permissions data have been created .");
 
 
-        Artisan::call("optimize:clear");
+     //   Artisan::call("optimize:clear");
         // Créee les permissions
        // Artisan::call("bc:install/permissions");
        // $this->info("✅ All Permissions Data created in database");

@@ -2,10 +2,9 @@
 
 namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
 
-
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Kirago\BusinessCore\Modules\SalesManagement\Factories\CustomerFactory;
 use Kirago\BusinessCore\Modules\SecurityManagement\Contracts\AuthenticatableModelContract;
-use Kirago\BusinessCore\Modules\SecurityManagement\Traits\HasUser;
 
 /**
  * @property int id
@@ -23,6 +22,10 @@ class BcCustomer extends BaseBcCustomer implements AuthenticatableModelContract 
     //RELATIONS
 
     //FUNCTIONS
+    protected static function newFactory(){
+        return CustomerFactory::new();
+    }
+
     public static function getAuthIdentifiersFields(): array
     {
         return ["email","username",'phone'];
