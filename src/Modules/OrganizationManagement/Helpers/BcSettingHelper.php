@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirago\BusinessCore\Support\Helpers;
+namespace Kirago\BusinessCore\Modules\OrganizationManagement\Helpers;
 
 use Carbon\Carbon;
 

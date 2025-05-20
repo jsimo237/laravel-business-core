@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirago\BusinessCore\Database\Factories\SubscriptionsManagement;
+namespace Kirago\BusinessCore\Modules\SubscriptionsManagement\Factories;
 
 
 use Illuminate\Database\Eloquent\Factories\Factory;

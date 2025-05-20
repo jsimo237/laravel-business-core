@@ -1,19 +1,20 @@
 <?php
 
-namespace Kirago\BusinessCore\Support\Helpers;
+namespace Kirago\BusinessCore\Modules\SalesManagement\Helpers;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcOrderStatuses;
+use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcPaymentSource;
+use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcPaymentStatuses;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\OrderableContrat;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoiceItem;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcPayment;
-use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcOrderStatuses;
-use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcPaymentSource;
-use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcPaymentStatuses;
 use Kirago\BusinessCore\Modules\SubscriptionsManagement\Constants\BcSubscriptionStatuses;
 use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcSubscription;
+use function Kirago\BusinessCore\Support\Helpers\now;
 
 final class BcOrderHelper
 {

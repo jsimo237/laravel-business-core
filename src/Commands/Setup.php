@@ -31,8 +31,9 @@ class Setup extends Command
             $this->info("✅ Published! You can see directory config/bc-data .");
         }
         if ($this->confirm("Dou you want to publish all business-core src files ?", true)) {
-            Artisan::call("vendor:publish", [ "--tag" => "bc-src" ]);
-            Artisan::call("bc:fix-namespaces", []);
+           // Artisan::call("vendor:publish", [ "--tag" => "bc-src" ]);
+            Artisan::call("bc:publish-core-folders");
+          //  Artisan::call("bc:fix-namespaces", []);
             $this->info("✅ Published! You can customize JsonApi,Models and more .");
         }
 

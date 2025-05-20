@@ -1,9 +1,10 @@
 <?php
 
-namespace Database\Factories\SubscriptionManagement;
+namespace Kirago\BusinessCore\Modules\SubscriptionsManagement\Factories;
 
-use App\Models\SubscriptionManagement\Advantage;
+
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcAdvantage;
 
 /**
  * @extends Factory
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class AdvantageFactory extends Factory
 {
 
-    protected $model = Advantage::class;
+    protected $model = BcAdvantage::class;
     /**
      * Define the model's default state.
      *

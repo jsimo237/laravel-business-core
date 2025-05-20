@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirago\BusinessCore\Support\Helpers;
+namespace Kirago\BusinessCore\Modules\SecurityManagement\Helpers;
 
 use Exception;
 use Illuminate\Database\Eloquent\Model;
@@ -8,6 +8,9 @@ use Illuminate\Support\Str;
 use Kirago\BusinessCore\Modules\BaseBcModel;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcOtpCode;
+use Kirago\BusinessCore\Support\Helpers\OtpCode;
+use function currentOrganization;
+use function Kirago\BusinessCore\Support\Helpers\now;
 
 final class OtpCodeHelper
 {

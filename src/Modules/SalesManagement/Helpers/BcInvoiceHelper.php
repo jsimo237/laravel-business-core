@@ -1,14 +1,14 @@
 <?php
 
-namespace Kirago\BusinessCore\Support\Helpers;
+namespace Kirago\BusinessCore\Modules\SalesManagement\Helpers;
 
 use Carbon\Carbon;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseOrderContract;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BaseBcOrder;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
 use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcBillingInformations;
 use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcInvoiceStatuses;
 use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcOrderStatuses;
+use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseOrderContract;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\BaseBcOrder;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
 
 final class BcInvoiceHelper
 {

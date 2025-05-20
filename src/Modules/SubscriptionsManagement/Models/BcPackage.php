@@ -3,8 +3,8 @@
 namespace Kirago\BusinessCore\Modules\SubscriptionsManagement\Models;
 
 
-use Kirago\BusinessCore\Database\Factories\SubscriptionsManagement\PackageFactory;
 use Kirago\BusinessCore\Modules\BaseBcModel;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Factories\PackageFactory;
 
 /**
  * @property string name
@@ -14,7 +14,7 @@ use Kirago\BusinessCore\Modules\BaseBcModel;
  * @property string frequency
  * @property string maximum_persons
  * @property string type
- * @property Advantage[] advantages
+ * @property BcAdvantage[] advantages
  */
 class BcPackage extends BaseBcModel {
 
@@ -37,7 +37,7 @@ class BcPackage extends BaseBcModel {
 
     public function advantages(){
         return $this->belongsToMany(
-            Advantage::class,
+            BcAdvantage::class,
             (new BcPackageHasAdvantage)->getTable(),
             "package_id",
             "advantage_code",
@@ -50,7 +50,7 @@ class BcPackage extends BaseBcModel {
     //
     public function advantagesList(){
         return $this->advantages
-                    ->map(fn(Advantage $advantage) => match ($advantage->count_value){
+                    ->map(fn(BcAdvantage $advantage) => match ($advantage->count_value){
                       null => "(Illimité) ".$advantage->title,
                       default => "(x{$advantage->count_value}) ".$advantage->title,
                     })

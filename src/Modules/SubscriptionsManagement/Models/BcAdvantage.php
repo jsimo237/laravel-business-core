@@ -5,7 +5,7 @@ namespace Kirago\BusinessCore\Modules\SubscriptionsManagement\Models;
 
 use Kirago\BusinessCore\Modules\BaseBcModel;
 
-class Advantage extends BaseBcModel {
+class BcAdvantage extends BaseBcModel {
 
     protected $table = "subscriptions_mgt__advantages";
 
