@@ -40,7 +40,8 @@
         "laravel-notification-channels/webpush": "*",
         "spatie/laravel-sluggable": "*",
         "laravel-json-api/laravel": "*",
-        "simplesoftwareio/simple-qrcode": "*"
+        "simplesoftwareio/simple-qrcode": "*",
+        "kirago/laravel-xpeedy-service": "dev-main"
     },
     "require-dev": {
     },

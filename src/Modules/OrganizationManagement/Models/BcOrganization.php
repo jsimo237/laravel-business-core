@@ -119,7 +119,7 @@ class BcOrganization extends Model implements SpatieHasMedia {
     //FUNCTIONS
 
     /**
-     * @param \Kirago\BusinessCore\Modules\LocalizationManagement\Constants\BcSettingsKeys|string $key
+     * @param BcSettingsKeys|string $key
      * @param null $default
      * @return mixed
      */

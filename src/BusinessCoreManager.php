@@ -9,39 +9,43 @@ use RecursiveIteratorIterator;
 
 
 
-class BcRouteManager
+class BusinessCoreManager
 {
 
     /**
      * Découvre et enregistre toutes les routes (web + api)
      */
-    public function discover(): void
+    public function discoverRoutes(?string $prefix = null): void
     {
-        $this->discoverWeb();
-        $this->discoverApi();
+        $this->discoverWebRoutes($prefix);
+        $this->discoverApiRoutes($prefix);
     }
 
     /**
      * Découvre uniquement les routes web (nommées `web.php`)
      */
-    public function discoverWeb(): void
+    public function discoverWebRoutes(?string $prefix = null): void
     {
         $webRoutes = $this->getRouteFilesMatching('web.php');
 
         foreach ($webRoutes as $file) {
-            Route::middleware('web')->group($file);
+            Route::middleware('web')
+                ->prefix(filled($prefix) ? $prefix : "")
+                ->group($file);
         }
     }
 
     /**
      * Découvre uniquement les routes API (nommées `api.php`)
      */
-    public function discoverApi(): void
+    public function discoverApiRoutes(?string $prefix = null): void
     {
         $apiRoutes = $this->getRouteFilesMatching('api.php');
 
         foreach ($apiRoutes as $file) {
-            Route::prefix('api')->middleware('api')->group($file);
+            Route::middleware('api')
+                ->prefix(filled($prefix) ? "api/$prefix" : "api")
+                ->group($file);
         }
     }
 
@@ -53,8 +57,8 @@ class BcRouteManager
         $basePath = __DIR__ . '/Modules';
 
         $iterator = new RecursiveIteratorIterator(
-                new RecursiveDirectoryIterator($basePath)
-            );
+                        new RecursiveDirectoryIterator($basePath)
+                    );
 
         $result = [];
 

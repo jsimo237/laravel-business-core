@@ -25,7 +25,7 @@ class AuthRequest extends FormRequest
         return [
             'identifier'  => ['required', 'string'],
             'password'    => ['required', 'string', Password::defaults() ],
-            'guard'       => ['required', 'string', Rule::in($guards) ],
+            'guard'       => ['nullable', 'string', Rule::in($guards) ],
             'remember'    => ['nullable', 'boolean'],
         ];
     }

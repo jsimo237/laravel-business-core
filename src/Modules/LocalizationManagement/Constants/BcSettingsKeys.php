@@ -9,6 +9,7 @@ enum BcSettingsKeys : string
     case AMOUNT_SEPARATOR = 'AMOUNT_SEPARATOR';
     case LOGOS = 'LOGOS';
     case GOOGLE_TAG_MANAGER = 'GOOGLE_TAG_MANAGER';
+    case XPEEDY_CONFIG = 'XPEEDY_CONFIG';
 
 
     public static function allTypes(): array

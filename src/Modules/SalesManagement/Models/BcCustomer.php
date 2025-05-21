@@ -33,7 +33,7 @@ class BcCustomer extends BaseBcCustomer implements AuthenticatableModelContract 
 
     public function getGuardName(): string
     {
-        return "customer";
+        return "api";
     }
 
     //

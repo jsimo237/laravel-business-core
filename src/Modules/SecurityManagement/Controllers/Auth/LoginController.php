@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirago\BusinessCore\Modules\SecurityManagement\Controllers;
+namespace Kirago\BusinessCore\Modules\SecurityManagement\Controllers\Auth;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -25,7 +25,7 @@ class LoginController extends Controller
     public function login(AuthRequest $request): JsonResponse
     {
         // On instancie le service avec la bonne garde
-        $authService = new AuthService($request->guard);
+        $authService = new AuthService($request->header("x-auth-guard"));
 
         /**
          * @var array
@@ -35,6 +35,7 @@ class LoginController extends Controller
         return response()->json([
                     'access_token' => $accessToken,
                     'token_expired_at' => Carbon::parse($tokenExpiredAt)->timestamp,
+                    'token_type' => 'Bearer',
                 ]);
     }
 

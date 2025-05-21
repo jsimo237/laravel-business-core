@@ -121,6 +121,6 @@ return [
     ],
 
     "console-commands" => [
-
+        \Kirago\BusinessCore\Modules\OrganizationManagement\Commands\CreateStaffCommand::class,
     ]
 ];

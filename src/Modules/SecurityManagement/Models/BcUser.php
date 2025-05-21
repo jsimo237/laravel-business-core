@@ -2,6 +2,7 @@
 
 namespace Kirago\BusinessCore\Modules\SecurityManagement\Models;
 
+use DateTime;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -11,6 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
+use Kirago\BusinessCore\Modules\Authorable;
 use Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia;
 use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Activable;
 use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Auditable;
@@ -49,6 +51,8 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property string|null city
  * @property string|null zipcode
  * @property string|null address
+ * @property string|DateTime|null email_verified_at
+ * @property string|DateTime|null phone_verified_at
  * @property Collection<BcRole> roles
  * @property Collection<BcPermission> permissions
  * @property Collection<BcMedia> media
@@ -62,6 +66,7 @@ class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopa
 
     use MustVerifyEmail,Notifiable;
    // use HasRelationships;
+    use Authorable;
 
     use HasOrganization,Mediable,
         Activable,Auditable,
