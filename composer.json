@@ -41,7 +41,7 @@
         "spatie/laravel-sluggable": "*",
         "laravel-json-api/laravel": "*",
         "simplesoftwareio/simple-qrcode": "*",
-        "kirago/laravel-xpeedy-service": "dev-main"
+        "kirago/laravel-xpeedy-service": "*"
     },
     "require-dev": {
     },
