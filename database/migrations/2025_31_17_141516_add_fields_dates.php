@@ -29,7 +29,7 @@ return new class extends Migration {
      */
     public function up(){
 
-        $classes = config("business-core.models-has-authors");
+        $classes = \Kirago\BusinessCore\Support\Constants\BusinessCoreConfigs::getModelsHasAuthors();
 
         foreach ($classes as $class) {
             $model = (new $class);

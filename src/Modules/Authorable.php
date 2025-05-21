@@ -78,7 +78,7 @@ trait Authorable
         static $auth = null;
 
         if ($auth === null) {
-            $auth = app('auth')->guard($this->getGuardName());
+            $auth = app('auth')->guard($this->guardName());
         }
 
         return $auth;

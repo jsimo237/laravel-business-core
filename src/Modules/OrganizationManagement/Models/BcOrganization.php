@@ -18,6 +18,7 @@ use Kirago\BusinessCore\Modules\HasSlug;
 use Kirago\BusinessCore\Modules\LocalizationManagement\Constants\BcSettingsKeys;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Factories\OrganizationFactory;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+use Kirago\BusinessCore\Support\Constants\BusinessCoreConfigs;
 use Spatie\MediaLibrary\HasMedia as SpatieHasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\SlugOptions;
@@ -73,7 +74,7 @@ class BcOrganization extends Model implements SpatieHasMedia {
      */
     public function relatedEntities(string $target): HasMany|BelongsToMany
     {
-        $configs = config('business-core.models-interact-with-organization');
+        $configs = BusinessCoreConfigs::getModelsInteractWithOrganization();
 
         // Récupère toutes les classes, que ce soit avec ou sans config
         $allTargets = collect($configs)->mapWithKeys(function ($value, $key) {
@@ -91,7 +92,7 @@ class BcOrganization extends Model implements SpatieHasMedia {
         });
 
         if (!$allTargets->has($target)) {
-            throw new \InvalidArgumentException("Invalid target type: {$target}. Add it to config('business-core.models-interact-with-organization').");
+            throw new \InvalidArgumentException("Invalid target type: {$target}.");
         }
 
         $config = $allTargets->get($target);

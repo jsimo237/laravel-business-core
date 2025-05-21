@@ -35,9 +35,9 @@ abstract class BaseBcModel extends Model
             OrganizationScopable
 {
 
-    use HasFactory,SoftDeletes,
+    use HasFactory,
+        SoftDeletes,
         Authorable,
-
         HasOrganization,
         Auditable,
         InteractWithCommonsScopeFilter;

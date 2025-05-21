@@ -28,7 +28,9 @@ abstract class BaseBcCustomer extends MediableBcModel
 
    /************ Abstract functions ************/
     abstract public static function getAuthIdentifiersFields() : array;
-    abstract public function getGuardName() : string;
+    abstract public static function getAuthPasswordField() : string;
+   // abstract public function getGuardName() : string;
+    abstract public function guardName() : string;
     abstract public function orders() : MorphMany;
     abstract public function invoices() : MorphMany;
 

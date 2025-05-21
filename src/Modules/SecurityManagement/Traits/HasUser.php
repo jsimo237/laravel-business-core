@@ -29,7 +29,7 @@ trait HasUser
     }
 
     //
-    public static function getAuthPasswordField(): ?string
+    public static function getAuthPasswordField(): string
     {
         return "password";
     }

@@ -23,5 +23,5 @@ interface AuthenticatableModelContract
     /**
      * Retourne le nom de la garde utilisée par ce modèle
      */
-    public function getGuardName(): string;
+    public function guardName(): string;
 }

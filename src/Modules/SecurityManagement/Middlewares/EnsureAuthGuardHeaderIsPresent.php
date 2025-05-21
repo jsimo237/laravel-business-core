@@ -4,6 +4,7 @@ namespace Kirago\BusinessCore\Modules\SecurityManagement\Middlewares;
 
 use Closure;
 use Illuminate\Http\Request;
+use Kirago\BusinessCore\Support\Constants\BusinessCoreConfigs;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class EnsureAuthGuardHeaderIsPresent
@@ -17,7 +18,7 @@ class EnsureAuthGuardHeaderIsPresent
         );
 
         $guardName = $request->header('x-auth-guard');
-        $guards = array_keys(config("business-core.authenticables") ?? []);
+        $guards = array_keys(BusinessCoreConfigs::getAuthenticables() ?? []);
 
         throw_if(
             filled($guards) && !in_array($guardName, $guards),

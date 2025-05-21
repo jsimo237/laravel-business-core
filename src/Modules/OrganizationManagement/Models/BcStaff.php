@@ -39,7 +39,7 @@ class BcStaff extends MediableBcModel implements AuthenticatableModelContract {
         return ["email","username"];
     }
 
-    public function getGuardName(): string
+    public function guardName(): string
     {
         return "api";
     }
