@@ -1,0 +1,94 @@
+<?php
+
+namespace Kirago\BusinessCore\Modules\SecurityManagement\Controllers\Auth;
+
+
+use App\Http\Controllers\Controller;
+use Exception;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcOtpCode;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+
+class OtpCodeController extends Controller
+{
+
+    /**
+     * @throws ValidationException
+     */
+    public function verify(Request $request) : JsonResponse{
+
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'code' => ['required', 'string' , Rule::exists((new BcOtpCode)->getTable())],
+                'email' => ['required', 'string' , Rule::exists((new BcUser)->getTable(),"email")],
+            ]);
+
+        $validated = $validator->validate();
+
+        $user = BcUser::firstWhere('email', $validated['email']);
+
+        $isValid = \Kirago\BusinessCore\Modules\SecurityManagement\Helpers\OtpCodeHelper::verify($user, $validated['code']);
+
+
+        throw_if(
+            !$isValid ,
+            ValidationException::withMessages(
+                ['code' => 'Code OTP invalide ou expiré.']
+            )
+        );
+
+        $user->markEmailAsVerified();
+
+        return response()->json([
+            'message' => 'Code OTP validé avec succès.',
+        ]);
+
+    }
+
+    /**
+     * Renvoie un nouveau code OTP pour un utilisateur spécifique.
+     *
+     * Cette méthode génère un nouveau code OTP pour l'utilisateur donné et
+     * envoie un événement de génération de code OTP.
+     *
+     * @param Request $request
+     * @return JsonResponse La réponse JSON contenant un message de succès ou d'échec.
+     * @throws ValidationException
+     * @throws Exception
+     */
+    public function resend(Request $request) : JsonResponse{
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'email' => ['required', 'string' , Rule::exists((new BcUser)->getTable(),"email")],
+            ]
+        );
+
+        $validated = $validator->validate();
+
+        /**
+         * @var BcUser $user
+         */
+        $user = BcUser::firstWhere('email', $validated['email']);
+
+        // Génère un nouveau code OTP pour l'utilisateur
+        $otp = OtpCodeHelper::generateFor($user);
+
+        event(new OtpCodeGenerated($otp,__("Verification Email")));
+
+        return response()->json([
+            'message' => __("Un nouveau code OTP a été envoyé à votre adresse email."),
+        ]);
+
+    }
+
+
+}
