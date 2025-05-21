@@ -7,13 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Kirago\BusinessCore\Support\Bootables\Paginable;
 use Kirago\BusinessCore\Support\Contracts\EventNotifiableContract;
 use Staudenmeir\EloquentHasManyDeep\HasOneDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 class BcQuarter extends Model implements EventNotifiableContract {
-    use HasFactory,SoftDeletes,Paginable,
+    use HasFactory,SoftDeletes,
         HasRelationships;
 
     protected $table = "localization_mgt__quarters";

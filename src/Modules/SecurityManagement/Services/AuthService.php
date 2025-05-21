@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Carbon;
+use Kirago\BusinessCore\Support\Constants\BusinessCoreConfigs;
 
 class AuthService
 {
@@ -24,7 +25,7 @@ class AuthService
     }
 
 
-    protected function getModelInstance(): AuthenticatableModelContract{
+    protected function getModelInstance() : mixed{
         $modelClass = static::getAuthenticable($this->guardName);
         return (new $modelClass);
     }
@@ -33,18 +34,19 @@ class AuthService
         return static::getAuthenticable($this->guardName);
     }
 
-    public static function getAllAuthenticables(){
-        return config("business-core.authenticables");
+    public static function getAllAuthenticables(): array
+    {
+        return BusinessCoreConfigs::getAuthenticables();
     }
 
     public static function getAuthenticable(string $guardName){
-        return config("business-core.authenticables.$guardName");
+        return self::getAllAuthenticables()[$guardName] ?? null;
     }
 
     /**
      * Recherche un utilisateur à partir des identifiants définis par son modèle.
      */
-    public function findUserByIdentifier(string $identifier): ?BcUser
+    public function findUserByIdentifier(string $identifier): mixed
     {
         /**
          * @var AuthenticatableModelContract
@@ -54,7 +56,7 @@ class AuthService
         return $model?->getUser();
     }
 
-    public function findModelByIdentifier(string $identifier): ?AuthenticatableModelContract
+    public function findModelByIdentifier(string $identifier) : mixed
     {
         /**
          * @var Builder

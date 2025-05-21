@@ -5,7 +5,7 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
 
 use Kirago\BusinessCore\Modules\BaseBcModel;
 use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Activable;
-use Kirago\BusinessCore\Support\Constants\TaxeType;
+use Kirago\BusinessCore\Modules\SalesManagement\Constants\TaxeType;
 use Kirago\BusinessCore\Support\Contracts\EventNotifiableContract;
 
 /**

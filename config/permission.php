@@ -39,7 +39,7 @@ return [
          * default value but you may easily change it to any table you like.
          */
 
-        'roles' => (new \Kirago\BusinessCore\Modules\SecurityManagement\Models\BcRole)->getTable(),
+        'roles' => \Kirago\BusinessCore\Modules\SecurityManagement\Models\BcRole::TABLE_NAME,
 
         /*
          * When using the "HasPermissions" trait from this package, we need to know which
@@ -47,7 +47,7 @@ return [
          * default value but you may easily change it to any table you like.
          */
 
-        'permissions' => (new \Kirago\BusinessCore\Modules\SecurityManagement\Models\BcPermission)->getTable(),
+        'permissions' => \Kirago\BusinessCore\Modules\SecurityManagement\Models\BcPermission::TABLE_NAME,
 
         /*
          * When using the "HasPermissions" trait from this package, we need to know which

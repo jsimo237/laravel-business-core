@@ -4,7 +4,7 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Traits;
 
 
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\ModelIsBillableTo;
-use Kirago\BusinessCore\Support\Constants\BcBillingInformations;
+use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcBillingInformations;
 
 /**
  * @property string billing_entity_type

@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Activable;
 use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Auditable;
 use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\InteractWithCommonsScopeFilter;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Contrats\OrganizationScopable;
@@ -36,9 +35,9 @@ abstract class BaseBcModel extends Model
             OrganizationScopable
 {
 
-    use HasFactory,SoftDeletes,
-       // AuthorableTrait,
-
+    use HasFactory,
+        SoftDeletes,
+        Authorable,
         HasOrganization,
         Auditable,
         InteractWithCommonsScopeFilter;

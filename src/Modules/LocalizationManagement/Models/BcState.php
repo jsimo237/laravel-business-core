@@ -9,11 +9,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kirago\BusinessCore\Modules\LocalizationManagement\Database\Factories\StateFactory;
-use Kirago\BusinessCore\Support\Bootables\Paginable;
 use Kirago\BusinessCore\Support\Contracts\EventNotifiableContract;
 
 class BcState extends Model implements EventNotifiableContract {
-    use HasFactory,SoftDeletes,Paginable;
+    use HasFactory,SoftDeletes;
 
     protected $table = "localization_mgt__states";
     protected $guarded = [];

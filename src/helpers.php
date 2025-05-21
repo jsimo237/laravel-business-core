@@ -2,24 +2,25 @@
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use Illuminate\Support\Arr;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Constants\BcSettingsKeys;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Contrats\OrganizationScopable;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
-use Kirago\BusinessCore\Modules\SecurityManagement\Services\AuthService;
-use Kirago\BusinessCore\Support\Constants\BcSettingsKeys;
 use Kirago\BusinessCore\Support\Exceptions\BcNewIdCannotGeneratedException;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Stevebauman\Location\Facades\Location;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use LaravelJsonApi\Core\JsonApiService;
 
 
 if (!function_exists('format_amount')) {
@@ -29,7 +30,10 @@ if (!function_exists('format_amount')) {
 
         $organization = currentOrganization();
         if(isset($currency) and is_bool($currency) and $currency == true){
-            $currency = $organization->getSettingOf(BcSettingsKeys::AMOUNT_CURRENCY,"XAF");
+            $currency = $organization->getSettingOf(
+                            BcSettingsKeys::AMOUNT_CURRENCY,
+                            "XAF"
+                        );
         }
 
         $separator ??= $organization->getSettingOf(BcSettingsKeys::AMOUNT_CURRENCY," ");
@@ -482,5 +486,20 @@ if (! function_exists('manager')) {
     {
         $user ??= auth((new BcUser)->guardName())?->user();
         return $user?->manager;
+    }
+}
+
+if (! function_exists('jsonApi')) {
+
+    /**
+     * @throws BindingResolutionException
+     */
+    function jsonApi()
+    {
+        $factory = app();
+        if (func_num_args() === 0) {
+            return $factory;
+        }
+        return app()->make(JsonApiService::class);
     }
 }

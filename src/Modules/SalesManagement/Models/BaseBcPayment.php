@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
  * @property string status
  * @property DateTime paid_at
  * @property int invoice_id
+ * @property string category
+ * @property string method
  */
 
 abstract class BaseBcPayment extends BaseBcModel implements

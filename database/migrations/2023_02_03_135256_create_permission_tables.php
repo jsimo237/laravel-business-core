@@ -51,11 +51,11 @@ return new class extends Migration {
                 $table->bigIncrements('id'); // role id
                 if ($teams || config('permission.testing')) { // permission.testing is a fix for sqlite testing
                     $table->unsignedBigInteger($columnNames['team_foreign_key'])->nullable();
-                    $table->index($columnNames['team_foreign_key'], 'roles_team_foreign_key_index');
+                    $table->index($columnNames['team_foreign_key'], uniqid("IDX_"));
                 }
-                $table->string('name')
+                $table->string('name',125)
                     ->comment("Le nom (Ex:'role-list')");       // For MySQL 8.0 use string('name', 125);
-                $table->string('guard_name')
+                $table->string('guard_name',125)
                     ->comment("La guard d'authentification (Ex : 'users')"); // For MySQL 8.0 use string('guard_name', 125);
 
                 $table->boolean("editable")->default(true)
@@ -77,10 +77,10 @@ return new class extends Migration {
             Schema::create($tableNames['model_has_permissions'], function (Blueprint $table) use ($tableNames, $columnNames, $teams, $pivotPermission) {
                 $table->unsignedBigInteger($pivotPermission);
 
-                $table->string('model_type');
+                $table->string('model_type',125);
                 //$table->unsignedBigInteger($columnNames['model_morph_key']);
-                $table->string($columnNames['model_morph_key'], 100);
-                $table->index([$columnNames['model_morph_key'], 'model_type'], 'model_has_permissions_model_id_model_type_index');
+                $table->string($columnNames['model_morph_key'],100);
+                $table->index([$columnNames['model_morph_key'], 'model_type'], uniqid("IDX_"));
 
                 $table->foreign($pivotPermission)
                     ->references('id') // permission id
@@ -88,26 +88,27 @@ return new class extends Migration {
                     ->onDelete('cascade');
                 if ($teams) {
                     $table->unsignedBigInteger($columnNames['team_foreign_key']);
-                    $table->index($columnNames['team_foreign_key'], 'model_has_permissions_team_foreign_key_index');
+                    $table->index($columnNames['team_foreign_key'], uniqid("IDX_"));
 
                     $table->primary([$columnNames['team_foreign_key'], $pivotPermission, $columnNames['model_morph_key'], 'model_type'],
-                        'model_has_permissions_permission_model_type_primary');
+                        uniqid("IDX_"));
                 } else {
                     $table->primary([$pivotPermission, $columnNames['model_morph_key'], 'model_type'],
-                        'model_has_permissions_permission_model_type_primary');
+                        uniqid("IDX_"));
                 }
 
             });
         }
 
         if(!Schema::hasTable($tableNames['model_has_roles'])) {
-            Schema::create($tableNames['model_has_roles'], function (Blueprint $table) use ($tableNames, $columnNames, $teams, $pivotRole) {
+            Schema::create($tableNames['model_has_roles'], function (Blueprint $table)
+            use ($tableNames, $columnNames, $teams, $pivotRole) {
                 $table->unsignedBigInteger($pivotRole);
 
-                $table->string('model_type');
+                $table->string('model_type',125);
                 //$table->unsignedBigInteger($columnNames['model_morph_key']);
-                $table->string($columnNames['model_morph_key'], 100);
-                $table->index([$columnNames['model_morph_key'], 'model_type'], 'model_has_roles_model_id_model_type_index');
+                $table->string($columnNames['model_morph_key'],100);
+                $table->index([$columnNames['model_morph_key'], 'model_type'], uniqid("IDX_"));
 
                 $table->foreign($pivotRole)
                     ->references('id') // role id
@@ -115,13 +116,13 @@ return new class extends Migration {
                     ->onDelete('cascade');
                 if ($teams) {
                     $table->unsignedBigInteger($columnNames['team_foreign_key']);
-                    $table->index($columnNames['team_foreign_key'], 'model_has_roles_team_foreign_key_index');
+                    $table->index($columnNames['team_foreign_key'], uniqid("IDX_"));
 
                     $table->primary([$columnNames['team_foreign_key'], $pivotRole, $columnNames['model_morph_key'], 'model_type'],
-                        'model_has_roles_role_model_type_primary');
+                        uniqid("PK_"));
                 } else {
                     $table->primary([$pivotRole, $columnNames['model_morph_key'], 'model_type'],
-                        'model_has_roles_role_model_type_primary');
+                        uniqid("PQ_"));
                 }
             });
         }
@@ -141,7 +142,7 @@ return new class extends Migration {
                     ->onDelete('cascade');
 
                 $table->primary([$pivotPermission, $pivotRole],
-                    'role_has_permissions_permission_id_role_id_primary');
+                    uniqid("PK_"));
             });
         }
         app('cache')

@@ -3,9 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Constants\BcSubscriptionStatuses;
 use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcPackage;
 use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcSubscription;
-use Kirago\BusinessCore\Support\Constants\BcSubscriptionStatuses;
 
 return new class extends Migration
 {

@@ -2,6 +2,7 @@
 
 namespace Kirago\BusinessCore\Modules\SecurityManagement\Models;
 
+use DateTime;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -11,16 +12,17 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
-use Kirago\BusinessCore\Database\Factories\SecurityManagement\UserFactory;
+use Kirago\BusinessCore\Modules\Authorable;
 use Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia;
 use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Activable;
 use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Auditable;
 use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\InteractWithCommonsScopeFilter;
-use Kirago\BusinessCore\Modules\CoresManagement\Traits\Mediable;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Mediable;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Contrats\OrganizationScopable;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcStaff;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Traits\HasOrganization;
 use Kirago\BusinessCore\Modules\SecurityManagement\Contracts\AuthenticatableModelContract;
+use Kirago\BusinessCore\Modules\SecurityManagement\Factories\UserFactory;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\Traits\UserInteractWithSomeEntity;
 use Kirago\BusinessCore\Modules\SecurityManagement\Observers\UserObserver;
 use Kirago\BusinessCore\Modules\SecurityManagement\Traits\HasAuthTokens;
@@ -36,23 +38,25 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 
 /**
- * {@inheritDoc}
- * @property string $firstname
- * @property string|null $lastname
- * @property string|null $fullname
- * @property string|null $initials
- * @property string|null $email
- * @property string|null $username
- * @property string|null $phone
- * @property string|null $country
- * @property string|null $state
- * @property string|null $city
- * @property string|null $zipcode
- * @property string|null $address
- * @property Collection<BcRole> $roles
- * @property Collection<BcPermission> $permissions
- * @property Collection<BcMedia> $media
- * @property AuthenticatableModelContract $entity
+ *
+ * @property string firstname
+ * @property string|null lastname
+ * @property string|null fullname
+ * @property string|null initials
+ * @property string|null email
+ * @property string|null username
+ * @property string|null phone
+ * @property string|null country
+ * @property string|null state
+ * @property string|null city
+ * @property string|null zipcode
+ * @property string|null address
+ * @property string|DateTime|null email_verified_at
+ * @property string|DateTime|null phone_verified_at
+ * @property Collection<BcRole> roles
+ * @property Collection<BcPermission> permissions
+ * @property Collection<BcMedia> media
+ * @property AuthenticatableModelContract entity
  */
 class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopable {
 
@@ -62,6 +66,7 @@ class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopa
 
     use MustVerifyEmail,Notifiable;
    // use HasRelationships;
+    use Authorable;
 
     use HasOrganization,Mediable,
         Activable,Auditable,
@@ -91,6 +96,7 @@ class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopa
     protected $casts = [
         'email_verified_at' => 'datetime',
         'phone_verified_at' => 'datetime',
+        'password' => 'hashed',
         'is_active' => 'boolean',
         'is_2fa_enabled' => 'boolean',
     ];

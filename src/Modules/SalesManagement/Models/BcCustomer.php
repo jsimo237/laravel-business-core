@@ -2,8 +2,8 @@
 
 namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
 
-
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Kirago\BusinessCore\Modules\SalesManagement\Factories\CustomerFactory;
 use Kirago\BusinessCore\Modules\SecurityManagement\Contracts\AuthenticatableModelContract;
 use Kirago\BusinessCore\Modules\SecurityManagement\Traits\HasUser;
 
@@ -16,21 +16,27 @@ use Kirago\BusinessCore\Modules\SecurityManagement\Traits\HasUser;
  * @property string email
  * @property string phone
  */
-class BcCustomer extends BaseBcCustomer implements AuthenticatableModelContract {
+class BcCustomer extends BaseBcCustomer {
+
+    use HasUser;
 
     protected $table = "sales_mgt__customers";
 
     //RELATIONS
 
     //FUNCTIONS
+    protected static function newFactory(){
+        return CustomerFactory::new();
+    }
+
     public static function getAuthIdentifiersFields(): array
     {
         return ["email","username",'phone'];
     }
 
-    public function getGuardName(): string
+    public function guardName(): string
     {
-        return "customer";
+        return "api";
     }
 
     //

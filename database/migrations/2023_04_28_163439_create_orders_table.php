@@ -5,8 +5,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
-use Kirago\BusinessCore\Support\Constants\BcBillingInformations;
-use Kirago\BusinessCore\Support\Constants\BcOrderStatuses;
+use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcBillingInformations;
+use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcOrderStatuses;
 
 return new class extends Migration
 {

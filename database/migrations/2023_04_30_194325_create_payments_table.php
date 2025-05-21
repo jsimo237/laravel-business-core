@@ -5,8 +5,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcPayment;
-use Kirago\BusinessCore\Support\Constants\BcPaymentSource;
-use Kirago\BusinessCore\Support\Constants\BcPaymentStatuses;
+use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcPaymentSource;
+use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcPaymentStatuses;
+use Kirago\BusinessCore\Modules\SalesManagement\Constants\PaymentCategroies;
 
 return new class extends Migration
 {
@@ -34,9 +35,15 @@ return new class extends Migration
                 ->cascadeOnUpdate()->cascadeOnDelete()
                 ->comment("[FK] la facture");
 
-
             $table->string("status",50)->default(BcPaymentStatuses::DRAFT->value)
                 ->comment("Le statut");
+
+            $table->enum("category", PaymentCategroies::values())
+                ->default(PaymentCategroies::AUTOMATIC->value)
+                ->comment("La Catégorie de paiement");
+
+            $table->string("method",100)->nullable()
+                ->comment("La méthode de paiement");
 
             $table->timestamp('paid_at')
                 ->comment("La date auquel le paiement a été effectué");

@@ -1,38 +1,38 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
-use Kirago\BusinessCore\Modules\SecurityManagement\Controllers\LoginController;
+use Kirago\BusinessCore\Modules\SecurityManagement\Controllers\Auth\LoginController;
+use Kirago\BusinessCore\Modules\SecurityManagement\Controllers\Auth\LogoutController;
+use Kirago\BusinessCore\Modules\SecurityManagement\Controllers\Auth\MeController;
+use Kirago\BusinessCore\Modules\SecurityManagement\Controllers\Auth\OtpCodeController;
+use Kirago\BusinessCore\Modules\SecurityManagement\Controllers\Auth\RefreshTokenController;
 
 
-Route::prefix('auth')->name('auth.')->group(function () {
+Route::prefix('auth')
+    ->name('api.auth')
 
-    Route::group(function () {
-        Route::post('login', [LoginController::class, 'login'])->name('login');
-       // Route::post('register', [RegisterController::class, 'register'])->name('register');
-    });
+    ->group( function (){
 
-//    Route::middleware("auth:$guard")->group(function () {
-//        Route::get('verify-email', EmailVerificationPromptController::class)
-//                    ->name('verification.notice');
-//
-//        Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
-//                    ->middleware(['signed', 'throttle:6,1'])
-//                    ->name('verification.verify');
-//
-//        Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
-//                    ->middleware('throttle:6,1')
-//                    ->name('verification.send');
-//
-//        Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
-//                    ->name('password.confirm');
-//
-//        Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
-//
-//        Route::put('password', [PasswordController::class, 'update'])->name('password.update');
-//
-//        Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-//                    ->name('logout');
-//        Route::post('logout', [AuthenticatedSessionControllerTest::class, 'destroy'])
-//                    ->name('logout.test');
-//    });
+    Route::middleware(['has-auth-guard-header','guest:api'])
+        ->group( function (){
+            Route::post('login',[LoginController::class,'login'])
+                ->name('login');
+            Route::post('otpcode/verify',[OtpCodeController::class,'verify'])->name('otp.verify');
+            Route::post('otpcode/resend',[OtpCodeController::class,'resend'])->name('otp.resend');
+        });
+
+    Route::middleware('auth:api')
+        ->group( function (){
+
+            Route::get('me', MeController::class)->name('me');
+            Route::post('logout', [LogoutController::class,"logout"])->name('logout');
+            Route::post('logout/all-devices', [LogoutController::class,"logout"])->name('logout-all-devices');
+
+            Route::post('refesh', RefreshTokenController::class)->name('refesh');
+        });
+
 });
+
+
+

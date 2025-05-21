@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
-use Kirago\BusinessCore\Support\Constants\BcBillingInformations;
+use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcBillingInformations;
 
 return new class extends Migration
 {

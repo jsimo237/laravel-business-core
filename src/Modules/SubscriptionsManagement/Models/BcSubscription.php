@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Carbon;
-use Kirago\BusinessCore\Database\Factories\SubscriptionsManagement\SubscriptionFactory;
 use Kirago\BusinessCore\Modules\BaseBcModel;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseInvoiceContract;
 use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseInvoiceItemContrat;
@@ -20,7 +19,8 @@ use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoiceItem;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrderItem;
-use Kirago\BusinessCore\Support\Constants\BcSubscriptionStatuses;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Constants\BcSubscriptionStatuses;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Factories\SubscriptionFactory;
 use Kirago\BusinessCore\Support\Exceptions\BcNewIdCannotGeneratedException;
 
 
@@ -98,7 +98,7 @@ class BcSubscription extends BaseBcModel implements OrderableContrat{
 
     public function advantages(){
         return $this->hasManyThrough(
-            Advantage::class,
+            BcAdvantage::class,
 
         );
     }

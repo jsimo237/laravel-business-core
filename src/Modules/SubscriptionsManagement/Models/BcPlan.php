@@ -3,8 +3,8 @@
 namespace Kirago\BusinessCore\Modules\SubscriptionsManagement\Models;
 
 
-use Kirago\BusinessCore\Database\Factories\SubscriptionsManagement\PlanFactory;
 use Kirago\BusinessCore\Modules\BaseBcModel;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Factories\PlanFactory;
 
 /**
  * @property string title

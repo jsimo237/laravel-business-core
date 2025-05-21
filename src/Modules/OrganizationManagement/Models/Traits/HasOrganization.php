@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Contrats\OrganizationScopable;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
+use Kirago\BusinessCore\Support\Constants\BusinessCoreConfigs;
 
 /**
  * @property string|int $organization_id
@@ -52,12 +53,12 @@ trait HasOrganization
 
         $target = static::class; // Récupération de la classe de l'objet actuel
 
-        $configs = config('business-core.models-interact-with-organization');
+        $configs = BusinessCoreConfigs::getModelsInteractWithOrganization();
 
         $allTargets = array_keys($configs);
 
         if (!in_array($target, $allTargets)) {
-            throw new \InvalidArgumentException("Invalid target type: {$target}. Yo can add it in config/business-core.php key 'models-interact-with-organization'");
+            throw new \InvalidArgumentException("Invalid target type: {$target}.");
         }
 
         $config = $allTargets[$target]; // Récupérer la configuration associée au modèle

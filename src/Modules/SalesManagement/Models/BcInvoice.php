@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Collection;
-use Kirago\BusinessCore\Support\Constants\BcPaymentStatuses;
+use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcPaymentStatuses;
 use Kirago\BusinessCore\Support\Exceptions\BcNewIdCannotGeneratedException;
 use Kirago\BusinessCore\Support\Helpers\BcPDFHelper;
 use Illuminate\Support\Str;

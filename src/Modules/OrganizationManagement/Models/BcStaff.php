@@ -4,12 +4,11 @@ namespace Kirago\BusinessCore\Modules\OrganizationManagement\Models;
 
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Kirago\BusinessCore\Database\Factories\OrganizationManagement\CustomerFactory;
-use Kirago\BusinessCore\Database\Factories\OrganizationManagement\StaffFactory;
+use Illuminate\Notifications\Notifiable;
 use Kirago\BusinessCore\Modules\MediableBcModel;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Factories\StaffFactory;
 use Kirago\BusinessCore\Modules\SecurityManagement\Contracts\AuthenticatableModelContract;
 use Kirago\BusinessCore\Modules\SecurityManagement\Traits\HasUser;
-use Illuminate\Notifications\Notifiable;
 
 
 /**
@@ -40,9 +39,9 @@ class BcStaff extends MediableBcModel implements AuthenticatableModelContract {
         return ["email","username"];
     }
 
-    public function getGuardName(): string
+    public function guardName(): string
     {
-        return "staff";
+        return "api";
     }
 
     public function getObjectName(): string

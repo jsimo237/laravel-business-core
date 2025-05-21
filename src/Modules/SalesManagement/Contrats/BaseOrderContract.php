@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 
 /**
- * @property RecipientInteractWithOrderAndInvoice $recipient
+ * @property RecipientInteractWithOrderAndInvoice recipient
  */
 interface BaseOrderContract
 {
