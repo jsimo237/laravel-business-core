@@ -21,7 +21,8 @@ class OtpCodeMail extends Mailable
      */
     public function __construct(
         public BcOtpCode $otp ,
-        public ?string $subjectLine
+        public ?string $title,
+        public ?array $fromAddress,
     )
     {
         //
@@ -32,14 +33,12 @@ class OtpCodeMail extends Mailable
      */
     public function envelope(): Envelope
     {
-        $organization = $this->otp->organization;
-
         return new Envelope(
-            from: new Address(
-                    address : $organization->email ?? env('MAIL_FROM_ADDRESS'),
-                    name : $organization->slug ??  env('MAIL_FROM_NAME')
+            from : new Address(
+                    address : $this->fromAddress['email'] ?? env('MAIL_FROM_ADDRESS'),
+                    name : $this->fromAddress['name'] ??  env('MAIL_FROM_NAME')
                  ),
-            subject: $this->subjectLine ?? 'Otp Code Mail',
+            subject : $this->title ?? 'Otp Code Mail',
         );
     }
 

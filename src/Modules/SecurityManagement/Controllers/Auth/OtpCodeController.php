@@ -3,7 +3,7 @@
 namespace Kirago\BusinessCore\Modules\SecurityManagement\Controllers\Auth;
 
 
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
+use Kirago\BusinessCore\Modules\SecurityManagement\Events\OtpCodeGenerated;
+use Kirago\BusinessCore\Modules\SecurityManagement\Helpers\OtpCodeHelper;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcOtpCode;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
 
@@ -34,7 +36,7 @@ class OtpCodeController extends Controller
 
         $user = BcUser::firstWhere('email', $validated['email']);
 
-        $isValid = \Kirago\BusinessCore\Modules\SecurityManagement\Helpers\OtpCodeHelper::verify($user, $validated['code']);
+        $isValid = OtpCodeHelper::verify($user, $validated['code']);
 
 
         throw_if(

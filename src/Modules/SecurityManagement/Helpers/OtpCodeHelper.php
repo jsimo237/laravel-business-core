@@ -71,7 +71,7 @@ final class OtpCodeHelper
      * Génère un code unique par organisation
      * @throws Exception
      */
-    protected static function generateUniqueCode(int $length, int|string $organizationId): string
+    protected static function generateUniqueCode(int $length, int|string|null $organizationId): string
     {
         do {
             $code = Str::password($length, false, true, false, false);

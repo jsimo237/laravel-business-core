@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Illuminate\Validation\Rules\Password;
-use Kirago\BusinessCore\Facades\BusinessCore;
 use Kirago\BusinessCore\RegisterMiddlewares;
 use Kirago\BusinessCore\Support\Constants\BusinessCoreConfigs;
 use Laravel\Sanctum\Sanctum;

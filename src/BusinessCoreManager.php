@@ -54,7 +54,11 @@ class BusinessCoreManager
      */
     protected function getRouteFilesMatching(string $fileName): array
     {
-        $basePath = __DIR__ . '/Modules';
+        $configuredPath = config('business-core.modules_path',null);
+
+        $basePath = $configuredPath
+                    ? base_path($configuredPath)
+                    : __DIR__ . '/Modules';
 
         $iterator = new RecursiveIteratorIterator(
                         new RecursiveDirectoryIterator($basePath)
@@ -77,8 +81,8 @@ class BusinessCoreManager
     {
         $files = [];
         $iterator = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($directory)
-        );
+                        new \RecursiveDirectoryIterator($directory)
+                    );
 
         foreach ($iterator as $file) {
             if ($file->isFile() && $file->getPathInfo()->getFilename() === 'Routes') {

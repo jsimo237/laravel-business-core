@@ -6,10 +6,10 @@ namespace Kirago\BusinessCore\Modules\SecurityManagement\Controllers\Auth;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Password;
-use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
+use Illuminate\Routing\Controller;
 use Throwable;
 
-class ResetPasswordController extends JsonApiController
+class ResetPasswordController extends Controller
 {
 
 

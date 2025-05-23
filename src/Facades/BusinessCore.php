@@ -3,6 +3,7 @@
 namespace Kirago\BusinessCore\Facades;
 
 use Illuminate\Support\Facades\Facade;
+use Kirago\BusinessCore\BusinessCoreManager;
 
 /**
  * @method static void discoverRoutes(?string $prefix = null)
@@ -14,6 +15,6 @@ class BusinessCore extends Facade
 
     protected static function getFacadeAccessor()
     {
-        return \Kirago\BusinessCore\BusinessCoreManager::class;
+        return BusinessCoreManager::class;
     }
 }
