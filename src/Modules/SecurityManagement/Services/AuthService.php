@@ -30,7 +30,7 @@ class AuthService
         return (new $modelClass);
     }
 
-    protected function getModelClass(): string{
+    public function getModelClass(): string{
         return static::getAuthenticable($this->guardName);
     }
 
@@ -46,7 +46,7 @@ class AuthService
     /**
      * Recherche un utilisateur à partir des identifiants définis par son modèle.
      */
-    public function findUserByIdentifier(string $identifier): BcUser
+    public function findUserByIdentifier(string $identifier): ?BcUser
     {
         /**
          * @var AuthenticatableModelContract
@@ -56,7 +56,7 @@ class AuthService
         return $model?->getUser();
     }
 
-    public function findModelByIdentifier(string $identifier) : AuthenticatableModelContract
+    public function findModelByIdentifier(string $identifier) : ?AuthenticatableModelContract
     {
         /**
          * @var Builder

@@ -195,6 +195,11 @@ class BcServiceProvider extends BaseServiceProvider {
 //            __DIR__."/../Support" => base_path("app/Support"),
 //            __DIR__."/../JsonApi" => base_path("app/JsonApi"),
 //        ], 'bc-src');
+
+        $this->publishes([
+          //  __DIR__.'/../../resources/views/' => $this->app->resourcePath('views/vendor/mail'),
+            __DIR__.'/../resources/views/' => $this->app->resourcePath('views'),
+        ], 'bc-resources-views');
     }
 
     protected function offerPublishing(): void{

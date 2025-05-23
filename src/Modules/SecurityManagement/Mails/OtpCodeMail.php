@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirago\BusinessCore\Modules\SecurityManagement\Mail;
+namespace Kirago\BusinessCore\Modules\SecurityManagement\Mails;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -22,7 +22,7 @@ class OtpCodeMail extends Mailable
     public function __construct(
         public BcOtpCode $otp ,
         public ?string $title,
-        public ?array $fromAddress,
+        public ?array $fromAddress = [],
     )
     {
         //

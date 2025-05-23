@@ -6,7 +6,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 use Kirago\BusinessCore\Modules\SecurityManagement\Events\OtpCodeGenerated;
-use Kirago\BusinessCore\Modules\SecurityManagement\Mail\OtpCodeMail;
+use Kirago\BusinessCore\Modules\SecurityManagement\Mails\OtpCodeMail;
 
 class SendOtpCodeMail
 {

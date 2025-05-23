@@ -27,6 +27,13 @@ class BcOtpCode extends BaseBcModel
         'expired_at' => "datetime"
     ];
 
+    public $authorable = [
+       // 'created_by_column_name' => 'custom_created_by',
+       // 'updated_by_column_name' => 'custom_updated_by',
+        'set_author_when_creating' => false,
+        'set_author_when_updating' => false,
+    ];
+
 
     /**
      * Relation polymorphique vers un autre model.

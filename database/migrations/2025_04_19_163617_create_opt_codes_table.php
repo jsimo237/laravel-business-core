@@ -19,7 +19,7 @@ return new class extends Migration
             $table->ulidMorphs('identifier');
             $table->timestamp('expired_at');
 
-            $table->foreignIdFor(BcOrganization::class,"organization_id")
+            $table->foreignIdFor(BcOrganization::class,"organization_id")->nullable()
                 ->constrained((new BcOrganization)->getTable(), (new BcOrganization)->getKeyName(), uniqid("FK_"))
                 ->cascadeOnUpdate()->cascadeOnDelete()
                 ->comment("[FK] l'orgasation");

@@ -11,10 +11,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Kirago\BusinessCore\Modules\SecurityManagement\Events\OtpCodeGenerated;
 use Kirago\BusinessCore\Modules\SecurityManagement\Helpers\OtpCodeHelper;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcOtpCode;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+use Kirago\BusinessCore\Modules\SecurityManagement\Services\AuthService;
+use Kirago\BusinessCore\Support\Constants\BcReasonCode;
 
 class OtpCodeController extends Controller
 {
@@ -24,20 +27,23 @@ class OtpCodeController extends Controller
      */
     public function verify(Request $request) : JsonResponse{
 
+        $request->validate([
+                    'identifier' => ['required',"string"],
+                    'code' => ['required', 'string' , Rule::exists((new BcOtpCode)->getTable())],
+                ]);
 
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'code' => ['required', 'string' , Rule::exists((new BcOtpCode)->getTable())],
-                'email' => ['required', 'string' , Rule::exists((new BcUser)->getTable(),"email")],
-            ]);
+        $authService = new AuthService($request->header('x-auth-guard'));
 
-        $validated = $validator->validate();
+        $user = $authService->findUserByIdentifier($request->input('identifier'));
 
-        $user = BcUser::firstWhere('email', $validated['email']);
+        throw_if(
+            blank($user) ,
+            new ModelNotFoundException(
+                BcReasonCode::USER_NOT_FOUND->value
+            )
+        );
 
-        $isValid = OtpCodeHelper::verify($user, $validated['code']);
-
+        $isValid = OtpCodeHelper::verify($user, $request->input('code'));
 
         throw_if(
             !$isValid ,
