@@ -23,25 +23,34 @@ class RefreshTokenController extends Controller
 
         if (!$token || !$token->can('refresh')) {
             return response()->json(
-                [
-                    'message' => 'Invalid refresh token'
-                ],
-                401 );
+                    [
+                        'message' => 'Invalid or unauthorized refresh token'
+                    ],
+                    401
+                );
         }
 
         $user = $token->tokenable;
 
-        // Supprimer l’ancien access token si besoin
-        $user->tokens()->where('name', 'access-token')->delete();
+        // Révoquer le refresh token utilisé
+        $token->delete();
+        $accessTokenExpiredAt = now()->addMinutes(config('sanctum.expiration'));
 
-        // Générer un nouveau access token
-        $newAccessToken = $user->createToken('access-token', ['*'])->plainTextToken;
+        $abilities            = $user?->privileges ?? $user?->permissions?->pluck("name")->toArray() ?? ["*"];
 
+        // Générer un nouveau access_token et refresh_token
+        $newAccessToken = $user->createToken($request->userAgent(), $abilities, $accessTokenExpiredAt);
+        $newRefreshToken = $user->createToken('refresh-token', ['refresh'], now()->addDays(30));
+
+        $newAccessToken      = explode('|', $newAccessToken->plainTextToken)[1];
+        $newRefreshToken     = explode('|', $newRefreshToken->plainTextToken)[1];
 
         return response()->json([
-            "success" => true,
-            "message" => 'Successfull Logged out',
-        ]);
+                'access_token' => $newAccessToken ,
+                'refresh_token' => $newRefreshToken,
+                'token_expired_at' => $accessTokenExpiredAt->timestamp,
+                'token_type' => 'Bearer',
+            ]);
     }
 
 }

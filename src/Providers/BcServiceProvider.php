@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Illuminate\Validation\Rules\Password;
-use Kirago\BusinessCore\Facades\BusinessCore;
-use Kirago\BusinessCore\RegisterMiddlewares;
 use Kirago\BusinessCore\Support\Constants\BusinessCoreConfigs;
 use Laravel\Sanctum\Sanctum;
 
@@ -24,7 +22,8 @@ use Laravel\Sanctum\Sanctum;
 
 class BcServiceProvider extends BaseServiceProvider {
 
-    use RegisterCustomMacro,PublishesMigrations,RegisterMiddlewares;
+    use RegisterCustomMacro,PublishesMigrations,
+        RegisterMiddlewares,RegisterViews;
 
     public function register(){
 
@@ -56,6 +55,8 @@ class BcServiceProvider extends BaseServiceProvider {
         }
 
         $this->bootWithMiddlewares();
+        $this->bootWithViews();
+        $this->bootWithViewsComponents();
         // Charger les routes API
        // $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
 
@@ -196,6 +197,11 @@ class BcServiceProvider extends BaseServiceProvider {
 //            __DIR__."/../Support" => base_path("app/Support"),
 //            __DIR__."/../JsonApi" => base_path("app/JsonApi"),
 //        ], 'bc-src');
+
+        $this->publishes([
+          //  __DIR__.'/../../resources/views/' => $this->app->resourcePath('views/vendor/mail'),
+            __DIR__.'/../resources/views/' => $this->app->resourcePath('views'),
+        ], 'bc-resources-views');
     }
 
     protected function offerPublishing(): void{

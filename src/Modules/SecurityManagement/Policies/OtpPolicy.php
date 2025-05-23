@@ -4,6 +4,7 @@ namespace Kirago\BusinessCore\Modules\SecurityManagement\Policies;
 
 use Illuminate\Auth\Access\Response;
 use Illuminate\Contracts\Auth\Authenticatable as User;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcOtpCode;
 
 class OtpPolicy {
 
@@ -17,7 +18,7 @@ class OtpPolicy {
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?User $user, OtpCode $otpCode): bool {
+    public function view(?User $user, BcOtpCode $otp): bool {
         return true;
     }
 
@@ -31,28 +32,28 @@ class OtpPolicy {
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?User $user, OtpCode $otpCode): bool {
+    public function update(?User $user, BcOtpCode $otp): bool {
         return true;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?User $user, OtpCode $otpCode): bool  {
+    public function delete(?User $user, BcOtpCode $otp): bool  {
         return true;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(?User $user, OtpCode $otpCode): bool {
+    public function restore(?User $user, BcOtpCode $otp): bool {
         return true;
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(?User $user, OtpCode $otpCode): bool {
+    public function forceDelete(?User $user, BcOtpCode $otp): bool {
         return true;
     }
 }

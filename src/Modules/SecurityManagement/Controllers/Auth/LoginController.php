@@ -30,10 +30,11 @@ class LoginController extends Controller
         /**
          * @var array
          */
-        [$user,$accessToken,$tokenExpiredAt] = $authService->authenticate($request->identifier, $request->password);
+        [$user,$accessToken,$refreshToken,$tokenExpiredAt] = $authService->authenticate($request->identifier, $request->password);
 
         return response()->json([
                     'access_token' => $accessToken,
+                    'refresh_token' => $refreshToken,
                     'token_expired_at' => Carbon::parse($tokenExpiredAt)->timestamp,
                     'token_type' => 'Bearer',
                 ]);

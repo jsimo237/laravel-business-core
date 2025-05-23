@@ -25,12 +25,12 @@ class AuthService
     }
 
 
-    protected function getModelInstance() : mixed{
+    protected function getModelInstance() : AuthenticatableModelContract{
         $modelClass = static::getAuthenticable($this->guardName);
         return (new $modelClass);
     }
 
-    protected function getModelClass(): string{
+    public function getModelClass(): string{
         return static::getAuthenticable($this->guardName);
     }
 
@@ -46,7 +46,7 @@ class AuthService
     /**
      * Recherche un utilisateur à partir des identifiants définis par son modèle.
      */
-    public function findUserByIdentifier(string $identifier): mixed
+    public function findUserByIdentifier(string $identifier): ?BcUser
     {
         /**
          * @var AuthenticatableModelContract
@@ -56,7 +56,7 @@ class AuthService
         return $model?->getUser();
     }
 
-    public function findModelByIdentifier(string $identifier) : mixed
+    public function findModelByIdentifier(string $identifier) : ?AuthenticatableModelContract
     {
         /**
          * @var Builder
@@ -134,14 +134,18 @@ class AuthService
             $newAccessToken  = $user->createToken($userAgent,$abilities,$expiredAt);
 
          //   $refreshToken = $user->createToken('refresh-token', ['refresh'])->plainTextToken;
+            $refreshToken = $user->createToken('refresh-token', ['refresh'], now()->addDays(30));
+
 
             $token           = $newAccessToken->plainTextToken;
 
             $accessToken     = explode('|', $token)[1];
+            $refreshToken     = explode('|', $refreshToken->plainTextToken)[1];
 
             return [
                 $model,
                 $accessToken ,
+                $refreshToken,
                 $expiredAt
             ] ;
         }

@@ -2,7 +2,7 @@
 
 namespace Kirago\BusinessCore\Modules\SecurityManagement\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

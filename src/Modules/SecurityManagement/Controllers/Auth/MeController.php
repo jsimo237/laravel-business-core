@@ -2,7 +2,7 @@
 
 namespace Kirago\BusinessCore\Modules\SecurityManagement\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
