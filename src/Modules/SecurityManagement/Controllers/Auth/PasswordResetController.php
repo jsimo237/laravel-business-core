@@ -4,8 +4,10 @@ namespace Kirago\BusinessCore\Modules\SecurityManagement\Controllers\Auth;
 
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Password;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Kirago\BusinessCore\Modules\SecurityManagement\Events\OtpCodeGenerated;
@@ -50,7 +52,7 @@ class PasswordResetController extends Controller
         $request->validate([
             'identifier' => ['required',"string"],
             'code' => ['required', 'string' , Rule::exists((new BcOtpCode)->getTable())],
-            'password'   => ['required',"string","confirmed"],
+            'password'   => ['required',"string","confirmed",Password::defaults()],
         ]);
 
         $authService = new AuthService($request->header('x-auth-guard'));

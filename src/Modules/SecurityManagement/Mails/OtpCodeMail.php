@@ -48,7 +48,7 @@ class OtpCodeMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.otp.code',
+            markdown: 'business-core::emails.otp.code',
         );
     }
 

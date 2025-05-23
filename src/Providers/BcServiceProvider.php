@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Illuminate\Validation\Rules\Password;
-use Kirago\BusinessCore\RegisterMiddlewares;
 use Kirago\BusinessCore\Support\Constants\BusinessCoreConfigs;
 use Laravel\Sanctum\Sanctum;
 
@@ -23,7 +22,8 @@ use Laravel\Sanctum\Sanctum;
 
 class BcServiceProvider extends BaseServiceProvider {
 
-    use RegisterCustomMacro,PublishesMigrations,RegisterMiddlewares;
+    use RegisterCustomMacro,PublishesMigrations,
+        RegisterMiddlewares,RegisterViews;
 
     public function register(){
 
@@ -55,6 +55,8 @@ class BcServiceProvider extends BaseServiceProvider {
         }
 
         $this->bootWithMiddlewares();
+        $this->bootWithViews();
+        $this->bootWithViewsComponents();
         // Charger les routes API
        // $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
 
