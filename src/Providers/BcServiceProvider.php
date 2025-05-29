@@ -15,6 +15,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Kirago\BusinessCore\Commands\CacheEvents;
+use Kirago\BusinessCore\Commands\ClearEventsCache;
+use Kirago\BusinessCore\Commands\FixPublishedNamespaces;
+use Kirago\BusinessCore\Commands\Install\InstallCurrencies;
+use Kirago\BusinessCore\Commands\Install\InstallPermissions;
+use Kirago\BusinessCore\Commands\Install\InstallRoleSuperAdmin;
+use Kirago\BusinessCore\Commands\PublishCoreFolders;
+use Kirago\BusinessCore\Commands\Setup;
 use Kirago\BusinessCore\Support\Constants\BusinessCoreConfigs;
 use Laravel\Sanctum\Sanctum;
 
@@ -23,7 +31,7 @@ use Laravel\Sanctum\Sanctum;
 class BcServiceProvider extends BaseServiceProvider {
 
     use RegisterCustomMacro,PublishesMigrations,
-        RegisterMiddlewares,RegisterViews;
+        RegisterMiddlewares,RegisterViews,RegisterEvents;
 
     public function register(){
 
@@ -60,7 +68,7 @@ class BcServiceProvider extends BaseServiceProvider {
         // Charger les routes API
        // $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
 
-       // $this->loadRoutesFrom(__DIR__ . '/routes/api.php'); // bas = src
+        $this->registerListeners();
     }
 
 
@@ -200,7 +208,7 @@ class BcServiceProvider extends BaseServiceProvider {
 
         $this->publishes([
           //  __DIR__.'/../../resources/views/' => $this->app->resourcePath('views/vendor/mail'),
-            __DIR__.'/../resources/views/' => $this->app->resourcePath('views'),
+            __DIR__.'/../resources/views' => resource_path('views/vendor/business-core')
         ], 'bc-resources-views');
     }
 
@@ -238,12 +246,14 @@ class BcServiceProvider extends BaseServiceProvider {
         }
 
         $this->commands([
-            \Kirago\BusinessCore\Commands\Setup::class,
-            \Kirago\BusinessCore\Commands\Install\InstallCurrencies::class,
-            \Kirago\BusinessCore\Commands\Install\InstallRoleSuperAdmin::class,
-            \Kirago\BusinessCore\Commands\Install\InstallPermissions::class,
-            \Kirago\BusinessCore\Commands\FixPublishedNamespaces::class,
-            \Kirago\BusinessCore\Commands\PublishCoreFolders::class,
+            Setup::class,
+            InstallCurrencies::class,
+            InstallRoleSuperAdmin::class,
+            InstallPermissions::class,
+            FixPublishedNamespaces::class,
+            PublishCoreFolders::class,
+            CacheEvents::class,
+            ClearEventsCache::class,
         ]);
 
     }

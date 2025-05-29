@@ -22,6 +22,6 @@ class OtpCodeRender extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.otp-code-render');
+        return view('business-core::components.otp-code-render');
     }
 }

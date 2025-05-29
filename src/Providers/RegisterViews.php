@@ -3,6 +3,7 @@
 namespace Kirago\BusinessCore\Providers;
 
 use Illuminate\Support\Facades\Blade;
+use Kirago\BusinessCore\Helpers\ViewComponentProviderHelper;
 use Kirago\BusinessCore\Modules\SecurityManagement\View\Components\OtpCodeRender;
 
 trait RegisterViews
@@ -17,6 +18,18 @@ trait RegisterViews
 
     public function bootWithViewsComponents(){
 
-        Blade::component('x-otp-code-render', OtpCodeRender::class);
+        $components = ViewComponentProviderHelper::getValidBladeComponents();
+
+        $prefix = 'business-core';
+
+        // Laravel 10+
+        if (method_exists($this, 'loadViewComponentsAs')) {
+            $this->loadViewComponentsAs('business-core', $components);
+        } else {
+            // fallback éventuel si tu dois supporter une version Laravel < 10 (rare)
+            foreach ($components as $component) {
+                \Illuminate\Support\Facades\Blade::component($component, null, $prefix);
+            }
+        }
     }
 }

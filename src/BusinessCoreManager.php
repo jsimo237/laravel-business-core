@@ -60,20 +60,29 @@ class BusinessCoreManager
                     ? base_path($configuredPath)
                     : __DIR__ . '/Modules';
 
-        $iterator = new RecursiveIteratorIterator(
-                        new RecursiveDirectoryIterator($basePath)
-                    );
+        $iterator = null;
+
+        try {
+            $iterator = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($basePath)
+            );
+        }catch (\Exception $exception){
+
+        }
 
         $result = [];
 
-        foreach ($iterator as $file) {
-            if ($file->isFile() && $file->getFilename() === $fileName) {
-                // Optionnel : filtrer pour s'assurer que le fichier est bien dans un dossier "Routes"
-                if (Str::contains($file->getPath(), 'Routes')) {
-                    $result[] = $file->getRealPath();
-                }
-            }
-        }
+          if ($iterator){
+              foreach ($iterator as $file) {
+                  if ($file->isFile() && $file->getFilename() === $fileName) {
+                      // Optionnel : filtrer pour s'assurer que le fichier est bien dans un dossier "Routes"
+                      if (Str::contains($file->getPath(), 'Routes')) {
+                          $result[] = $file->getRealPath();
+                      }
+                  }
+              }
+          }
+
         return $result;
     }
 
