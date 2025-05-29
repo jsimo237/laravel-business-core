@@ -254,5 +254,28 @@ class BcUser extends Authenticatable implements SpatieHasMedia,OrganizationScopa
 //        return $this->wallets()->sync($wallets);
     }
 
+    /**
+     * can a user access an organization scopable model
+     */
+    public function canAccessModelWithPermission(mixed $scopable, string $permission): bool
+    {
+        if ($this->entity instanceof BcStaff) {
+            return $this->can($permission);
+        }
+
+        if ($scopable instanceof OrganizationScopable) {
+
+            if (filled($this->organization) && filled($scopable?->getOrganization())) {
+                if ($this->organization->is($scopable->getOrganization())) {
+                    return $this->can($permission);
+                }
+            }
+
+        }
+
+        return true;
+    }
+
+
 
 }

@@ -43,6 +43,8 @@ class PublishCoreFolders extends  Command
         // Appelle la commande bc:fix-namespaces après copie
         try {
             $this->call('bc:fix-namespaces');
+            Artisan::call("vendor:publish", [ "--tag" => "bc-resources-views" ]);
+            $this->info("✅  all views files published in 'views/vendor/business-core' ");
         } catch (CommandNotFoundException $e) {
             $this->error('❌ La commande "bc:fix-namespaces" est introuvable. Assure-toi qu’elle est bien déclarée.');
         }

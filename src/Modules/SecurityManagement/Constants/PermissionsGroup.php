@@ -6,6 +6,7 @@ enum PermissionsGroup : string
 {
     case ROLE      = 'ROLE';
     case COMPANY   = 'COMPANY';
+    case STAFF     = 'STAFF';
     case PAYMENT   = 'PAYMENT';
     case ORDER     = 'ORDER';
     case INVOICE   = 'INVOICE';
@@ -20,7 +21,8 @@ enum PermissionsGroup : string
     {
         return match ($this) {
             self::ROLE => ["description" => "Gestion des Rôles", "icon" => null,],
-            self::COMPANY => ["description" => "Gestion des Companies", "icon" => null,],
+            self::COMPANY => ["description" => "Gestion des Organizations", "icon" => null,],
+            self::STAFF => ["description" => "Gestion du staff", "icon" => null,],
             self::PAYMENT => ["description" => "Gestion des paiements", "icon" => null,],
             self::ORDER => ["description" => "Gestion des commandes", "icon" => null,],
             self::INVOICE => ["description" => "Gestion des factures", "icon" => null,],

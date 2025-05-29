@@ -25,7 +25,7 @@ class SendOtpCodeMail
             $identifier = $otp->identifier; // relation morphTo : User, etc.
 
             if ($email = $identifier->email) {
-                Mail::to($email)->send( new OtpCodeMail($otp, $title));
+                Mail::to($email)->send(new OtpCodeMail($otp, $title));
             }
         }catch (\Exception $exception){
             write_log("Listeners/SendOtpCodeMail",$exception);

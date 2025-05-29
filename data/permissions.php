@@ -31,8 +31,8 @@ return [
         "group" => PermissionsGroup::ROLE->value,
     ],
     [
-        "name" => BcPermissions::ROLE_VIEW_LIST->value,
-        "description" => "Peut voir la liste des rôles",
+        "name" => BcPermissions::ROLE_VIEW->value,
+        "description" => "Peut voir un rôle",
         "guard_name" => "api",
         "group" => PermissionsGroup::ROLE->value,
     ],
@@ -43,7 +43,7 @@ return [
         "group" => PermissionsGroup::ROLE->value,
     ],
 
-    // COMPANY
+    // ORGANIZATION
     [
         "name" => BcPermissions::ORGANIZATION_CREATE->value,
         "description" => "Peut créer une entreprise",
@@ -69,8 +69,8 @@ return [
         "group" => PermissionsGroup::COMPANY->value,
     ],
     [
-        "name" => BcPermissions::ORGANIZATION_VIEW_LIST->value,
-        "description" => "Peut voir la liste des entreprises",
+        "name" => BcPermissions::ORGANIZATION_VIEW->value,
+        "description" => "Peut voir une entreprise",
         "guard_name" => "api",
         "group" => PermissionsGroup::COMPANY->value,
     ],
@@ -79,6 +79,44 @@ return [
         "description" => "Peut accéder au module des entreprises",
         "guard_name" => "api",
         "group" => PermissionsGroup::COMPANY->value,
+    ],
+
+    // STAFFS
+    [
+        "name" => BcPermissions::STAFF_CREATE->value,
+        "description" => "Peut créer un utilisateur",
+        "guard_name" => "api",
+        "group" => PermissionsGroup::STAFF->value,
+    ],
+    [
+        "name" => BcPermissions::STAFF_UPDATE->value,
+        "description" => "Peut modifier un utilisateur",
+        "guard_name" => "api",
+        "group" => PermissionsGroup::STAFF->value,
+    ],
+    [
+        "name" => BcPermissions::STAFF_DELETE->value,
+        "description" => "Peut supprimer un utilisateur",
+        "guard_name" => "api",
+        "group" => PermissionsGroup::STAFF->value,
+    ],
+    [
+        "name" => BcPermissions::STAFF_VIEW_ANY->value,
+        "description" => "Peut voir tous les utilisateurs",
+        "guard_name" => "api",
+        "group" => PermissionsGroup::STAFF->value,
+    ],
+    [
+        "name" => BcPermissions::STAFF_VIEW->value,
+        "description" => "Peut voir un utilisateur",
+        "guard_name" => "api",
+        "group" => PermissionsGroup::STAFF->value,
+    ],
+    [
+        "name" => BcPermissions::STAFF_VIEW_MODULE->value,
+        "description" => "Peut accéder au module des staffs",
+        "guard_name" => "api",
+        "group" => PermissionsGroup::STAFF->value,
     ],
 
     // USER
@@ -107,8 +145,8 @@ return [
         "group" => PermissionsGroup::USER->value,
     ],
     [
-        "name" => BcPermissions::USER_VIEW_LIST->value,
-        "description" => "Peut voir la liste des utilisateurs",
+        "name" => BcPermissions::USER_VIEW->value,
+        "description" => "Peut voir un utilisateur",
         "guard_name" => "api",
         "group" => PermissionsGroup::USER->value,
     ],
@@ -145,8 +183,8 @@ return [
         "group" => PermissionsGroup::CUSTOMER->value,
     ],
     [
-        "name" => BcPermissions::CUSTOMER_VIEW_LIST->value,
-        "description" => "Peut voir la liste des clients",
+        "name" => BcPermissions::CUSTOMER_VIEW->value,
+        "description" => "Peut voir un client",
         "guard_name" => "api",
         "group" => PermissionsGroup::CUSTOMER->value,
     ],
@@ -261,8 +299,8 @@ return [
         "group" => PermissionsGroup::PRODUCT->value,
     ],
     [
-        "name" => BcPermissions::PRODUCT_VIEW_LIST->value,
-        "description" => "Peut voir la liste des produits",
+        "name" => BcPermissions::PRODUCT_VIEW->value,
+        "description" => "Peut voir un produit",
         "guard_name" => "api",
         "group" => PermissionsGroup::PRODUCT->value,
     ],
@@ -293,8 +331,8 @@ return [
         "group" => PermissionsGroup::STOCK->value,
     ],
     [
-        "name" => BcPermissions::STOCK_VIEW_LIST->value,
-        "description" => "Peut voir la liste des stocks",
+        "name" => BcPermissions::STOCK_VIEW->value,
+        "description" => "Peut voir un stock",
         "guard_name" => "api",
         "group" => PermissionsGroup::STOCK->value,
     ],
@@ -331,8 +369,8 @@ return [
         "group" => PermissionsGroup::WAREHOUSE->value,
     ],
     [
-        "name" => BcPermissions::WAREHOUSE_VIEW_LIST->value,
-        "description" => "Peut voir la liste des entrepôts",
+        "name" => BcPermissions::WAREHOUSE_VIEW->value,
+        "description" => "Peut voir un entrepôt",
         "guard_name" => "api",
         "group" => PermissionsGroup::WAREHOUSE->value,
     ],

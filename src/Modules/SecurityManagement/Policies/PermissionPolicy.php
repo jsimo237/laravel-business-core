@@ -1,5 +1,6 @@
 <?php
 
+namespace Kirago\BusinessCore\Modules\SecurityManagement\Policies;
 
 use Illuminate\Auth\Access\Response;
 use Illuminate\Contracts\Auth\Authenticatable as User;
