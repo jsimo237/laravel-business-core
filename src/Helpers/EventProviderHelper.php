@@ -10,10 +10,9 @@ final class EventProviderHelper
      */
     public static function discoverListenerPathsFromModules(): array
     {
-        // Récupération du chemin de base : config ou fallback dans le package
-        $configuredPath = config('business-core.modules_path',null);
-        $baseDir = $configuredPath
-                    ? base_path($configuredPath)
+        $customization = config('business-core.customization',false);
+        $baseDir = $customization
+                    ? base_path("app/Modules")
                     : realpath(__DIR__ . '/../Modules'); // Fallback vers le package
 
         if (!$baseDir || !is_dir($baseDir)) {

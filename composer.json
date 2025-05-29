@@ -2,7 +2,7 @@
     "name" : "kirago/laravel-business-core",
     "description" : "A Laravel business core multi-tenancies management data structure : orders, products, invoices, payments and more ...",
     "keywords": [
-        "laravel","kirago","business","models"
+        "laravel","kirago","business","business-core"
       ],
     "homepage" : "https://github.com/jsimo237/laravel-business-core",
     "version": "1.0",

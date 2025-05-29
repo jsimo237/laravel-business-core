@@ -54,11 +54,11 @@ class BusinessCoreManager
      */
     protected function getRouteFilesMatching(string $fileName): array
     {
-        $configuredPath = config('business-core.modules_path',null);
+        $customization = config('business-core.customization',false);
 
-        $basePath = $configuredPath
-                    ? base_path($configuredPath)
-                    : __DIR__ . '/Modules';
+        $basePath = $customization
+                ? base_path("app/Modules")
+                : realpath(__DIR__ . '/Modules'); // Fallback vers le package
 
         $iterator = null;
 

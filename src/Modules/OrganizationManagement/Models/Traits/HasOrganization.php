@@ -6,9 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Contrats\OrganizationScopable;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
-use Kirago\BusinessCore\Support\Constants\BusinessCoreConfigs;
 
 /**
  * @property string|int $organization_id
@@ -53,7 +51,7 @@ trait HasOrganization
 
         $target = static::class; // Récupération de la classe de l'objet actuel
 
-        $configs = BusinessCoreConfigs::getModelsInteractWithOrganization();
+        $configs = config("business-core.models_interact_with_organization");
 
         $allTargets = array_keys($configs);
 
@@ -93,10 +91,6 @@ trait HasOrganization
     public function scopeOrganizatioSzn(Builder $query, string|int|BcOrganization $organization): Builder
     {
         if ($organization) {
-//            if ($this->hasSystemObjects()) {
-//                return $query->where('system', '1')->orWhere($query->getModel()->getTable() . '.organization_id', '=', $organization);
-//            }
-
             return $query->organizationId($organization);
         } else {
             return $query->whereNull($query->getModel()->getTable() . '.organization_id');

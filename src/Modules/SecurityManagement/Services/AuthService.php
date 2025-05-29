@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Carbon;
-use Kirago\BusinessCore\Support\Constants\BusinessCoreConfigs;
 
 class AuthService
 {
@@ -36,7 +35,7 @@ class AuthService
 
     public static function getAllAuthenticables(): array
     {
-        return BusinessCoreConfigs::getAuthenticables();
+        return config("business-core.authenticables");
     }
 
     public static function getAuthenticable(string $guardName){

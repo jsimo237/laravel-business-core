@@ -23,7 +23,6 @@ use Kirago\BusinessCore\Commands\Install\InstallPermissions;
 use Kirago\BusinessCore\Commands\Install\InstallRoleSuperAdmin;
 use Kirago\BusinessCore\Commands\PublishCoreFolders;
 use Kirago\BusinessCore\Commands\Setup;
-use Kirago\BusinessCore\Support\Constants\BusinessCoreConfigs;
 use Laravel\Sanctum\Sanctum;
 
 //use Illuminate\Database\Schema\Blueprint;
@@ -95,7 +94,7 @@ class BcServiceProvider extends BaseServiceProvider {
          * Types polymorphes personnalisés indique à Eloquent d'utiliser un nom personnalisé pour chaque
          * model au lieu du nom de la classe(Kirago\BusinessCore\Models\...)
          */
-        Relation::enforceMorphMap(BusinessCoreConfigs::getMorphsMap() ?? []);
+        Relation::enforceMorphMap(config("business-core.morphs_map") ?? []);
 
 
         /**
@@ -130,7 +129,7 @@ class BcServiceProvider extends BaseServiceProvider {
 
         //defini la validation par défaut des mots de passe
         Password::defaults(function (){
-            $rule = Password::min(5);
+            $rule = Password::min(6);
             return $this->app->isProduction()
                         ? $rule->mixedCase()->uncompromised()
                         : $rule;
@@ -228,7 +227,6 @@ class BcServiceProvider extends BaseServiceProvider {
             database_path('migrations'),
             database_path('migrations/business-core'),
 
-
             //__DIR__ . '/database/migrations'
         ]);
         $this->registerMigrations(__DIR__."/../../database/migrations");
@@ -241,7 +239,7 @@ class BcServiceProvider extends BaseServiceProvider {
             return;
         }
 
-        if ($commands = BusinessCoreConfigs::getConsoleCommands() ?? []){
+        if ($commands = config("business-core.console_commands") ?? []){
             $this->commands($commands);
         }
 

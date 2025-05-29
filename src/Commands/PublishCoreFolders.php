@@ -15,6 +15,12 @@ class PublishCoreFolders extends  Command
 
     public function handle()
     {
+        if (!config("business-core.customization",false)) {
+            $this->info("Veuillez activer la customisation dans config/business-core.php");
+            Command::SUCCESS;
+
+        }
+
         $base = base_path('vendor/kirago/laravel-business-core/src'); // adapt if needed
         $targets = [
             'Modules' => app_path('Modules'),
@@ -49,7 +55,7 @@ class PublishCoreFolders extends  Command
         } catch (CommandNotFoundException $e) {
             $this->error('❌ La commande "bc:fix-namespaces" est introuvable. Assure-toi qu’elle est bien déclarée.');
         }
-
+        $this->info("✅ Published! You can customize JsonApi,Models and more .");
         return Command::SUCCESS;
     }
 }

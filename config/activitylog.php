@@ -35,17 +35,14 @@ return [
      * It should implement the Spatie\Activitylog\Contracts\Activity interface
      * and extend Illuminate\Database\Eloquent\Model.
      */
-   // 'activity_model' => \Kirago\BusinessCore\Modules\CoresManagement\Models\BcActivityLog::class,
-    'activity_model' => \Spatie\Activitylog\Models\Activity::class,
+      'activity_model' => \Spatie\Activitylog\Models\Activity::class,
 
     /*
      * This is the name of the table that will be created by the migration and
      * used by the Activity model shipped with this package.
      */
-    'table_name' => env('ACTIVITY_LOGGER_TABLE_NAME','activity_log'),
-//    'table_name' => env('ACTIVITY_LOGGER_TABLE_NAME',
-//        \Kirago\BusinessCore\Modules\CoresManagement\Models\BcActivityLog::TABLE_NAME
-//    ),
+    // 'table_name' => env('ACTIVITY_LOGGER_TABLE_NAME','activity_log'),
+    'table_name' => env('ACTIVITY_LOGGER_TABLE_NAME','cores_mgt__activity_logs'),
 
     /*
      * This is the database connection that will be used by the migration and
