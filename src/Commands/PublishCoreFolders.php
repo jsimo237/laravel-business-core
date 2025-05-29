@@ -5,6 +5,7 @@ namespace Kirago\BusinessCore\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
+use Illuminate\Support\Facades\Artisan;
 
 class PublishCoreFolders extends  Command
 {
