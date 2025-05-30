@@ -5,6 +5,7 @@ namespace Kirago\BusinessCore\Modules\SecurityManagement\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Auditable;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\Scopes\PermissionGlobalScope;
 use Spatie\Permission\Models\Permission as SpatiePermission;
 
@@ -19,7 +20,10 @@ use Spatie\Permission\Models\Permission as SpatiePermission;
  */
 class BcPermission extends SpatiePermission {
 
-    use HasFactory,SoftDeletes;
+    use HasFactory,
+        SoftDeletes,
+        Auditable
+        ;
 
     protected $guarded = ["created_at"];
 

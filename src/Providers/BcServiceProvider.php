@@ -21,6 +21,7 @@ use Kirago\BusinessCore\Commands\FixPublishedNamespaces;
 use Kirago\BusinessCore\Commands\Install\InstallCurrencies;
 use Kirago\BusinessCore\Commands\Install\InstallPermissions;
 use Kirago\BusinessCore\Commands\Install\InstallRoleSuperAdmin;
+use Kirago\BusinessCore\Commands\PatchHandlerCommand;
 use Kirago\BusinessCore\Commands\PublishCoreFolders;
 use Kirago\BusinessCore\Commands\Setup;
 use Laravel\Sanctum\Sanctum;
@@ -30,7 +31,7 @@ use Laravel\Sanctum\Sanctum;
 class BcServiceProvider extends BaseServiceProvider {
 
     use RegisterCustomMacro,PublishesMigrations,
-        RegisterMiddlewares,RegisterViews,RegisterEvents;
+        RegisterMiddlewares,RegisterViews;
 
     public function register(){
 
@@ -67,7 +68,6 @@ class BcServiceProvider extends BaseServiceProvider {
         // Charger les routes API
        // $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
 
-        $this->registerListeners();
     }
 
 
@@ -105,7 +105,7 @@ class BcServiceProvider extends BaseServiceProvider {
             $bindings  = json_encode($query->bindings);
             $content   = "[SQL] {$query->sql} in {$query->time} s\n
                               [bindinds]: {$bindings}\n [userAgent]: {$userAgent} \n";
-            write_log("sql-queries",$content);
+          //  write_log("sql-queries",$content);
         });
 
         /**
@@ -173,7 +173,7 @@ class BcServiceProvider extends BaseServiceProvider {
         $this->publishes(
                 [
                     __DIR__.'/../../config/business-core.php' => config_path('business-core.php'),
-                 //   __DIR__.'/../config/eloquent-authorable.php' => config_path('eloquent-authorable.php'),
+                    __DIR__.'/../../config/eloquent-authorable.php' => config_path('eloquent-authorable.php'),
                     __DIR__.'/../../config/location.php' => config_path('location.php'),
                     __DIR__.'/../../config/permission.php' => config_path('permission.php'),
                     __DIR__.'/../../config/notification-manager.php' => config_path('notification-manager.php'),
@@ -206,8 +206,11 @@ class BcServiceProvider extends BaseServiceProvider {
 //        ], 'bc-src');
 
         $this->publishes([
-          //  __DIR__.'/../../resources/views/' => $this->app->resourcePath('views/vendor/mail'),
-            __DIR__.'/../resources/views' => resource_path('views/vendor/business-core')
+            // Vues "business-core" normales
+            __DIR__.'/../resources/views' => resource_path('views/vendor/business-core'),
+
+            // Vues mail Markdown personnalisées
+            __DIR__.'/../resources/views/vendor/mail' => resource_path('views/vendor/mail'),
         ], 'bc-resources-views');
     }
 
@@ -252,6 +255,7 @@ class BcServiceProvider extends BaseServiceProvider {
             PublishCoreFolders::class,
             CacheEvents::class,
             ClearEventsCache::class,
+            PatchHandlerCommand::class,
         ]);
 
     }

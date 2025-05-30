@@ -19,42 +19,39 @@ class Setup extends Command
         DB::statement("SET FOREIGN_KEY_CHECKS=0");
 
         // Publier les fichiers de configuration
-        Artisan::call("vendor:publish", [ "--tag" => "bc-config" ]);
-        $this->info("✅  Le fichier de configuration config/business-core.php a été publié.");
+        $this->call("vendor:publish", [ "--tag" => "bc-config" ]);
+        // $this->info("✅  Le fichier de configuration config/business-core.php a été publié.");
 
-        Artisan::call("vendor:publish", [ "--tag" => "bc-config-all" ]);
-        $this->info("✅  Tous les autres fichiers de configuration ont été publiés.");
+        $this->call("vendor:publish", [ "--tag" => "bc-config-all" ]);
+        // $this->info("✅  Tous les autres fichiers de configuration ont été publiés.");
 
         // Publier les fichiers de données si confirmé
-        if ($this->confirm("Souhaitez-vous publier tous les fichiers de données business-core ?", true)) {
-            Artisan::call("vendor:publish", [ "--tag" => "bc-data" ]);
-            $this->info("✅  Fichiers publiés ! Vous pouvez les retrouver dans le répertoire config/bc-data.");
-        }
+       // if ($this->confirm("Souhaitez-vous publier tous les fichiers de données business-core ?", true)) {
+             $this->call("vendor:publish", [ "--tag" => "bc-data" ]);
+           // $this->info("✅  Fichiers publiés ! Vous pouvez les retrouver dans le répertoire config/bc-data.");
+       // }
 
         // Publier les fichiers de migrations si confirmé
-        if ($this->confirm("Souhaitez-vous publier tous les fichiers de migration business-core ?", true)) {
+      //  if ($this->confirm("Souhaitez-vous publier tous les fichiers de migration business-core ?", true)) {
             Artisan::call("vendor:publish", [ "--tag" => "bc-migrations" ]);
             $this->info("✅  Les fichiers de migration ont été publiés.");
-        }
+       // }
 
         // Réinitialiser et recompiler le cache de configuration
-        Artisan::call("config:clear");
-        Artisan::call("config:cache");
+        $this->call("config:clear");
+        $this->call("config:cache");
 
         // Exécuter les migrations avec une base propre
-        Artisan::call("migrate:fresh", ['--force' => true]);
+        $this->call("migrate:fresh", ['--force' => true]);
 
         // Installer les devises
-        Artisan::call("bc:install.currencies");
-        $this->info("✅  Les données des devises ont été créées.");
+        $this->call("bc:install.currencies");
 
         // Créer le rôle Super Admin
-        Artisan::call("bc:install.role-super-admin");
-        $this->info("✅  Le rôle Super-Admin a été créé.");
+        $this->call("bc:install.role-super-admin");
 
         // Créer les permissions
-        Artisan::call("bc:install.permissions");
-        $this->info("✅  Les permissions ont été créées.");
+        $this->call("bc:install.permissions");
 
         // Message de fin
         $this->info("✅  Structure de la base de données Business Core configurée avec succès !");

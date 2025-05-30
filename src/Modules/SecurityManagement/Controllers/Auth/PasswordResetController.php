@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Kirago\BusinessCore\Modules\SecurityManagement\Events\OtpCodeGenerated;
 use Kirago\BusinessCore\Modules\SecurityManagement\Helpers\OtpCodeHelper;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcOtpCode;
+use Kirago\BusinessCore\Modules\SecurityManagement\Rules\ValidUserIdentifier;
 use Kirago\BusinessCore\Modules\SecurityManagement\Services\AuthService;
 use Kirago\BusinessCore\Support\Constants\BcReasonCode;
 
@@ -26,7 +27,7 @@ class PasswordResetController extends Controller
     public function request(Request $request)
     {
         $request->validate([
-            'identifier' => 'required|string',
+            'identifier' => ['required','string',new ValidUserIdentifier()],
         ]);
 
         $authService = new AuthService($request->header('x-auth-guard'));
@@ -50,7 +51,7 @@ class PasswordResetController extends Controller
     public function reset(Request $request): JsonResponse
     {
         $request->validate([
-            'identifier' => ['required',"string"],
+            'identifier' => ['required',"string",new ValidUserIdentifier],
             'code' => ['required', 'string' , Rule::exists((new BcOtpCode)->getTable())],
             'password'   => ['required',"string","confirmed",Password::defaults()],
         ]);
@@ -58,13 +59,6 @@ class PasswordResetController extends Controller
         $authService = new AuthService($request->header('x-auth-guard'));
 
         $user = $authService->findUserByIdentifier($request->input('identifier'));
-
-        throw_if(
-            blank($user) ,
-            new ModelNotFoundException(
-                BcReasonCode::USER_NOT_FOUND->value
-            )
-        );
 
         $isValid = OtpCodeHelper::verify($user, $request->input('code'));
 

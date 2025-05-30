@@ -20,12 +20,12 @@ trait PublishesMigrations {
         if ($this->app->runningInConsole()) {
 
             $generator = function (string $directory): Generator {
-                $subPath = config("business-core.migrations_subpath");
+                $subPath = config("business-core.migrations_subpath") ?? "business-core";
 
                 foreach ($this->app->make('files')->allFiles($directory) as $file) {
                     $destination = $this->app->databasePath(
                         'migrations' .
-                        ($subPath ? "/$subPath" : '') .
+                        (filled($subPath) ? "/$subPath" : '') .
                         '/' . $file->getFilename()
                     );
 

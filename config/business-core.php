@@ -9,6 +9,7 @@ use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcCountry;
 use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcQuarter;
 use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcState;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Commands\CreateStaffCommand;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Middlewares\EnsureRequestHasOrganization;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcContactForm;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcSetting;
@@ -23,6 +24,7 @@ use Kirago\BusinessCore\Modules\SalesManagement\Models\BcPayment;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcProduct;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcTax;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcTaxGroup;
+use Kirago\BusinessCore\Modules\SecurityManagement\Middlewares\EnsureAuthGuardHeaderIsPresent;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcOtpCode;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcPermission;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcRole;
@@ -37,6 +39,11 @@ return [
 
     // 🔧 Active ou non la personnalisation des fichiers du package
     'customization' => false,
+
+    'middlewares' => [
+        'has-auth-guard-header' => EnsureAuthGuardHeaderIsPresent::class,
+        'has-organization' => EnsureRequestHasOrganization::class
+    ],
 
     // 🧑‍💼 Définition des classes utilisables pour l'authentification selon le rôle
     "authenticables" => [

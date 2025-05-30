@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\CoresManagement\Models\BcActivityLog;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\BcLang;
 
 return new class extends Migration {
     /**
@@ -12,8 +12,8 @@ return new class extends Migration {
      * @return void
      */
     public function up(){
-        if(!Schema::hasTable((new BcActivityLog)->getTable())){
-            Schema::create((new BcActivityLog)->getTable(), function (Blueprint $table) {
+        if(!Schema::hasTable((new BcLang)->getTable())){
+            Schema::create((new BcLang)->getTable(), function (Blueprint $table) {
                 $table->string('label')->nullable()
                       ->comment("le nom");
 
@@ -34,6 +34,6 @@ return new class extends Migration {
      * @return void
      */
     public function down(){
-        Schema::dropIfExists((new BcActivityLog)->getTable());
+        Schema::dropIfExists((new BcLang)->getTable());
     }
 };

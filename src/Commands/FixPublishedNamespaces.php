@@ -4,6 +4,7 @@ namespace Kirago\BusinessCore\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Symfony\Component\Finder\SplFileInfo as SymfonySplFileInfo;
 
 class FixPublishedNamespaces extends Command
 {
@@ -34,7 +35,10 @@ class FixPublishedNamespaces extends Command
             if (is_dir($basePath)) {
                 $files = File::allFiles($basePath);
             } elseif (is_file($basePath)) {
-                $files = [new \SplFileInfo($basePath)];
+                /**
+                 * pour les fichiers isolés (comme ceux dans config/
+                 */
+                $files = [new SymfonySplFileInfo($basePath, dirname($basePath), basename($basePath))];
             } else {
                 continue;
             }

@@ -5,7 +5,6 @@ namespace Kirago\BusinessCore\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
-use Illuminate\Support\Facades\Artisan;
 
 class PublishCoreFolders extends  Command
 {
@@ -15,9 +14,9 @@ class PublishCoreFolders extends  Command
 
     public function handle()
     {
-        if (!config("business-core.customization",false)) {
-            $this->info("Veuillez activer la customisation dans config/business-core.php");
-            Command::SUCCESS;
+        if (config("business-core.customization",false) === false) {
+            $this->warn("Veuillez activer la customisation dans 'config/business-core.php' !");
+           return Command::SUCCESS;
 
         }
 
@@ -50,7 +49,12 @@ class PublishCoreFolders extends  Command
         // Appelle la commande bc:fix-namespaces après copie
         try {
             $this->call('bc:fix-namespaces');
-            Artisan::call("vendor:publish", [ "--tag" => "bc-resources-views" ]);
+            $this->call("vendor:publish", [ "--tag" => "bc-resources-views" ]);
+
+              if ($this->confirm("Publier le Handler pour la gestion des exception ?", true)) {
+                  $this->call("bc:patch-handler");
+             }
+
             $this->info("✅  all views files published in 'views/vendor/business-core' ");
         } catch (CommandNotFoundException $e) {
             $this->error('❌ La commande "bc:fix-namespaces" est introuvable. Assure-toi qu’elle est bien déclarée.');
