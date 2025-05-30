@@ -4,11 +4,12 @@ namespace Kirago\BusinessCore\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Symfony\Component\Finder\SplFileInfo as SymfonySplFileInfo;
 
 class FixPublishedNamespaces extends Command
 {
     protected $signature = 'bc:fix-namespaces';
-    protected $description = 'Corrige les namespaces et les imports use des fichiers PHP publiés dans app/Modules, app/Support et app/JsonApi';
+    protected $description = 'Corrige les namespaces et les imports use des fichiers PHP publiés dans app/Modules, app/Support, app/JsonApi, etc.';
 
     public function handle()
     {
@@ -16,63 +17,70 @@ class FixPublishedNamespaces extends Command
             app_path('Modules')  => ['from' => 'Kirago\\BusinessCore\\Modules', 'to' => 'App\\Modules'],
             app_path('Support')  => ['from' => 'Kirago\\BusinessCore\\Support', 'to' => 'App\\Support'],
             app_path('JsonApi')  => ['from' => 'Kirago\\BusinessCore\\JsonApi', 'to' => 'App\\JsonApi'],
+
+            config_path('business-core.php') => ['from' => 'Kirago\\BusinessCore', 'to' => 'App'],
+            config_path('eloquent-authorable.php') => ['from' => 'Kirago\\BusinessCore', 'to' => 'App'],
+            config_path('jsonapi.php') => ['from' => 'Kirago\\BusinessCore', 'to' => 'App'],
+            config_path('media-library.php') => ['from' => 'Kirago\\BusinessCore', 'to' => 'App'],
+            config_path('notification-manager.php') => ['from' => 'Kirago\\BusinessCore', 'to' => 'App'],
+            config_path('permission.php') => ['from' => 'Kirago\\BusinessCore', 'to' => 'App'],
+            config_path('auth.php') => ['from' => 'Kirago\\BusinessCore', 'to' => 'App'],
+            config_path('activitylog.php') => ['from' => 'Kirago\\BusinessCore', 'to' => 'App'],
+            config_path('bc-data/permissions.php') => ['from' => 'Kirago\\BusinessCore', 'to' => 'App'],
         ];
 
         $totalFixed = 0;
 
         foreach ($targets as $basePath => $ns) {
-            if (!is_dir($basePath)) {
-                File::makeDirectory($basePath, 0755, true);
-                $this->info("📁 Dossier créé : $basePath");
+            if (is_dir($basePath)) {
+                $files = File::allFiles($basePath);
+            } elseif (is_file($basePath)) {
+                /**
+                 * pour les fichiers isolés (comme ceux dans config/
+                 */
+                $files = [new SymfonySplFileInfo($basePath, dirname($basePath), basename($basePath))];
+            } else {
+                continue;
             }
 
             $from = $ns['from'];
             $to = $ns['to'];
 
-            $namespacePattern = '/^namespace\s+' . preg_quote($from, '/') . '(.*);/m';
-            $namespaceReplacement = 'namespace ' . $to . '$1;';
-
-            // Ce pattern attrape tous les "use Kirago\BusinessCore\..." sur une ligne
-            $usePattern = '/^use\s+(Kirago\\\\BusinessCore\\\\[^\s;]+);/m';
-
-            $files = collect(File::files($basePath))->merge(File::allFiles($basePath));
-
             $count = 0;
 
             foreach ($files as $file) {
-                if ($file->getExtension() !== 'php') continue;
+                if (!in_array($file->getExtension(), ['php', 'blade.php', 'stub', 'json', 'js', 'ts'])) continue;
 
                 $path = $file->getRealPath();
                 $content = File::get($path);
                 $updated = false;
 
-                // Correction du namespace principal
+                // Remplacer les namespaces déclarés
+                $namespacePattern = '/^namespace\s+' . preg_quote($from, '/') . '(.*);/m';
+                $namespaceReplacement = 'namespace ' . $to . '$1;';
                 if (preg_match($namespacePattern, $content)) {
                     $content = preg_replace($namespacePattern, $namespaceReplacement, $content);
                     $updated = true;
                 }
 
-                // Correction des imports `use`
+                // Remplacer les imports use
+                $usePattern = '/^use\s+(Kirago\\\\BusinessCore\\\\[^\s;]+);/m';
                 $content = preg_replace_callback($usePattern, function ($matches) {
                     $fullUse = $matches[1];
+                    return 'use ' . $this->replaceNamespace($fullUse) . ';';
+                }, $content, -1, $replacedCount1);
+                if ($replacedCount1 > 0) {
+                    $updated = true;
+                }
 
-                    // Remplace les namespaces Modules, Support ou JsonApi
-                    $replacements = [
-                        'Kirago\\BusinessCore\\Modules' => 'App\\Modules',
-                        'Kirago\\BusinessCore\\Support' => 'App\\Support',
-                        'Kirago\\BusinessCore\\JsonApi' => 'App\\JsonApi',
-                    ];
-
-                    foreach ($replacements as $from => $to) {
-                        if (str_starts_with($fullUse, $from)) {
-                            return 'use ' . str_replace($from, $to, $fullUse) . ';';
-                        }
-                    }
-
-                    return $matches[0]; // aucun remplacement
-                }, $content, -1, $replacedCount);
-
-                if ($replacedCount > 0) {
+                // Remplacer les usages inline (hors "use" ou "namespace")
+                $inlinePattern = '/Kirago\\\\BusinessCore\\\\[A-Za-z0-9_\\\\]+/';
+                $content = preg_replace_callback(
+                                $inlinePattern,
+                                fn ($matches)=> $this->replaceNamespace($matches[0]),
+                                $content, -1, $replacedCount2
+                            );
+                if ($replacedCount2 > 0) {
                     $updated = true;
                 }
 
@@ -94,5 +102,23 @@ class FixPublishedNamespaces extends Command
         }
 
         return Command::SUCCESS;
+    }
+
+    protected function replaceNamespace(string $input): string
+    {
+        $replacements = [
+            'Kirago\\BusinessCore\\Modules' => 'App\\Modules',
+            'Kirago\\BusinessCore\\Support' => 'App\\Support',
+            'Kirago\\BusinessCore\\JsonApi' => 'App\\JsonApi',
+            'Kirago\\BusinessCore' => 'App',
+        ];
+
+        foreach ($replacements as $from => $to) {
+            if (str_starts_with($input, $from)) {
+                return str_replace($from, $to, $input);
+            }
+        }
+
+        return $input;
     }
 }

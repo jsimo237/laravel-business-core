@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
 use LaravelJsonApi\Core\Responses\DataResponse;
 use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
-use Throwable;
 
 class MeController extends Controller {
 

@@ -4,7 +4,6 @@ namespace Kirago\BusinessCore\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Kirago\BusinessCore\Helpers\ViewComponentProviderHelper;
-use Kirago\BusinessCore\Modules\SecurityManagement\View\Components\OtpCodeRender;
 
 trait RegisterViews
 {
@@ -26,9 +25,9 @@ trait RegisterViews
         if (method_exists($this, 'loadViewComponentsAs')) {
             $this->loadViewComponentsAs('business-core', $components);
         } else {
-            // fallback éventuel si tu dois supporter une version Laravel < 10 (rare)
+            // fallback éventuel pour Laravel < 10 (rare)
             foreach ($components as $component) {
-                \Illuminate\Support\Facades\Blade::component($component, null, $prefix);
+                Blade::component($component, null, $prefix);
             }
         }
     }

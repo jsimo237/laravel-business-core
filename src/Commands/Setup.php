@@ -11,70 +11,51 @@ class Setup extends Command
 {
     protected $signature = 'bc:setup';
 
-    protected $description = "Install all business-core tables in the database";
+    protected $description = "Installer toutes les tables du module business-core dans la base de données";
 
     public function handle()
     {
-        // Désactiver les contraintes de clé étrangère temporairement
+        // Désactiver temporairement les contraintes de clés étrangères
         DB::statement("SET FOREIGN_KEY_CHECKS=0");
 
-       // if ($this->confirm("Dou you want to publish business-core config file ?", true)) {
-            Artisan::call("vendor:publish", [ "--tag" => "bc-config" ]);
-            $this->info("✅  config/business-core.php published.");
+        // Publier les fichiers de configuration
+        $this->call("vendor:publish", [ "--tag" => "bc-config" ]);
+        // $this->info("✅  Le fichier de configuration config/business-core.php a été publié.");
 
-            Artisan::call("vendor:publish", [ "--tag" => "bc-config-all" ]);
-            $this->info("✅  all orthers configs files published.");
+        $this->call("vendor:publish", [ "--tag" => "bc-config-all" ]);
+        // $this->info("✅  Tous les autres fichiers de configuration ont été publiés.");
+
+        // Publier les fichiers de données si confirmé
+       // if ($this->confirm("Souhaitez-vous publier tous les fichiers de données business-core ?", true)) {
+             $this->call("vendor:publish", [ "--tag" => "bc-data" ]);
+           // $this->info("✅  Fichiers publiés ! Vous pouvez les retrouver dans le répertoire config/bc-data.");
        // }
 
-        if ($this->confirm("Dou you want to publish all business-core data files ?", true)) {
-            Artisan::call("vendor:publish", [ "--tag" => "bc-data" ]);
-            $this->info("✅ Published! You can see directory config/bc-data .");
-        }
-        if ($this->confirm("Dou you want to publish all business-core src files ?", true)) {
-           // Artisan::call("vendor:publish", [ "--tag" => "bc-src" ]);
-            Artisan::call("bc:publish-core-folders");
-          //  Artisan::call("bc:fix-namespaces", []);
-            $this->info("✅ Published! You can customize JsonApi,Models and more .");
-        }
+        // Publier les fichiers de migrations si confirmé
+      //  if ($this->confirm("Souhaitez-vous publier tous les fichiers de migration business-core ?", true)) {
+            Artisan::call("vendor:publish", [ "--tag" => "bc-migrations" ]);
+            $this->info("✅  Les fichiers de migration ont été publiés.");
+       // }
 
-        // Demander à l'utilisateur s'il veut publier les migrations
-        if ($this->confirm("Dou you want to publish all business-core migration files ?", true)) {
-            Artisan::call("vendor:publish", [  "--tag" => "bc-migrations" ]);
-            Artisan::call("vendor:publish", [  "--tag" => "activitylog-migrations" ]);
-            $this->info("✅  Migrations files published.");
+        // Réinitialiser et recompiler le cache de configuration
+        $this->call("config:clear");
+        $this->call("config:cache");
 
-        } else {
+        // Exécuter les migrations avec une base propre
+        $this->call("migrate:fresh", ['--force' => true]);
 
-            // Exécuter les migrations directement depuis les modules du package
-          //  $this->runPackageMigrations();
-        }
+        // Installer les devises
+        $this->call("bc:install.currencies");
 
-        Artisan::call("config:clear");
-        Artisan::call("config:cache");
-       // Artisan::call("optimize:clear");
+        // Créer le rôle Super Admin
+        $this->call("bc:install.role-super-admin");
 
-        // Exécuter les migrations depuis le dossier de l'application
-        Artisan::call("migrate:fresh", ['--force' => true]);
+        // Créer les permissions
+        $this->call("bc:install.permissions");
 
-        Artisan::call("bc:install.currencies");
-        $this->info("✅ All Currencies data have been created .");
-
-        Artisan::call("bc:install.role-super-admin");
-        $this->info("✅ Role Super-Admin created .");
-
-        Artisan::call("bc:install.permissions");
-        $this->info("✅ All Permissions data have been created .");
-
-
-     //   Artisan::call("optimize:clear");
-        // Créee les permissions
-       // Artisan::call("bc:install/permissions");
-       // $this->info("✅ All Permissions Data created in database");
-
-        $this->info("✅  Business Core Database stucture setting up!");
-
+        // Message de fin
+        $this->info("✅  Structure de la base de données Business Core configurée avec succès !");
 
         return self::SUCCESS;
     }
-
 }

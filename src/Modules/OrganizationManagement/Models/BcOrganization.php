@@ -18,7 +18,6 @@ use Kirago\BusinessCore\Modules\HasSlug;
 use Kirago\BusinessCore\Modules\LocalizationManagement\Constants\BcSettingsKeys;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Factories\OrganizationFactory;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
-use Kirago\BusinessCore\Support\Constants\BusinessCoreConfigs;
 use Spatie\MediaLibrary\HasMedia as SpatieHasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\SlugOptions;
@@ -74,7 +73,7 @@ class BcOrganization extends Model implements SpatieHasMedia {
      */
     public function relatedEntities(string $target): HasMany|BelongsToMany
     {
-        $configs = BusinessCoreConfigs::getModelsInteractWithOrganization();
+        $configs = config("business-core.models_interact_with_organization");
 
         // Récupère toutes les classes, que ce soit avec ou sans config
         $allTargets = collect($configs)->mapWithKeys(function ($value, $key) {

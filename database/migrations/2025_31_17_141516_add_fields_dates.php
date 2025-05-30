@@ -29,24 +29,29 @@ return new class extends Migration {
      */
     public function up(){
 
-        $classes = \Kirago\BusinessCore\Support\Constants\BusinessCoreConfigs::getModelsHasAuthors();
+        $classes = config("business-core.models_has_authors");
 
-        foreach ($classes as $class) {
-            $model = (new $class);
-            $tableName = $model->getTable();
+        if ($classes){
+            foreach ($classes as $class) {
 
-            if(Schema::hasTable($tableName)){
-                Schema::whenTableDoesntHaveColumn($tableName, "created_at",function (Blueprint $table)  {
-                    $table->timestamp('created_at')->nullable();
-                });
-                Schema::whenTableDoesntHaveColumn($tableName, "updated_at",function (Blueprint $table)  {
-                    $table->timestamp('updated_at')->nullable();
-                });
+                if (class_exists($class)){
+                    $model = (new $class);
+                    $tableName = $model->getTable();
 
-                Schema::whenTableDoesntHaveColumn($tableName, "deleted_at",function (Blueprint $table)  {
-                    $table->timestamp('deleted_at')->nullable();
-                });
+                    if(Schema::hasTable($tableName)){
+                        Schema::whenTableDoesntHaveColumn($tableName, "created_at",function (Blueprint $table)  {
+                            $table->timestamp('created_at')->nullable();
+                        });
+                        Schema::whenTableDoesntHaveColumn($tableName, "updated_at",function (Blueprint $table)  {
+                            $table->timestamp('updated_at')->nullable();
+                        });
 
+                        Schema::whenTableDoesntHaveColumn($tableName, "deleted_at",function (Blueprint $table)  {
+                            $table->timestamp('deleted_at')->nullable();
+                        });
+
+                    }
+                }
             }
         }
 

@@ -17,10 +17,10 @@ final class ViewComponentProviderHelper
      */
     public static function discoverComponentFilesFromModules(): array
     {
-        $configuredPath = config('business-core.modules_path', null);
-        $baseDir = $configuredPath
-            ? base_path($configuredPath)
-            : realpath(__DIR__ . '/../Modules'); // fallback vers le package
+        $customization = config('business-core.customization',false);
+        $baseDir = $customization
+                    ? base_path("app/Modules")
+                    : realpath(__DIR__ . '/../Modules'); // Fallback vers le package
 
         if (!$baseDir || !is_dir($baseDir)) {
             return [];

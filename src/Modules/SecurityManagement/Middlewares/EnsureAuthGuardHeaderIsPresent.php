@@ -6,7 +6,6 @@ use Closure;
 use Illuminate\Http\Request;
 use Kirago\BusinessCore\Support\Constants\BcReasonCode;
 use Kirago\BusinessCore\Support\Constants\BcServerStatus;
-use Kirago\BusinessCore\Support\Constants\BusinessCoreConfigs;
 use Kirago\BusinessCore\Support\Exceptions\BcFieldHeaderRequiredException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
@@ -25,7 +24,7 @@ class EnsureAuthGuardHeaderIsPresent
         );
 
         $guardName = $request->header('x-auth-guard');
-        $guards = array_keys(BusinessCoreConfigs::getAuthenticables() ?? []);
+        $guards = array_keys(config("business-core.authenticables") ?? []);
 
         throw_if(
             filled($guards) && !in_array($guardName, $guards),

@@ -38,8 +38,8 @@ abstract class BaseBcModel extends Model
     use HasFactory,
         SoftDeletes,
         Authorable,
-        HasOrganization,
         Auditable,
+        HasOrganization,
         InteractWithCommonsScopeFilter;
 
     protected $guarded = [];

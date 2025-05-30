@@ -1,59 +1,70 @@
 {
-    "name" : "kirago/laravel-business-core",
-    "description" : "A Laravel business core multi-tenancies management data structure : orders, products, invoices, payments and more ...",
+    "name": "kirago/laravel-business-core",
+    "description": "A Laravel business core multi-tenancies management data structure: orders, products, invoices, payments and more ...",
     "keywords": [
-        "laravel","kirago","business","models"
-      ],
-    "homepage" : "https://github.com/jsimo237/laravel-business-core",
-    "version": "1.0",
-    "support" : {
-        "issues" : "https://github.com/jsimo237/laravel-business-core/issues"
+        "laravel",
+        "kirago",
+        "multi-tenant",
+        "tenancy",
+        "business",
+        "business-core",
+        "core",
+        "invoice",
+        "order",
+        "payment",
+        "product",
+        "jsonapi",
+        "billing",
+        "laravel-package"
+    ],
+    "homepage": "https://github.com/jsimo237/laravel-business-core",
+    "support": {
+        "issues": "https://github.com/jsimo237/laravel-business-core/issues"
     },
-    "authors" : [
+    "authors": [
         {
-            "name" : "Simo Joel",
-            "email" : "joelsimooverride@gmail.com",
-            "role": "Developper",
+            "name": "Simo Joel",
+            "email": "joelsimooverride@gmail.com",
+            "role": "Developer",
             "homepage": "https://github.com/jsimo237"
         }
     ],
-    "license" : "MIT",
-    "require" : {
-        "php": "^7.3|^8",
+    "license": "MIT",
+    "require": {
+        "php": "^8.1",
         "ext-json": "*",
         "ext-ctype": "*",
         "ext-filter": "*",
         "ext-mbstring": "*",
         "ext-pdo": "*",
-        "axn/laravel-eloquent-authorable": "*",
-        "barryvdh/laravel-dompdf": "*",
-        "calebporzio/sushi": "*",
-        "laravel/sanctum": "*",
-        "spatie/laravel-medialibrary": "*",
-        "spatie/laravel-permission": "*",
-        "spatie/laravel-activitylog": "*",
-        "spatie/laravel-translatable": "*",
-        "staudenmeir/eloquent-has-many-deep": "*",
-        "cviebrock/eloquent-sluggable": "*",
-        "stevebauman/location": "*",
-        "spatie/valuestore": "*",
-        "laravel-notification-channels/webpush": "*",
-        "spatie/laravel-sluggable": "*",
-        "laravel-json-api/laravel": "*",
-        "simplesoftwareio/simple-qrcode": "*"
-
+        "laravel/framework": "^10.0 || ^11.0 || ^12.0",
+        "axn/laravel-eloquent-authorable": "^5.0",
+        "barryvdh/laravel-dompdf": "^2.0",
+        "calebporzio/sushi": "^1.2",
+        "laravel/sanctum": "^3.0",
+        "spatie/laravel-medialibrary": "^10.0",
+        "spatie/laravel-permission": "^6.0",
+        "spatie/laravel-activitylog": "^4.0",
+        "spatie/laravel-translatable": "^6.0",
+        "staudenmeir/eloquent-has-many-deep": "^1.8",
+        "cviebrock/eloquent-sluggable": "^8.0",
+        "stevebauman/location": "^6.0",
+        "spatie/valuestore": "^1.3",
+        "laravel-notification-channels/webpush": "^6.0",
+        "spatie/laravel-sluggable": "^3.0",
+        "laravel-json-api/laravel": "^3.5",
+        "simplesoftwareio/simple-qrcode": "^4.4"
     },
     "require-dev": {
         "kirago/laravel-xpeedy-service": "dev-main"
     },
-    "minimum-stability": "dev",
     "prefer-stable": true,
-    "autoload" : {
+    "autoload": {
         "files": [
             "src/helpers.php"
         ],
-        "psr-4" : {
-            "Kirago\\BusinessCore\\" : "src/",
+        "psr-4": {
+            "Kirago\\BusinessCore\\": "src/",
             "Kirago\\BusinessCore\\Database\\Factories\\": "database/factories/",
             "Kirago\\BusinessCore\\Database\\Seeders\\": "database/seeders/"
         }
@@ -61,7 +72,7 @@
     "extra": {
         "laravel": {
             "providers": [
-              "Kirago\\BusinessCore\\Providers\\BcServiceProvider"
+                "Kirago\\BusinessCore\\Providers\\BcServiceProvider"
             ]
         }
     }

@@ -5,7 +5,6 @@ namespace Kirago\BusinessCore\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
-use Illuminate\Support\Facades\Artisan;
 
 class PublishCoreFolders extends  Command
 {
@@ -15,6 +14,12 @@ class PublishCoreFolders extends  Command
 
     public function handle()
     {
+        if (config("business-core.customization",false) === false) {
+            $this->warn("Veuillez activer la customisation dans 'config/business-core.php' !");
+           return Command::SUCCESS;
+
+        }
+
         $base = base_path('vendor/kirago/laravel-business-core/src'); // adapt if needed
         $targets = [
             'Modules' => app_path('Modules'),
@@ -44,12 +49,17 @@ class PublishCoreFolders extends  Command
         // Appelle la commande bc:fix-namespaces après copie
         try {
             $this->call('bc:fix-namespaces');
-            Artisan::call("vendor:publish", [ "--tag" => "bc-resources-views" ]);
+            $this->call("vendor:publish", [ "--tag" => "bc-resources-views" ]);
+
+              if ($this->confirm("Publier le Handler pour la gestion des exception ?", true)) {
+                  $this->call("bc:patch-handler");
+             }
+
             $this->info("✅  all views files published in 'views/vendor/business-core' ");
         } catch (CommandNotFoundException $e) {
             $this->error('❌ La commande "bc:fix-namespaces" est introuvable. Assure-toi qu’elle est bien déclarée.');
         }
-
+        $this->info("✅ Published! You can customize JsonApi,Models and more .");
         return Command::SUCCESS;
     }
 }

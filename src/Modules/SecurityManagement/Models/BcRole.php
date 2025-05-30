@@ -2,10 +2,11 @@
 
 namespace Kirago\BusinessCore\Modules\SecurityManagement\Models;
 
-use Axn\EloquentAuthorable\AuthorableTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Kirago\BusinessCore\Modules\Authorable;
 use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Activable;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Auditable;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Contrats\OrganizationScopable;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Traits\HasOrganization;
@@ -23,8 +24,10 @@ use Spatie\Permission\Models\Role as SpatieRole;
  */
 class BcRole extends SpatieRole implements OrganizationScopable {
 
-    use HasFactory,SoftDeletes,
-        AuthorableTrait,
+    use HasFactory,
+        SoftDeletes,
+        Authorable,
+        Auditable,
         Activable,
         HasOrganization;
 

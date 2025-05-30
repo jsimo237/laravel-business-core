@@ -38,7 +38,7 @@ class InstallRoleSuperAdmin extends Command{
 
          //  $role->givePermissionTo(BcPermission::pluck('id')->toArray());
 
-            $this->info('Role Super-Admin has been created!');
+            $this->info("✅  Le rôle Super-Admin a été créé.");
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();

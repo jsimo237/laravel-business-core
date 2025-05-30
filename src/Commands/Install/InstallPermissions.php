@@ -29,7 +29,7 @@ class InstallPermissions extends Command{
 
             BcPermission::syncAllPermissionsToSuperAdminRole();
 
-            $this->info('All permissions data have been created!');
+            $this->info("✅  Les permissions ont été créées.");
         } catch (\Exception $e) {
             $this->error("Error during {$this->signature}  : " . $e->getMessage());
         }

@@ -3,7 +3,6 @@
 
 namespace Kirago\BusinessCore\Commands\Install;
 
-
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
@@ -28,7 +27,7 @@ class InstallCurrencies extends Command{
 
             DB::commit();
 
-            $this->info('All currencies data have been installed!');
+            $this->info("✅  Les données des devises ont été créées.");
 
         } catch (\Exception $e) {
             DB::rollBack();

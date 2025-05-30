@@ -35,8 +35,8 @@ class OtpCodeMail extends Mailable
     {
         return new Envelope(
             from : new Address(
-                    address : $this->fromAddress['email'] ?? env('MAIL_FROM_ADDRESS'),
-                    name : $this->fromAddress['name'] ??  env('MAIL_FROM_NAME')
+                    address : $this->fromAddress['email'] ?? env('MAIL_FROM_ADDRESS',"contact@kirago.org"),
+                    name : $this->fromAddress['name'] ??  env('MAIL_FROM_NAME',"Kirago")
                  ),
             subject : $this->title ?? 'Otp Code Mail',
         );
