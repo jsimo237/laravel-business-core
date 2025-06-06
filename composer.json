@@ -5,6 +5,7 @@
         "laravel",
         "kirago",
         "multi-tenant",
+        "multi-tenancy",
         "tenancy",
         "business",
         "business-core",
