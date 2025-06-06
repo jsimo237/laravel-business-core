@@ -52,13 +52,14 @@
         "spatie/valuestore": "^1.3",
         "laravel-notification-channels/webpush": "^6.0",
         "spatie/laravel-sluggable": "^3.0",
-        "laravel-json-api/laravel": "^3.5",
-        "simplesoftwareio/simple-qrcode": "^4.4"
+        "laravel-json-api/laravel": "^3.4",
+        "simplesoftwareio/simple-qrcode": "^4.2"
     },
     "require-dev": {
         "kirago/laravel-xpeedy-service": "dev-main"
     },
     "prefer-stable": true,
+    "minimum-stability": "stable",
     "autoload": {
         "files": [
             "src/helpers.php"
