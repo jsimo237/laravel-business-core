@@ -44,7 +44,7 @@
         "calebporzio/sushi": "^2.5",
         "cviebrock/eloquent-sluggable": "^10.0",
         "laravel-notification-channels/webpush": "^7.1",
-        "laravel-json-api/laravel": "^3.4",
+        "laravel-json-api/laravel": "^3.5",
         "laravel/sanctum": "^3.3",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-medialibrary": "^10.15",
