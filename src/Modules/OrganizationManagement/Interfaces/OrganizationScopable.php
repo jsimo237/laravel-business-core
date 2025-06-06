@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirago\BusinessCore\Modules\OrganizationManagement\Contrats;
+namespace Kirago\BusinessCore\Modules\OrganizationManagement\Interfaces;
 
 
 use Illuminate\Database\Eloquent\Builder;
@@ -12,7 +12,8 @@ use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
 
 
 /**
- * @property BcOrganization $organization
+ * @property BcOrganization organization
+ * @property string|int|null organization_id
  */
 interface OrganizationScopable
 {

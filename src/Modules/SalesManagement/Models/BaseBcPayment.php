@@ -4,9 +4,9 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
 
 use DateTime;
 use Kirago\BusinessCore\Modules\BaseBcModel;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseInvoiceContract;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseOrderContract;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BasePaymentContract;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BaseInvoice;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BaseOrder;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BasePayment;
 use Kirago\BusinessCore\Support\Contracts\EventNotifiableContract;
 use Kirago\BusinessCore\Support\Contracts\GenerateUniqueValueContrat;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
  * @property string code
  * @property string note
  * @property float amount
- * @property BaseInvoiceContract invoice
+ * @property BaseInvoice invoice
  * @property string source_code
  * @property string source_reference
  * @property array<string, mixed> source_response
@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
  */
 
 abstract class BaseBcPayment extends BaseBcModel implements
-    EventNotifiableContract,BasePaymentContract,GenerateUniqueValueContrat
+    EventNotifiableContract,BasePayment,GenerateUniqueValueContrat
 {
 
     protected static function booted(){
@@ -59,8 +59,8 @@ abstract class BaseBcPayment extends BaseBcModel implements
     abstract public function invoice() : BelongsTo;
     abstract public function order() : HasOneThrough;
 
-    abstract public function getOrder() : BaseOrderContract;
-    abstract public function getInvoice() : BaseInvoiceContract;
+    abstract public function getOrder() : BaseOrder;
+    abstract public function getInvoice() : BaseInvoice;
 
     abstract public function generateUniqueValue(string $field = "code") : void ;
 }

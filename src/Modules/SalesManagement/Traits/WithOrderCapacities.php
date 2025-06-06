@@ -3,7 +3,7 @@
 namespace Kirago\BusinessCore\Modules\SalesManagement\Traits;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\TaxableItemContrat;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\TaxableItemContrat;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
 use Kirago\BusinessCore\Modules\SalesManagement\Constants\DiscountType;
 

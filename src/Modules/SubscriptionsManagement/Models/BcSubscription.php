@@ -10,21 +10,26 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Carbon;
 use Kirago\BusinessCore\Modules\BaseBcModel;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseInvoiceContract;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseInvoiceItemContrat;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseOrderContract;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseOrderItemContrat;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\OrderableContrat;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BaseInvoice;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BaseInvoiceItem;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BaseOrder;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BaseOrderItem;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BillableItem;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\Invoiceable;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\Orderable;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoiceItem;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrderItem;
+use Kirago\BusinessCore\Modules\SalesManagement\Traits\InteractWithInvoiceItemsCapacities;
+use Kirago\BusinessCore\Modules\SalesManagement\Traits\InteractWithOrdertemsCapacities;
 use Kirago\BusinessCore\Modules\SubscriptionsManagement\Constants\BcSubscriptionStatuses;
 use Kirago\BusinessCore\Modules\SubscriptionsManagement\Factories\SubscriptionFactory;
 use Kirago\BusinessCore\Support\Exceptions\BcNewIdCannotGeneratedException;
 
 
 /**
+ * @property string id
  * @property string reference
  * @property DateTime initiated_at
  * @property DateTime completed_at
@@ -38,7 +43,10 @@ use Kirago\BusinessCore\Support\Exceptions\BcNewIdCannotGeneratedException;
  * @property string|null subscriber_type
  * @property mixed subscriber
  */
-class BcSubscription extends BaseBcModel implements OrderableContrat{
+class BcSubscription extends BaseBcModel implements BillableItem {
+
+    use InteractWithInvoiceItemsCapacities,
+        InteractWithOrdertemsCapacities;
 
     protected $table = "subscriptions_mgt__subscriptions";
 
@@ -154,75 +162,29 @@ class BcSubscription extends BaseBcModel implements OrderableContrat{
        return $this->reference;
     }
 
-    public function getOrder(): ?BaseOrderContract
+    public function getItemId(): string|int
     {
-        return $this->order;
+        return $this->getKey();
     }
 
-    public function getInvoice(): ?BaseInvoiceContract
+    public function getSku(): string
     {
-        return $this->invoice;
+        return $this->reference;
     }
 
-    public function getInvoiceItem(): ?BaseInvoiceItemContrat
+    public function getName(): string
     {
-        return $this->invoiceItem;
+        return $this->reference;
     }
 
-    public function getOrderItem(): ?BaseOrderItemContrat
+    public function getNote(): ?string
     {
-        return $this->orderItem;
+        return null;
     }
 
-    public function invoice(): HasOneThrough
+    public function getProductId(): string
     {
-        return $this->hasOneThrough(
-            BcInvoice::class,
-            BcInvoiceItem::class,
-            BcInvoiceItem::MORPH_ID_COLUMN,  // Clé étrangère sur InvoiceItem (vers Product)
-            'id',               // Clé primaire sur Invoice
-            'id',               // Clé primaire sur Product
-            'invoice_id'         // Clé étrangère sur InvoiceItem (vers Invoice)
-        )
-        ->where(
-            (new BcInvoiceItem)->getTable().".".BcInvoiceItem::MORPH_TYPE_COLUMN,
-            (new static)->getMorphClass()
-        )
-            ;
+        return $this->getKey();
     }
 
-    public function invoiceItem(): MorphOne
-    {
-        return $this->morphOne(
-                    BcInvoiceItem::class,
-                    BcInvoiceItem::MORPH_FUNCTION_NAME,
-                    BcInvoiceItem::MORPH_TYPE_COLUMN,
-                );
-    }
-
-    public function order(): HasOneThrough
-    {
-        return $this->hasOneThrough(
-                    BcOrder::class,
-                    BcOrderItem::class,
-                    BcOrderItem::MORPH_ID_COLUMN,  // Clé étrangère sur InvoiceItem (vers Product)
-                    'id',               // Clé primaire sur Order
-                    'id',               // Clé primaire sur Product
-                    'order_id'         // Clé étrangère sur OrderItem (vers Order)
-                )
-                ->where(
-                    (new BcOrderItem)->getTable().".".BcOrderItem::MORPH_TYPE_COLUMN,
-                    (new static)->getMorphClass()
-                )
-                    ;
-    }
-
-    public function orderItem(): MorphOne
-    {
-        return $this->morphOne(
-                    BcOrderItem::class,
-                    BcOrderItem::MORPH_FUNCTION_NAME,
-                    BcOrderItem::MORPH_TYPE_COLUMN,
-                );
-    }
 }

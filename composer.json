@@ -1,6 +1,6 @@
 {
     "name": "kirago/laravel-business-core",
-    "description": "A Laravel business core multi-tenancies management data structure: orders, products, invoices, payments and more ...",
+    "description": "A Laravel business core multi-tenancies management data structure: orders, products, invoices, payments and more ... for Laravel 10.0 and up",
     "keywords": [
         "laravel",
         "kirago",
@@ -31,14 +31,14 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.1",
+        "php": "^8.0",
         "ext-json": "*",
         "ext-ctype": "*",
         "ext-filter": "*",
         "ext-mbstring": "*",
         "ext-pdo": "*",
-        "laravel/framework": "^10.0 || ^11.0 || ^12.0",
-        "axn/laravel-eloquent-authorable": "^5.0",
+        "laravel/framework": "^10.0|^11.0|^12.0",
+        "axn/laravel-eloquent-authorable": "^6.2",
         "barryvdh/laravel-dompdf": "^2.0",
         "calebporzio/sushi": "^1.2",
         "laravel/sanctum": "^3.0",
@@ -59,6 +59,7 @@
         "kirago/laravel-xpeedy-service": "dev-main"
     },
     "prefer-stable": true,
+    "minimum-stability": "dev",
     "autoload": {
         "files": [
             "src/helpers.php"
@@ -69,7 +70,14 @@
             "Kirago\\BusinessCore\\Database\\Seeders\\": "database/seeders/"
         }
     },
+    "config": {
+        "sort-packages": true
+    },
     "extra": {
+        "branch-alias": {
+            "dev-main": "2.x-dev",
+            "dev-master": "2.x-dev"
+        },
         "laravel": {
             "providers": [
                 "Kirago\\BusinessCore\\Providers\\BcServiceProvider"

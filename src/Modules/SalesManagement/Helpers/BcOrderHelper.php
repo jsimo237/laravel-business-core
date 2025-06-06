@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcOrderStatuses;
 use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcPaymentSource;
 use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcPaymentStatuses;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\OrderableContrat;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\Orderable;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoiceItem;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
@@ -94,7 +94,7 @@ final class BcOrderHelper
                 $invoiceItem ??= new BcInvoiceItem();
 
                 /**
-                 * @var OrderableContrat|Model $orderable
+                 * @var Orderable|Model $orderable
                  */
                 $orderable = $orderItem->orderable;
 

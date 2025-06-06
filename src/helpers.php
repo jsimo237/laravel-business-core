@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Kirago\BusinessCore\Modules\LocalizationManagement\Constants\BcSettingsKeys;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Contrats\OrganizationScopable;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Interfaces\OrganizationScopable;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
 use Kirago\BusinessCore\Support\Exceptions\BcNewIdCannotGeneratedException;

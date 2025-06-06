@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirago\BusinessCore\Modules\SecurityManagement\Contracts;
+namespace Kirago\BusinessCore\Modules\SecurityManagement\Interfaces;
 
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
 use Illuminate\Database\Eloquent\Relations\MorphOne;

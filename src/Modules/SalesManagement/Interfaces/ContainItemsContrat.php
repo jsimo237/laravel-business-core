@@ -1,11 +1,11 @@
 <?php
 
-namespace Kirago\BusinessCore\Modules\SalesManagement\Contrats;
+namespace Kirago\BusinessCore\Modules\SalesManagement\Interfaces;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @property BaseOrderItemContrat|BaseInvoiceItemContrat items
+ * @property BaseOrderItem|BaseInvoiceItem items
  */
 interface ContainItemsContrat
 {
