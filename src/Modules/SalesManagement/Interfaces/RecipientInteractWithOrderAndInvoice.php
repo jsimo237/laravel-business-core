@@ -1,13 +1,13 @@
 <?php
 
-namespace Kirago\BusinessCore\Modules\SalesManagement\Contrats;
+namespace Kirago\BusinessCore\Modules\SalesManagement\Interfaces;
 
 
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
- * @property BaseOrderContract[] orders
- * @property BaseInvoiceContract[] invoices
+ * @property BaseOrder[] orders
+ * @property BaseInvoice[] invoices
  */
 interface RecipientInteractWithOrderAndInvoice
 {

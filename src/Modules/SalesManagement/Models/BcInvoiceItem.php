@@ -5,7 +5,7 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\InvoiceableContract;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\Invoiceable;
 
 class BcInvoiceItem extends BaseInvoiceItem
 {
@@ -42,7 +42,7 @@ class BcInvoiceItem extends BaseInvoiceItem
         return $this->invoice;
     }
 
-    public function getInvoiceable(): ?InvoiceableContract
+    public function getInvoiceable(): ?Invoiceable
     {
         return $this->invoiceable;
     }

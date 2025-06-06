@@ -3,7 +3,7 @@
 namespace Kirago\BusinessCore\Modules\SalesManagement\Traits;
 
 
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\ModelIsBillableTo;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\ModelIsBillableTo;
 use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcBillingInformations;
 
 /**

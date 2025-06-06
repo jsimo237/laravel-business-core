@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseOrderContract;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\OrderableContrat;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BaseOrder;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\Orderable;
 
 
 class BcOrderItem extends BaseOrderItem
@@ -40,12 +40,12 @@ class BcOrderItem extends BaseOrderItem
                 );
     }
 
-    public function getOrder(): ?BaseOrderContract
+    public function getOrder(): ?BaseOrder
     {
         return $this->order;
     }
 
-    public function getOrderable(): ?OrderableContrat
+    public function getOrderable(): ?Orderable
     {
         return $this->orderable;
     }

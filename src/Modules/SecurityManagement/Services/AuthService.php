@@ -3,7 +3,7 @@
 namespace Kirago\BusinessCore\Modules\SecurityManagement\Services;
 
 use Illuminate\Database\Eloquent\Builder;
-use Kirago\BusinessCore\Modules\SecurityManagement\Contracts\AuthenticatableModelContract;
+use Kirago\BusinessCore\Modules\SecurityManagement\Interfaces\AuthenticatableModelContract;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;

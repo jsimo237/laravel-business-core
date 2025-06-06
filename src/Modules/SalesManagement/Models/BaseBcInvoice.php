@@ -12,27 +12,26 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Collection;
 use Kirago\BusinessCore\Modules\BaseBcModel;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseInvoiceContract;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseInvoiceItemContrat;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseOrderContract;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\Billable;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\ContainItemsContrat;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\HasBillingDetails;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\HasRecipient;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BaseInvoice;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BaseInvoiceItem;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BaseOrder;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\Billable;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\ContainItemsContrat;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\HasBillingDetails;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\HasRecipient;
 use Kirago\BusinessCore\Modules\SalesManagement\Traits\WithOrderCapacities;
 use Kirago\BusinessCore\Support\Constants\Statuses;
 use Kirago\BusinessCore\Support\Contracts\EventNotifiableContract;
 use Kirago\BusinessCore\Support\Contracts\GenerateUniqueValueContrat;
 
 /**
-
  * @property string|int id
  * @property string status
  * @property string code
  * @property string note
  * @property bool has_no_taxes
  * @property \Illuminate\Database\Eloquent\Collection payments
- * @property BaseInvoiceItemContrat[] items
+ * @property BaseInvoiceItem[] items
  * @property array<string, mixed> discounts
  * @property DateTime expired_at
  * @property DateTime processed_at
@@ -41,7 +40,7 @@ use Kirago\BusinessCore\Support\Contracts\GenerateUniqueValueContrat;
  */
 abstract class BaseBcInvoice extends BaseBcModel implements
     EventNotifiableContract, GenerateUniqueValueContrat,
-    ContainItemsContrat,BaseInvoiceContract,
+    ContainItemsContrat,BaseInvoice,
     Billable,HasRecipient,HasBillingDetails
 {
 
@@ -74,10 +73,10 @@ abstract class BaseBcInvoice extends BaseBcModel implements
             $invoice->refreshInvoice();
         });
 
-        self::saved(function (BaseInvoiceContract $invoice) {
+        self::saved(function (BaseInvoice $invoice) {
 
             /**
-             * @var BaseOrderContract
+             * @var BaseOrder
              */
             $order = $invoice->order;
 

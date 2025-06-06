@@ -6,8 +6,8 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseInvoiceContract;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseOrderContract;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BaseInvoice;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BaseOrder;
 use Kirago\BusinessCore\Support\Constants\Statuses;
 use Kirago\BusinessCore\Support\Exceptions\BcNewIdCannotGeneratedException;
 
@@ -116,12 +116,12 @@ class BcPayment extends BaseBcPayment
 
     }
 
-    public function getOrder(): BaseOrderContract
+    public function getOrder(): BaseOrder
     {
         return $this->order;
     }
 
-    public function getInvoice(): BaseInvoiceContract
+    public function getInvoice(): BaseInvoice
     {
         return $this->invoice;
     }

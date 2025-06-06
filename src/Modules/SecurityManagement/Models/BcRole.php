@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Kirago\BusinessCore\Modules\Authorable;
 use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Activable;
 use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Auditable;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Contrats\OrganizationScopable;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Interfaces\OrganizationScopable;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Traits\HasOrganization;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\Observers\RoleObserver;

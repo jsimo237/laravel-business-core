@@ -12,12 +12,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Kirago\BusinessCore\Modules\BaseBcModel;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseOrderContract;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseOrderItemContrat;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\Billable;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\ContainItemsContrat;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\HasBillingDetails;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\HasRecipient;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BaseOrder;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BaseOrderItem;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\Billable;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\ContainItemsContrat;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\HasBillingDetails;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\HasRecipient;
 use Kirago\BusinessCore\Modules\SalesManagement\Traits\WithOrderCapacities;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
 use Kirago\BusinessCore\Support\Contracts\EventNotifiableContract;
@@ -32,7 +32,7 @@ use Kirago\BusinessCore\Support\Contracts\GenerateUniqueValueContrat;
 * @property BcInvoice invoice
 * @property bool has_no_taxes
 * @property \Illuminate\Database\Eloquent\Collection payments
-* @property BaseOrderItemContrat[] items
+* @property BaseOrderItem[] items
 * @property array<string, mixed> discounts
 * @property DateTime expired_at
 * @property DateTime processed_at
@@ -40,7 +40,7 @@ use Kirago\BusinessCore\Support\Contracts\GenerateUniqueValueContrat;
 abstract class BaseBcOrder extends BaseBcModel implements
     EventNotifiableContract,GenerateUniqueValueContrat,
     HasBillingDetails,
-    ContainItemsContrat,BaseOrderContract,HasRecipient
+    ContainItemsContrat,BaseOrder,HasRecipient
 {
 
 

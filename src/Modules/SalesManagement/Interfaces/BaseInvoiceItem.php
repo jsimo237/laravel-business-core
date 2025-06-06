@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirago\BusinessCore\Modules\SalesManagement\Contrats;
+namespace Kirago\BusinessCore\Modules\SalesManagement\Interfaces;
 
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,18 +9,18 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
 
 /**
- * @property string|int $id
- * @property string $code
- * @property int|float $quantity
- * @property float $unit_price
- * @property string $note
- * @property float $discount
- * @property array<string, mixed> $taxes
- * @property BaseOrderContract $order
- * @property BaseInvoiceContract $invoice
- * @property InvoiceableContract $invoiceable
+ * @property string|int id
+ * @property string code
+ * @property int|float quantity
+ * @property float unit_price
+ * @property string note
+ * @property float discount
+ * @property array<string, mixed> taxes
+ * @property BaseOrder order
+ * @property BaseInvoice invoice
+ * @property Invoiceable invoiceable
  */
-interface BaseInvoiceItemContrat
+interface BaseInvoiceItem
 {
 
     public function getItemTotalAmount () : ?float;
@@ -35,9 +35,9 @@ interface BaseInvoiceItemContrat
 
     public function getOrganization() : ?BcOrganization;
 
-    public function getInvoiceable() : ?InvoiceableContract;
+    public function getInvoiceable() : ?Invoiceable;
 
-    public function getInvoice() : ?BaseInvoiceContract;
+    public function getInvoice() : ?BaseInvoice;
 
 
     public function invoice() : BelongsTo;

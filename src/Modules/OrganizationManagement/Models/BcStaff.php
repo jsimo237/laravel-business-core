@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use Kirago\BusinessCore\Modules\MediableBcModel;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Factories\StaffFactory;
-use Kirago\BusinessCore\Modules\SecurityManagement\Contracts\AuthenticatableModelContract;
+use Kirago\BusinessCore\Modules\SecurityManagement\Interfaces\AuthenticatableModelContract;
 use Kirago\BusinessCore\Modules\SecurityManagement\Traits\HasUser;
 
 

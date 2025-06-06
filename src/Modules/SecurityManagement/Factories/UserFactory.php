@@ -4,7 +4,7 @@ namespace Kirago\BusinessCore\Modules\SecurityManagement\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use Kirago\BusinessCore\Modules\SecurityManagement\Contracts\AuthenticatableModelContract;
+use Kirago\BusinessCore\Modules\SecurityManagement\Interfaces\AuthenticatableModelContract;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
 
 /**

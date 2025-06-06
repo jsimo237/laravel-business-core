@@ -6,14 +6,14 @@ use Carbon\Carbon;
 use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcBillingInformations;
 use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcInvoiceStatuses;
 use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcOrderStatuses;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BaseOrderContract;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BaseOrder;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BaseBcOrder;
 use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
 
 final class BcInvoiceHelper
 {
 
-    public static function generateInvoiceForOrder(BaseOrderContract|BaseBcOrder $order): BcInvoice
+    public static function generateInvoiceForOrder(BaseOrder|BaseBcOrder $order): BcInvoice
     {
         $invoice = $order->invoice ?? new BcInvoice();
 

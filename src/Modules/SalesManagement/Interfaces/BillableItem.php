@@ -1,8 +1,8 @@
 <?php
 
-namespace Kirago\BusinessCore\Modules\SalesManagement\Contrats;
+namespace Kirago\BusinessCore\Modules\SalesManagement\Interfaces;
 
-interface BillableProduct
+interface BillableItem extends Orderable,Invoiceable
 {
 
     public function getItemId(): string|int;

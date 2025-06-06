@@ -4,8 +4,8 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
 
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Kirago\BusinessCore\Modules\MediableBcModel;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\RecipientInteractWithOrderAndInvoice;
-use Kirago\BusinessCore\Modules\SecurityManagement\Contracts\AuthenticatableModelContract;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\RecipientInteractWithOrderAndInvoice;
+use Kirago\BusinessCore\Modules\SecurityManagement\Interfaces\AuthenticatableModelContract;
 use Kirago\BusinessCore\Modules\SecurityManagement\Traits\HasUser;
 
 

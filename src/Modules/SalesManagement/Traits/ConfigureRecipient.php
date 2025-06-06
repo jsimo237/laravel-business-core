@@ -2,7 +2,7 @@
 
 namespace Kirago\BusinessCore\Modules\SalesManagement\Traits;
 
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\HasRecipient;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\HasRecipient;
 
 trait ConfigureRecipient
 {

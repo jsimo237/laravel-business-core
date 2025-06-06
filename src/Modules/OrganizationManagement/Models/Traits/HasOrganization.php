@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
 
 /**
- * @property string|int $organization_id
- * @property BcOrganization $organization
+ * @property string|int organization_id
+ * @property BcOrganization organization
  */
 trait HasOrganization
 {
@@ -21,9 +21,7 @@ trait HasOrganization
 
         static::saving(function (self $model) {
 
-            // $user = auth(activeGuard())->user();
-
-            if (!$model->organization_id && $currentOrganization = currentOrganization()) {
+            if ((!$model->organization_id || $model->isDirty("organization_id")) && $currentOrganization = currentOrganization()) {
                 $model->setAttribute('organization_id', $currentOrganization->getKey());
             }
         });

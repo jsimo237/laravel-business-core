@@ -2,10 +2,10 @@
 
 namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
 
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Kirago\BusinessCore\Modules\BaseBcModel;
-use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BillableProduct;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BillableItem;
+use Kirago\BusinessCore\Modules\SalesManagement\Traits\InteractWithInvoiceItemsCapacities;
+use Kirago\BusinessCore\Modules\SalesManagement\Traits\InteractWithOrdertemsCapacities;
 
 /**
  * @property string|int id
@@ -14,8 +14,10 @@ use Kirago\BusinessCore\Modules\SalesManagement\Contrats\BillableProduct;
  * @property string description
  * @property float price
  */
-class BcProduct extends BaseBcModel implements BillableProduct
+class BcProduct extends BaseBcModel implements BillableItem
 {
+    use InteractWithInvoiceItemsCapacities,
+        InteractWithOrdertemsCapacities;
 
     protected $table = "sales_mgt__products";
 
