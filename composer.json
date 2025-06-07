@@ -1,6 +1,6 @@
 {
     "name": "kirago/laravel-business-core",
-    "description": "A Laravel business core multi-tenancies management data structure: orders, products, invoices, payments and more ... for Laravel 12",
+    "description": "A Laravel business core multi-tenancies management data structure: orders, products, invoices, payments and more.",
     "keywords": [
         "laravel",
         "kirago",
@@ -77,8 +77,8 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "2.x-dev",
-            "dev-master": "2.x-dev"
+            "dev-main": "3.x-dev",
+            "dev-master": "3.x-dev"
         },
         "laravel": {
             "providers": [
