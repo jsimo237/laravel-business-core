@@ -100,19 +100,7 @@ Vous pouvez y configurer :
 
 Vous pouvez surcharger les modèles, contrôleurs ou actions du package :
 
-1. Publiez les dossiers :
-
-```bash
-php artisan bc:publish-core-folders
-```
-
-Cela publie les dossiers suivants dans `app/` :
-
-- `app/Modules`
-- `app/Support`
-- `app/JsonApi`
-
-2. Activez la personnalisation dans `config/business-core.php`
+1. Activez la personnalisation dans `config/business-core.php`
 ```php
 return [
 
@@ -121,6 +109,19 @@ return [
     
     ...
 ```
+
+2. Publiez les dossiers :
+
+```bash
+php artisan bc:publish-core-folders
+```
+
+Cela publiera les dossiers suivants dans `app/` :
+
+- `app/Modules`
+- `app/Support`
+- `app/JsonApi`
+
 3. Modifiez les classes selon vos besoins
 
 Cela permet une personnalisation avancée tout en gardant une base solide.
