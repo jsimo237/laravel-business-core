@@ -46,9 +46,15 @@ Ce package est idéal pour les applications B2B, SaaS ou de type ERP.
 composer require kirago/laravel-business-core
 ```
 
----
+### ⚠️ Cas de ceux qui utilisent Laravel 12 avec PHP 8.3.x
+A cause des mises à jour sur ```axn/laravel-eloquent-authorable:^7.0``` qui requiert  ```php ^8.4```, si vous tombez sur
+cette erreur ``` axn/laravel-eloquent-authorable 6.3.0 requires illuminate/support ^8.0 || ^9.0 || ^10.0 || ^11.0 -> satisfiable by illuminate/support[v8.0.0, ..., v8.83.27, v9.0.0, ..., v9.52.16, v10.0.0, ..., v10.48.28, v11.0.0, ..., v11.45.1].```
+alors exécutez ceci pour bypasser la verification de version de php par composer
+```bash
+composer require kirago/laravel-business-core --ignore-platform-reqs
+```
 
-## ⚙️ Utilisation et commandes Artisan
+---
 
 ### 🛠 Étape 2 : Initialisation complète
 
@@ -68,23 +74,12 @@ Cette commande effectue les actions suivantes :
 
 ---
 
-### 🧩 (Optionnel) Publication des dossiers du noyau
+## 🧩 (Optionnel) Publication des dossiers du noyau
 
-Pour personnaliser les modèles ou la logique du package :
-
-```bash
-php artisan bc:publish-core-folders
-```
-
-Cela publie les dossiers suivants dans `app/` :
-
-- `app/Modules`
-- `app/Support`
-- `app/JsonApi`
 
 ---
 
-## 🔧 Configuration
+### 🔧 Configuration
 
 Le fichier principal de configuration est :
 
@@ -105,8 +100,28 @@ Vous pouvez y configurer :
 
 Vous pouvez surcharger les modèles, contrôleurs ou actions du package :
 
-1. Publiez les dossiers via `php artisan bc:publish-core-folders`
-2. Modifiez les classes selon vos besoins
+1. Publiez les dossiers :
+
+```bash
+php artisan bc:publish-core-folders
+```
+
+Cela publie les dossiers suivants dans `app/` :
+
+- `app/Modules`
+- `app/Support`
+- `app/JsonApi`
+
+2. Activez la personnalisation dans `config/business-core.php`
+```php
+return [
+
+    // 🔧 Active ou non la personnalisation des fichiers du package
+    'customization' => true,
+    
+    ...
+```
+3. Modifiez les classes selon vos besoins
 
 Cela permet une personnalisation avancée tout en gardant une base solide.
 
@@ -124,6 +139,26 @@ public function boot(): void
     BusinessCore::discoverApiRoutes(prefix: 'v1');
 }
 ```
+
+Verifiez que les routes sont bien disponibles
+
+
+```bash
+php artisan route:list --path=api
+```
+Resultat
+```
+  .....
+  
+  POST       api/v1/auth/forgot-password/request ................................... bc.auth.forgot-password.request › Kirago\BusinessCore › PasswordResetController@request
+  POST       api/v1/auth/forgot-password/reset ......................................... bc.auth.forgot-password.reset › Kirago\BusinessCore › PasswordResetController@reset  
+  POST       api/v1/auth/login ................................................................................. bc.auth.login › Kirago\BusinessCore › LoginController@login  
+  POST       api/v1/auth/logout ............................................................................. bc.auth.logout › Kirago\BusinessCore › LogoutController@logout 
+  
+  .....
+```
+
+
 ---
 ## 📝 Licence
 

@@ -14,13 +14,13 @@ use Illuminate\Notifications\Notifiable;
 use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Activable;
 use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Auditable;
 use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Mediable;
-use Kirago\BusinessCore\Modules\HasSlug;
 use Kirago\BusinessCore\Modules\LocalizationManagement\Constants\BcSettingsKeys;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Factories\OrganizationFactory;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
 use Spatie\MediaLibrary\HasMedia as SpatieHasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\Sluggable\HasSlug;
 
 
 /**
