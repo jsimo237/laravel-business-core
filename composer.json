@@ -61,7 +61,7 @@
         "kirago/laravel-xpeedy-service": "dev-main"
     },
     "prefer-stable": true,
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "autoload": {
         "files": [
             "src/helpers.php"
