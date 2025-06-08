@@ -18,7 +18,7 @@ class ValidUserIdentifier implements ValidationRule
         $user = $authService->findUserByIdentifier($value);
 
         if (blank($user)) {
-           // $fail(BcReasonCode::USER_NOT_FOUND->value);
+           // $fail(ReasonCode::USER_NOT_FOUND->value);
             $fail("User not found.");
         }
     }

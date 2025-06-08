@@ -61,7 +61,7 @@
         "kirago/laravel-xpeedy-service": "dev-main"
     },
     "prefer-stable": true,
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "autoload": {
         "files": [
             "src/helpers.php"
@@ -82,7 +82,7 @@
         },
         "laravel": {
             "providers": [
-                "Kirago\\BusinessCore\\Providers\\BcServiceProvider"
+                "Kirago\\BusinessCore\\Providers\\ServiceProvider"
             ]
         }
     }

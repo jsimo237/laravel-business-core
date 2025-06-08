@@ -5,7 +5,7 @@ namespace Kirago\BusinessCore\JsonApi\V1\SubscriptionsManagement\Subscriptions;
 use Kirago\BusinessCore\Support\Helpers\JsonApiHelper;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcSubscription;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\Subscription;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
@@ -26,7 +26,7 @@ class Schema extends JsonApiSchema {
      *
      * @var string
      */
-    public static string $model = BcSubscription::class;
+    public static string $model = Subscription::class;
 
     /**
      * The maximum include path depth.

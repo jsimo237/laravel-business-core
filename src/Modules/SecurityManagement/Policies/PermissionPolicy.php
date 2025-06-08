@@ -4,7 +4,7 @@ namespace Kirago\BusinessCore\Modules\SecurityManagement\Policies;
 
 use Illuminate\Auth\Access\Response;
 use Illuminate\Contracts\Auth\Authenticatable as User;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcPermission;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\Permission;
 
 class PermissionPolicy {
 
@@ -18,7 +18,7 @@ class PermissionPolicy {
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?User $user, BcPermission $permission): bool {
+    public function view(?User $user, Permission $permission): bool {
         return true;
     }
 
@@ -32,28 +32,28 @@ class PermissionPolicy {
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?User $user,BcPermission $permission): bool {
+    public function update(?User $user,Permission $permission): bool {
         return true;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?User $user, BcPermission $permission): bool  {
+    public function delete(?User $user, Permission $permission): bool  {
         return true;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(?User $user, BcPermission $permission): bool {
+    public function restore(?User $user, Permission $permission): bool {
         return true;
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(?User $user, BcPermission $permission): bool {
+    public function forceDelete(?User $user, Permission $permission): bool {
         return true;
     }
 }

@@ -3,9 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
-use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcBillingInformations;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
+use Kirago\BusinessCore\Modules\SalesManagement\Constants\BillingInformations;
 
 return new class extends Migration
 {
@@ -16,8 +16,8 @@ return new class extends Migration
      */
     public function up(){
 
-        if (!Schema::hasTable((new BcOrganization)->getTable())){
-            Schema::create((new BcOrganization)->getTable(), function (Blueprint $table) {
+        if (!Schema::hasTable((new Organization)->getTable())){
+            Schema::create((new Organization)->getTable(), function (Blueprint $table) {
                 $table->id();
                 $table->string('name')
                     ->comment("Le nom");
@@ -34,7 +34,7 @@ return new class extends Migration
                     ->comment("Le numéro de téléphone");
 
                 // Billing infos
-                $table->enum('billing_entity_type',BcBillingInformations::values())->default(BcBillingInformations::TYPE_COMPANY->value);
+                $table->enum('billing_entity_type',BillingInformations::values())->default(BillingInformations::TYPE_COMPANY->value);
                 $table->string('billing_company_name',60)->nullable();
                 $table->string('billing_firstname',60)->nullable();
                 $table->string('billing_lastname',60)->nullable();
@@ -45,8 +45,8 @@ return new class extends Migration
                 $table->string('billing_address',100)->nullable();
                 $table->string('billing_email',100)->nullable();
 
-                $table->foreignIdFor(BcUser::class,'manager_id')->nullable()
-                    ->constrained((new BcUser)->getTable(), (new BcUser)->getKeyName(),uniqid("FK_"))
+                $table->foreignIdFor(User::class,'manager_id')->nullable()
+                    ->constrained((new User)->getTable(), (new User)->getKeyName(),uniqid("FK_"))
                     ->cascadeOnUpdate()->cascadeOnDelete()
                     ->comment("[FK] Le manager la companie");
             });
@@ -61,6 +61,6 @@ return new class extends Migration
      * @return void
      */
     public function down(){
-        Schema::dropIfExists((new BcOrganization)->getTable());
+        Schema::dropIfExists((new Organization)->getTable());
     }
 };

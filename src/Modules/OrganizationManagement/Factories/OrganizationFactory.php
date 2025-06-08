@@ -3,14 +3,14 @@
 namespace Kirago\BusinessCore\Modules\OrganizationManagement\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
 
 /**
  * @extends Factory
  */
 class OrganizationFactory extends Factory{
 
-    protected $model = BcOrganization::class;
+    protected $model = Organization::class;
 
     /**
      * Define the model's default state.

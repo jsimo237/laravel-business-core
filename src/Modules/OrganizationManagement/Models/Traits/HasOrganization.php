@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
 
 /**
  * @property string|int organization_id
- * @property BcOrganization organization
+ * @property Organization organization
  */
 trait HasOrganization
 {
@@ -32,9 +32,9 @@ trait HasOrganization
     /**
      * Undocumented function
      *
-     * @return ?BcOrganization
+     * @return ?Organization
      */
-    public function getOrganization(): ?BcOrganization
+    public function getOrganization(): ?Organization
     {
         return $this->organization;
     }
@@ -62,7 +62,7 @@ trait HasOrganization
 
         if ($type === BelongsToMany::class){
             return $this->belongsToMany(
-                        BcOrganization::class,
+                        Organization::class,
                         (new $config['related_model'])->getTable(),
                         $config['related_column_name'],
                         "organization_id",
@@ -75,10 +75,10 @@ trait HasOrganization
 
     public function organization(): BelongsTo
     {
-        return $this->belongsTo(BcOrganization::class,"organization_id");
+        return $this->belongsTo(Organization::class,"organization_id");
     }
 
-    public function scopeOrganizationId(Builder $query, string|int|BcOrganization $organization): Builder
+    public function scopeOrganizationId(Builder $query, string|int|Organization $organization): Builder
     {
         return  $query->where(
                     $query->getModel()->getTable() . '.organization_id',
@@ -86,7 +86,7 @@ trait HasOrganization
                 );
     }
 
-    public function scopeOrganizatioSzn(Builder $query, string|int|BcOrganization $organization): Builder
+    public function scopeOrganizatioSzn(Builder $query, string|int|Organization $organization): Builder
     {
         if ($organization) {
             return $query->organizationId($organization);

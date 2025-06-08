@@ -4,7 +4,7 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Traits;
 
 
 use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\ModelIsBillableTo;
-use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcBillingInformations;
+use Kirago\BusinessCore\Modules\SalesManagement\Constants\BillingInformations;
 
 /**
  * @property string billing_entity_type
@@ -16,9 +16,9 @@ trait ModelHasBillingInformations
     public static function bootModelHasBillingInformations(){
 
         static::saving(function (ModelIsBillableTo $model) {
-            if ($model->billing_entity_type === BcBillingInformations::TYPE_INDIVIDUAL->value) {
+            if ($model->billing_entity_type === BillingInformations::TYPE_INDIVIDUAL->value) {
                 $model->billing_company_name = 'N/A';
-            } elseif ($model->billing_entity_type === BcBillingInformations::TYPE_COMPANY->value) {
+            } elseif ($model->billing_entity_type === BillingInformations::TYPE_COMPANY->value) {
                 $model->billing_firstname = 'N/A';
                 $model->billing_lastname = 'N/A';
             }

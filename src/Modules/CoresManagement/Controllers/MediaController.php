@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller;
-use Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Media;
 use Kirago\BusinessCore\Modules\CoresManagement\Repositories\MediaDeletionRepository;
 use Kirago\BusinessCore\Modules\MediaManagement\Controllers\JsonResponse;
 
@@ -24,11 +24,11 @@ class MediaController extends Controller
 
 
     /**
-     * @param BcMedia $media
+     * @param Media $media
      * @param MediaDeletionRepository $mediaService
      * @return JsonResponse
      */
-    public function addToDeletion(BcMedia $media, MediaDeletionRepository $mediaService): JsonResponse
+    public function addToDeletion(Media $media, MediaDeletionRepository $mediaService): JsonResponse
     {
 
         $mediaService->addMediaToDelete($media);

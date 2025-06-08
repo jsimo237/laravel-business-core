@@ -3,10 +3,10 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
-use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcBillingInformations;
-use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcInvoiceStatuses;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Invoice;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Order;
+use Kirago\BusinessCore\Modules\SalesManagement\Constants\BillingInformations;
+use Kirago\BusinessCore\Modules\SalesManagement\Constants\InvoiceStatuses;
 
 return new class extends Migration
 {
@@ -18,7 +18,7 @@ return new class extends Migration
     public function up()
     {
 
-        Schema::create((new BcInvoice)->getTable(), function (Blueprint $table) {
+        Schema::create((new Invoice)->getTable(), function (Blueprint $table) {
             $table->id();
 
             $table->string('code',60)
@@ -28,7 +28,7 @@ return new class extends Migration
 
             $table->text('note')->nullable();
 
-            $table->enum('billing_entity_type',BcBillingInformations::values())->default(BcBillingInformations::TYPE_INDIVIDUAL->value);
+            $table->enum('billing_entity_type',BillingInformations::values())->default(BillingInformations::TYPE_INDIVIDUAL->value);
             $table->string('billing_company_name',60)->nullable();
             $table->string('billing_firstname',60)->nullable();
             $table->string('billing_lastname',60)->nullable();
@@ -41,14 +41,14 @@ return new class extends Migration
 
             $table->nullableUlidMorphs('recipient');
 
-            $table->string("status",50)->default(BcInvoiceStatuses::CREATED->value)
+            $table->string("status",50)->default(InvoiceStatuses::CREATED->value)
                   ->comment("Le statut");
 
             $table->timestamp('expired_at')->nullable();
             $table->timestamp('processed_at')->nullable();
 
-            $table->foreignIdFor(BcOrder::class,'order_id')->nullable()
-                ->constrained((new BcOrder)->getTable(), (new BcOrder)->getKeyName(), uniqid("FK_"))
+            $table->foreignIdFor(Order::class,'order_id')->nullable()
+                ->constrained((new Order)->getTable(), (new Order)->getKeyName(), uniqid("FK_"))
                 ->cascadeOnUpdate()->cascadeOnDelete()
                 ->comment("[FK] la commande");
 
@@ -65,6 +65,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists((new BcInvoice)->getTable());
+        Schema::dropIfExists((new Invoice)->getTable());
     }
 };

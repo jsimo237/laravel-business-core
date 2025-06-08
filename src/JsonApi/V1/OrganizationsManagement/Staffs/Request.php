@@ -3,7 +3,7 @@
 namespace Kirago\BusinessCore\JsonApi\V1\OrganizationsManagement\Staffs;
 
 use Illuminate\Validation\Rule;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
 use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
 use LaravelJsonApi\Validation\Rule as JsonApiRule;
 
@@ -21,14 +21,14 @@ class Request extends ResourceRequest {
     public function rules(): array
     {
         /**
-         * @var BcUser|null $model
+         * @var User|null $model
          */
         $model = $this->getUser();
 
 
 
        $organization = currentOrganization();
-       $tableName = (new BcUser)->getTable();
+       $tableName = (new User)->getTable();
 
         $uniqueEmail = Rule::unique($tableName, 'email')
                         ->where("organization_id",$organization->getKey())

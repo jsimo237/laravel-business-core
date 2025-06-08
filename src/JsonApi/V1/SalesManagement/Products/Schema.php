@@ -5,7 +5,7 @@ namespace Kirago\BusinessCore\JsonApi\V1\SalesManagement\Products;
 use Kirago\BusinessCore\Support\Helpers\JsonApiHelper;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcProduct;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Product;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ArrayList;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
@@ -25,7 +25,7 @@ class Schema extends JsonApiSchema {
      *
      * @var string
      */
-    public static string $model = BcProduct::class;
+    public static string $model = Product::class;
 
     /**
      * The maximum include path depth.

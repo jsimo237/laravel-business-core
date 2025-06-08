@@ -3,14 +3,14 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Media;
 
 
 return new class extends Migration {
 
     public function up(){
-        if(!Schema::hasTable((new BcMedia)->getTable())){
-            Schema::create((new BcMedia)->getTable(), function (Blueprint $table) {
+        if(!Schema::hasTable((new Media)->getTable())){
+            Schema::create((new Media)->getTable(), function (Blueprint $table) {
 
                 $table->bigIncrements('id');
 
@@ -41,6 +41,6 @@ return new class extends Migration {
      * @return void
      */
     public function down(){
-        Schema::dropIfExists((new BcMedia)->getTable());
+        Schema::dropIfExists((new Media)->getTable());
     }
 };

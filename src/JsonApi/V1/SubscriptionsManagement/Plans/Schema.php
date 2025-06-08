@@ -5,7 +5,7 @@ namespace Kirago\BusinessCore\JsonApi\V1\SubscriptionsManagement\Plans;
 use Kirago\BusinessCore\Support\Helpers\JsonApiHelper;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcPlan;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\Plan;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Number;
@@ -24,7 +24,7 @@ class Schema extends JsonApiSchema {
      *
      * @var string
      */
-    public static string $model = BcPlan::class;
+    public static string $model = Plan::class;
 
     /**
      * The maximum include path depth.

@@ -5,8 +5,8 @@ namespace Kirago\BusinessCore\JsonApi\V1\SalesManagement\Orders;
 use Kirago\BusinessCore\Support\Helpers\JsonApiHelper;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Invoice;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Order;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\ArrayList;
@@ -29,7 +29,7 @@ class Schema extends JsonApiSchema {
      *
      * @var string
      */
-    public static string $model = BcOrder::class;
+    public static string $model = Order::class;
 
     /**
      * The maximum include path depth.
@@ -67,7 +67,7 @@ class Schema extends JsonApiSchema {
 
             HasManyThrough::make('invoiceItems')->type('invoice-items'),
 
-            ArrayHash::make('pricing')->extractUsing(function (BcOrder $model) {
+            ArrayHash::make('pricing')->extractUsing(function (Order $model) {
 
                 return ["taxes" => $model->getTaxes(),
                     "subtotal" => $model->getSubTotalAmount(),

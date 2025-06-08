@@ -6,8 +6,8 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Interfaces;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
- * @property BaseOrder[] orders
- * @property BaseInvoice[] invoices
+ * @property BaseOrderContract[] orders
+ * @property BaseInvoiceContract[] invoices
  */
 interface RecipientInteractWithOrderAndInvoice
 {

@@ -4,36 +4,36 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcSetting;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcStaff;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcContactForm;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcCustomer;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcPayment;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcProduct;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcTax;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcTaxGroup;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcRole;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
-use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcPackage;
-use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcPlan;
-use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcSubscription;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Media;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Setting;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Staff;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\ContactForm;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Customer;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Invoice;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Order;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Payment;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Product;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Tax;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\TaxGroup;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\Role;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\Package;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\Plan;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\Subscription;
 
 return new class extends Migration {
 
     public function up(){
 
         $classes = [
-            BcUser::class, BcRole::class,
-            BcOrder::class,BcInvoice::class, BcCustomer::class, BcPayment::class,BcProduct::class,
-            BcSetting::class, BcContactForm::class, BcStaff::class,
-            BcTax::class, BcTaxGroup::class, BcProduct::class,
+            User::class, Role::class,
+            Order::class,Invoice::class, Customer::class, Payment::class,Product::class,
+            Setting::class, ContactForm::class, Staff::class,
+            Tax::class, TaxGroup::class, Product::class,
 
-            BcMedia::class,BcContactForm::class,
-            BcPlan::class, BcPackage::class, BcSubscription::class,
+            Media::class,ContactForm::class,
+            Plan::class, Package::class, Subscription::class,
             config('activitylog.activity_model') ?? null,
         ];
 
@@ -48,8 +48,8 @@ return new class extends Migration {
                 if(Schema::hasTable($model->getTable())){
                     Schema::whenTableDoesntHaveColumn($model->getTable(), $column,function (Blueprint $table) use ($column) {
 
-                        $table->foreignIdFor(BcOrganization::class,$column)->nullable()
-                            ->constrained((new BcOrganization)->getTable(), (new BcOrganization)->getKeyName(), uniqid("FK_"))
+                        $table->foreignIdFor(Organization::class,$column)->nullable()
+                            ->constrained((new Organization)->getTable(), (new Organization)->getKeyName(), uniqid("FK_"))
                             ->cascadeOnUpdate()->cascadeOnDelete()
                             ->comment("[FK] l'organisation");
 

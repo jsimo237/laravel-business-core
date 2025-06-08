@@ -2,10 +2,10 @@
 
 namespace Kirago\BusinessCore\Modules\CoresManagement\Models;
 
-use Kirago\BusinessCore\Modules\BaseBcModel;
+use Kirago\BusinessCore\Modules\BaseModel;
 
 
-class MediaTypeHasMimes extends BaseBcModel {
+class MediaTypeHasMimes extends BaseModel {
 
 
     protected $table = "cores_mgt__mymes_has_types";

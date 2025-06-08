@@ -12,10 +12,10 @@ use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Kirago\BusinessCore\Modules\SecurityManagement\Events\OtpCodeGenerated;
 use Kirago\BusinessCore\Modules\SecurityManagement\Helpers\OtpCodeHelper;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcOtpCode;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\OtpCode;
 use Kirago\BusinessCore\Modules\SecurityManagement\Rules\ValidUserIdentifier;
 use Kirago\BusinessCore\Modules\SecurityManagement\Services\AuthService;
-use Kirago\BusinessCore\Support\Constants\BcReasonCode;
+use Kirago\BusinessCore\Support\Constants\ReasonCode;
 
 class PasswordResetController extends Controller
 {
@@ -36,7 +36,7 @@ class PasswordResetController extends Controller
         throw_if(
             blank($user) ,
             new ModelNotFoundException(
-                BcReasonCode::USER_NOT_FOUND->value
+                ReasonCode::USER_NOT_FOUND->value
             )
         );
 
@@ -52,7 +52,7 @@ class PasswordResetController extends Controller
     {
         $request->validate([
             'identifier' => ['required',"string",new ValidUserIdentifier],
-            'code' => ['required', 'string' , Rule::exists((new BcOtpCode)->getTable())],
+            'code' => ['required', 'string' , Rule::exists((new OtpCode)->getTable())],
             'password'   => ['required',"string","confirmed",Password::defaults()],
         ]);
 

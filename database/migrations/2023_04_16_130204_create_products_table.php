@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcProduct;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Product;
 
 return new class extends Migration
 {
@@ -14,8 +14,8 @@ return new class extends Migration
      */
     public function up()
     {
-        if(!Schema::hasTable((new BcProduct)->getTable())){
-            Schema::create((new BcProduct)->getTable(), function (Blueprint $table) {
+        if(!Schema::hasTable((new Product)->getTable())){
+            Schema::create((new Product)->getTable(), function (Blueprint $table) {
                 $table->id();
 
                 $table->string('sku',60)->nullable(false);
@@ -46,6 +46,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists((new BcProduct)->getTable());
+        Schema::dropIfExists((new Product)->getTable());
     }
 };

@@ -3,9 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\SubscriptionsManagement\Constants\BcSubscriptionStatuses;
-use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcPackage;
-use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcSubscription;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Constants\SubscriptionStatuses;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\Package;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\Subscription;
 
 return new class extends Migration
 {
@@ -13,7 +13,7 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void{
-        Schema::create((new BcSubscription)->getTable(), function (Blueprint $table) {
+        Schema::create((new Subscription)->getTable(), function (Blueprint $table) {
             $table->id();
 
             $table->string("reference",100)
@@ -29,12 +29,12 @@ return new class extends Migration
                // ->storedAs('start_at <= CURRENT_TIMESTAMP AND end_at >= CURRENT_TIMESTAMP')
             ;
 
-            $table->foreignIdFor(BcPackage::class,"package_id")
-                ->constrained((new BcPackage)->getTable(), (new BcPackage)->getKeyName(), uniqid("FK_"))
+            $table->foreignIdFor(Package::class,"package_id")
+                ->constrained((new Package)->getTable(), (new Package)->getKeyName(), uniqid("FK_"))
                 ->cascadeOnUpdate()->cascadeOnDelete()
                 ->comment("[FK] le package");
 
-            $table->string("status",50)->default(BcSubscriptionStatuses::INITIATED->value)
+            $table->string("status",50)->default(SubscriptionStatuses::INITIATED->value)
                 ->comment("Le statut");
 
             $table->timestamp('initiated_at')->nullable()
@@ -55,6 +55,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists((new BcSubscription)->getTable());
+        Schema::dropIfExists((new Subscription)->getTable());
     }
 };

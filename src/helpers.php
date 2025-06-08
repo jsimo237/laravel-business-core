@@ -11,11 +11,11 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use Kirago\BusinessCore\Modules\LocalizationManagement\Constants\BcSettingsKeys;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Constants\SettingsKeys;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Interfaces\OrganizationScopable;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
-use Kirago\BusinessCore\Support\Exceptions\BcNewIdCannotGeneratedException;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
+use Kirago\BusinessCore\Support\Exceptions\NewIdCannotGeneratedException;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Stevebauman\Location\Facades\Location;
@@ -31,12 +31,12 @@ if (!function_exists('format_amount')) {
         $organization = currentOrganization();
         if(isset($currency) and is_bool($currency) and $currency == true){
             $currency = $organization->getSettingOf(
-                            BcSettingsKeys::AMOUNT_CURRENCY,
+                            SettingsKeys::AMOUNT_CURRENCY,
                             "XAF"
                         );
         }
 
-        $separator ??= $organization->getSettingOf(BcSettingsKeys::AMOUNT_CURRENCY," ");
+        $separator ??= $organization->getSettingOf(SettingsKeys::AMOUNT_CURRENCY," ");
         if (!empty($currency)){
             $currency = " ".$currency;
         }
@@ -166,9 +166,9 @@ if (!function_exists('activeGuard')) {
 if (!function_exists('currentOrganization')) {
 
     /** Retourne l'organisation active dans la requete
-     * @return BcOrganization|null
+     * @return Organization|null
      */
-    function currentOrganization(): ?BcOrganization
+    function currentOrganization(): ?Organization
     {
         $organizationId = request()->header('x-organization-id');
 //
@@ -184,7 +184,7 @@ if (!function_exists('currentOrganization')) {
            }
         }
 
-       return BcOrganization::find($organizationId);
+       return Organization::find($organizationId);
     }
 }
 
@@ -323,7 +323,7 @@ if(!function_exists("newId")){
      * @param string $model Le modèle pour lequel on veut générer un ID
      * @param array|null $options Options supplémentaires
      * @return string
-     * @throws BcNewIdCannotGeneratedException
+     * @throws NewIdCannotGeneratedException
      */
     function newId(string $model = "", ?array $options = []): string
     {
@@ -331,14 +331,14 @@ if(!function_exists("newId")){
 
         // Vérifications initiales
         if (empty($model) || !class_exists($model)) {
-            throw new BcNewIdCannotGeneratedException("$errorMsg [Raison] : " . __("Le modèle spécifié est invalide ou introuvable."));
+            throw new NewIdCannotGeneratedException("$errorMsg [Raison] : " . __("Le modèle spécifié est invalide ou introuvable."));
         }
 
         $instance = new $model;
 
         throw_if(
             !($instance instanceof Model),
-            new BcNewIdCannotGeneratedException(
+            new NewIdCannotGeneratedException(
                 "$errorMsg [Raison] : " . __("Le modèle fourni n'est pas une instance de [Illuminate\Database\Eloquent\Model]")
             )
         );
@@ -348,7 +348,7 @@ if(!function_exists("newId")){
 
 //        throw_if(
 //            !(isset($instance->{$keyName})),
-//            new BcNewIdCannotGeneratedException(
+//            new NewIdCannotGeneratedException(
 //                "$errorMsg [Raison] : " .__("Le champ '$keyName' n'existe pas dans le modèle $model")
 //            )
 //
@@ -418,7 +418,7 @@ if(!function_exists("newId")){
         }
         while ($attempts < $maxAttempts);
 
-        throw new BcNewIdCannotGeneratedException("$errorMsg [Échec après $maxAttempts tentatives]");
+        throw new NewIdCannotGeneratedException("$errorMsg [Échec après $maxAttempts tentatives]");
     }
 }
 
@@ -479,12 +479,12 @@ if(!function_exists("get_gravatar")){
 if (! function_exists('manager')) {
 
     /** Retourne le manager lié au un compte user
-     * @param BcUser|null $user
-     * @return BcUser|null
+     * @param User|null $user
+     * @return User|null
      */
-    function manager(BcUser $user = null): ?BcUser
+    function manager(User $user = null): ?User
     {
-        $user ??= auth((new BcUser)->guardName())?->user();
+        $user ??= auth((new User)->guardName())?->user();
         return $user?->manager;
     }
 }

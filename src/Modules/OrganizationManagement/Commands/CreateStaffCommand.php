@@ -4,10 +4,10 @@ namespace Kirago\BusinessCore\Modules\OrganizationManagement\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcStaff;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcRole;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Staff;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\Role;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
 
 class CreateStaffCommand extends Command
 {
@@ -20,15 +20,15 @@ class CreateStaffCommand extends Command
         $organization = null;
 
         if ($slug) {
-            $organization = BcOrganization::findBySlug($slug);
+            $organization = Organization::findBySlug($slug);
         } else {
-            $organizations = BcOrganization::all();
+            $organizations = Organization::all();
 
             if ($organizations->isNotEmpty()) {
                 $choices = $organizations->map(fn($org) => "{$org->slug} - {$org->name}")->toArray();
                 $selected = $this->choice("Sélectionnez une organisation", $choices);
                 $slugSelected = explode(' - ', $selected)[0];
-                $organization = BcOrganization::findBySlug($slugSelected);
+                $organization = Organization::findBySlug($slugSelected);
             } else {
                 $this->warn("⚠️ Aucune organisation trouvée. Le staff sera créé sans organisation.");
             }
@@ -52,11 +52,11 @@ class CreateStaffCommand extends Command
         }
     }
 
-    protected function createStaff(?BcOrganization $organization): BcStaff
+    protected function createStaff(?Organization $organization): Staff
     {
         $this->alert("Ajout d’un utilisateur dans la base de données");
 
-        $staff = new BcStaff();
+        $staff = new Staff();
 
         do {
             $staff->firstname = $this->ask('Nom *');
@@ -110,7 +110,7 @@ class CreateStaffCommand extends Command
 
         $staff->save();
 
-        $user = new BcUser();
+        $user = new User();
         $user->firstname = $staff->firstname;
         $user->lastname = $staff->lastname;
         $user->username = $staff->username;
@@ -118,7 +118,7 @@ class CreateStaffCommand extends Command
         $user->phone = $staff->phone;
         $user->email_verified_at = now();
         $user->phone_verified_at = now();
-        $user->{BcStaff::getAuthPasswordField()} = $password;
+        $user->{Staff::getAuthPasswordField()} = $password;
         $user->entity()->associate($staff);
 
         if ($organization) {
@@ -126,7 +126,7 @@ class CreateStaffCommand extends Command
         }
 
         $user->save();
-        $user->assignRole(BcRole::SUPER_ADMIN);
+        $user->assignRole(Role::SUPER_ADMIN);
 
         $this->info("✅ Utilisateur créé avec succès.");
 

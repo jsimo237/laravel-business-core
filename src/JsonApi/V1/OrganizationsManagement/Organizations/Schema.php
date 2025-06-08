@@ -5,7 +5,7 @@ namespace Kirago\BusinessCore\JsonApi\V1\OrganizationsManagement\Organizations;
 use Kirago\BusinessCore\Support\Helpers\JsonApiHelper;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
@@ -22,7 +22,7 @@ class Schema extends JsonApiSchema {
      *
      * @var string
      */
-    public static string $model = BcOrganization::class;
+    public static string $model = Organization::class;
 
     /**
      * The maximum include path depth.

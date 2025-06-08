@@ -1,39 +1,39 @@
 <?php
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Media;
 use Kirago\BusinessCore\Modules\CoresManagement\Models\Notification;
-use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcAddress;
-use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcCity;
-use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcCountry;
-use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcQuarter;
-use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcState;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Models\Address;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Models\City;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Models\Country;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Models\Quarter;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Models\State;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Commands\CreateStaffCommand;
 use Kirago\BusinessCore\Modules\OrganizationManagement\Middlewares\EnsureRequestHasOrganization;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcContactForm;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcSetting;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcStaff;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BaseBcCustomer;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcCustomer;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoiceItem;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrderItem;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcPayment;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcProduct;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcTax;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcTaxGroup;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\ContactForm;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Setting;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Staff;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\BaseCustomer;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Customer;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Invoice;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\InvoiceItem;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Order;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\OrderItem;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Payment;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Product;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Tax;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\TaxGroup;
 use Kirago\BusinessCore\Modules\SecurityManagement\Middlewares\EnsureAuthGuardHeaderIsPresent;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcOtpCode;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcPermission;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcRole;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\OtpCode;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\Permission;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\Role;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
 use Kirago\BusinessCore\Modules\SecurityManagement\Models\UserHasOrganization;
-use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcAdvantage;
-use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcPackage;
-use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcPlan;
-use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcSubscription;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\Advantage;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\Package;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\Plan;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\Subscription;
 
 return [
 
@@ -47,8 +47,8 @@ return [
 
     // 🧑‍💼 Définition des classes utilisables pour l'authentification selon le rôle
     "authenticables" => [
-        'customer' => BcCustomer::class,
-        'staff' => BcStaff::class,
+        'customer' => Customer::class,
+        'staff' => Staff::class,
     ],
 
     // 📁 Sous-dossier dans le dossier de migrations où seront placées celles du package
@@ -57,40 +57,40 @@ return [
     // 🔄 Mapping morphologique pour les relations morphTo dans les modèles
     "morphs_map" => [
         // OrganizationManagement
-        "organization" => BcOrganization::class,
-        "staff" => BcStaff::class,
+        "organization" => Organization::class,
+        "staff" => Staff::class,
 
         // CoreManagement
-        "media" =>  BcMedia::class,
+        "media" =>  Media::class,
         "notification" => Notification::class,
 
         // SecurityManagement
-        "role" => BcRole::class,
-        "permission" => BcPermission::class,
-        "user" => BcUser::class,
-        "otp-code" =>  BcOtpCode::class,
+        "role" => Role::class,
+        "permission" => Permission::class,
+        "user" => User::class,
+        "otp-code" =>  OtpCode::class,
 
         // LocalizationManagement
-        "country" => BcCountry::class,
-        "state" => BcState::class,
-        "city" => BcCity::class,
-        "quarter" => BcQuarter::class,
+        "country" => Country::class,
+        "state" => State::class,
+        "city" => City::class,
+        "quarter" => Quarter::class,
 
         // SalesManagement
-        "order" => BcOrder::class,
-        "order-item" => BcOrderItem::class,
-        "invoice" => BcInvoice::class,
-        "invoice-item" => BcInvoiceItem::class,
-        "tax" => BcTax::class,
-        "tax-group" => BcTaxGroup::class,
-        "customer" => BaseBcCustomer::class,
-        "payment" => BcPayment::class,
+        "order" => Order::class,
+        "order-item" => OrderItem::class,
+        "invoice" => Invoice::class,
+        "invoice-item" => InvoiceItem::class,
+        "tax" => Tax::class,
+        "tax-group" => TaxGroup::class,
+        "customer" => BaseCustomer::class,
+        "payment" => Payment::class,
 
         // SubscriptionsManagement
-        "subscription" =>  BcSubscription::class,
-        "plan" =>  BcPlan::class,
-        "package" =>  BcPackage::class,
-        "advantage" =>  BcAdvantage::class,
+        "subscription" =>  Subscription::class,
+        "plan" =>  Plan::class,
+        "package" =>  Package::class,
+        "advantage" =>  Advantage::class,
     ],
 
     // 📜 Liste des commandes Artisan à enregistrer automatiquement depuis le package
@@ -101,13 +101,13 @@ return [
     // 🔗 Liste des modèles qui doivent interagir avec une organisation
     "models_interact_with_organization" => [
         // Cas avec relation BelongsToMany (pivot)
-        BcUser::class => [
+        User::class => [
             "type" => BelongsToMany::class,
             "related_column_name" => "user_id",
             "related_model" => UserHasOrganization::class,
         ],
 
-        BcStaff::class => [
+        Staff::class => [
             "type" => BelongsToMany::class,
             "related_column_name" => "user_id",
             "related_model" => UserHasOrganization::class,
@@ -116,21 +116,21 @@ return [
         /**
          * Cas simples : relations BelongsTo vers une organisation
          */
-        BcUser::class,
-        BcRole::class,
-        BcOtpCode::class,
-        BcContactForm::class,
-        BcSetting::class,
-        BcMedia::class,
-        BcOrder::class,
-        BcInvoice::class,
-        BcPayment::class,
-        BcTax::class,
-        BcTaxGroup::class,
-        BcCustomer::class,
-        BcPlan::class,
-        BcPackage::class,
-        BcSubscription::class,
+        User::class,
+        Role::class,
+        OtpCode::class,
+        ContactForm::class,
+        Setting::class,
+        Media::class,
+        Order::class,
+        Invoice::class,
+        Payment::class,
+        Tax::class,
+        TaxGroup::class,
+        Customer::class,
+        Plan::class,
+        Package::class,
+        Subscription::class,
     ],
 
     /**
@@ -139,28 +139,28 @@ return [
      * @see \config/eloquent-authorable.php
      */
     "models_has_authors" => [
-        BcOrganization::class ,
-        BcStaff::class ,
+        Organization::class ,
+        Staff::class ,
 
-        BcUser::class ,
-        BcRole::class ,
-        BcPermission::class ,
-        BcContactForm::class,
-        BcSetting::class,
-        BcMedia::class,
-        BcCustomer::class,
-        BcProduct::class,
-        BcOrder::class,
-        BcOrderItem::class,
-        BcInvoice::class,
-        BcInvoiceItem::class,
-        BcTax::class,
-        BcPayment::class,
-        BcTaxGroup::class,
-        BcPlan::class,
-        BcPackage::class,
-        BcSubscription::class,
+        User::class ,
+        Role::class ,
+        Permission::class ,
+        ContactForm::class,
+        Setting::class,
+        Media::class,
+        Customer::class,
+        Product::class,
+        Order::class,
+        OrderItem::class,
+        Invoice::class,
+        InvoiceItem::class,
+        Tax::class,
+        Payment::class,
+        TaxGroup::class,
+        Plan::class,
+        Package::class,
+        Subscription::class,
 
-        BcAddress::class,
+        Address::class,
     ]
 ];

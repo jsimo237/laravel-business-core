@@ -8,17 +8,17 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 /**
- * @property BaseOrder[] orders
- * @property BaseOrderItem[] orderItems
- * @property BaseOrder|null order
- * @property BaseOrderItem|null orderItem
+ * @property BaseOrderContract[] orders
+ * @property OrderItemContract[] orderItems
+ * @property BaseOrderContract|null order
+ * @property OrderItemContract|null orderItem
  */
 interface Orderable
 {
 
-    public function getOrder(): ?BaseOrder;
+    public function getOrder(): ?BaseOrderContract;
 
-    public function getOrderItem(): ?BaseOrderItem;
+    public function getOrderItem(): ?OrderItemContract;
 
     public function order() : HasOneThrough;
 

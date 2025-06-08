@@ -5,7 +5,7 @@ namespace Kirago\BusinessCore\JsonApi\V1\SubscriptionsManagement\Packages;
 use Kirago\BusinessCore\Support\Helpers\JsonApiHelper;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcPackage;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\Package;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\ID;
@@ -25,7 +25,7 @@ class Schema extends JsonApiSchema {
      *
      * @var string
      */
-    public static string $model = BcPackage::class;
+    public static string $model = Package::class;
 
     /**
      * The maximum include path depth.

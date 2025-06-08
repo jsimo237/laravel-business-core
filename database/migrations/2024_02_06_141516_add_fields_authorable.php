@@ -3,22 +3,22 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcCity;
-use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcCountry;
-use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcQuarter;
-use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcState;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcStaff;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcCustomer;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoiceItem;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrderItem;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcProduct;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcTax;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcTaxGroup;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcRole;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Models\City;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Models\Country;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Models\Quarter;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Models\State;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Staff;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Customer;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Invoice;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\InvoiceItem;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Order;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\OrderItem;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Product;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Tax;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\TaxGroup;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\Role;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
 
 return new class extends Migration {
     /**
@@ -30,15 +30,15 @@ return new class extends Migration {
 
         //class pour slug-column
         $classes = [
-            BcRole::class, BcUser::class,
-            BcStaff::class,
-            BcCountry::class, BcState::class,
-            BcOrganization::class,
-            BcOrder::class, BcInvoice::class, BcOrderItem::class, BcInvoiceItem::class,
-            BcCustomer::class, BcProduct::class,
-            BcTax::class, BcTaxGroup::class,
-            BcCity::class,
-            BcQuarter::class,
+            Role::class, User::class,
+            Staff::class,
+            Country::class, State::class,
+            Organization::class,
+            Order::class, Invoice::class, OrderItem::class, InvoiceItem::class,
+            Customer::class, Product::class,
+            Tax::class, TaxGroup::class,
+            City::class,
+            Quarter::class,
         ];
 
         $authorableOptions = config("eloquent-authorable");
@@ -58,8 +58,8 @@ return new class extends Migration {
 //                    $table->unsignedBigInteger($createdByColumnName)->nullable()
 //                        ->comment("[FK] l'auteur de l'enrengistrement");
 
-                    $table->foreignIdFor(BcUser::class,$createdByColumnName)->nullable()
-                        ->constrained((new BcUser)->getTable(), (new BcUser)->getKeyName(), uniqid("FK_"))
+                    $table->foreignIdFor(User::class,$createdByColumnName)->nullable()
+                        ->constrained((new User)->getTable(), (new User)->getKeyName(), uniqid("FK_"))
                         ->cascadeOnUpdate()->cascadeOnDelete()
                         ->comment("[FK] l'auteur de l'enrengistrement");
                 });
@@ -69,8 +69,8 @@ return new class extends Migration {
 //                    $table->unsignedBigInteger($updatedByColumnName)->nullable()
 //                        ->comment("[FK] l'auteur de la dernière modification");
 
-                    $table->foreignIdFor(BcUser::class,$updatedByColumnName)->nullable()
-                        ->constrained((new BcUser)->getTable(), (new BcUser)->getKeyName(), uniqid("FK_"))
+                    $table->foreignIdFor(User::class,$updatedByColumnName)->nullable()
+                        ->constrained((new User)->getTable(), (new User)->getKeyName(), uniqid("FK_"))
                         ->cascadeOnUpdate()->cascadeOnDelete()
                         ->comment("[FK] l'auteur de la dernière modification");
                 });

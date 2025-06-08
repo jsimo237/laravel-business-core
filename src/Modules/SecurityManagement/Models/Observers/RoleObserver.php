@@ -3,15 +3,15 @@
 namespace Kirago\BusinessCore\Modules\SecurityManagement\Models\Observers;
 
 use Illuminate\Support\Facades\DB;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcRole;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\Role;
 
 class RoleObserver{
 
 
     /** Efface definitivement le rôle
-     * @param BcRole $role
+     * @param Role $role
      */
-    public function forceDeleted(BcRole $role){
+    public function forceDeleted(Role $role){
         $tableNames = config('permission.table_names'); // [array]
         $columnNames = config('permission.column_names'); // [array]
         $role_id = $role->id;

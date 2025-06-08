@@ -5,7 +5,7 @@ namespace Kirago\BusinessCore\Modules\SecurityManagement\Controllers\Auth;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
 use LaravelJsonApi\Core\Responses\DataResponse;
 use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
 
@@ -20,7 +20,7 @@ class MeController extends Controller {
     public function __invoke(Request $request) : DataResponse|JsonResponse {
 
         /**
-         * @var BcUser $user
+         * @var User $user
          */
         $user = $request->user();
         $user = $user->only([

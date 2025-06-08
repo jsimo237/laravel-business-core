@@ -5,7 +5,7 @@ namespace Kirago\BusinessCore\JsonApi\V1\SalesManagement\Customers;
 use App\Constants\MembersType;
 use App\Models\ProfilesManagement\Member;
 use Illuminate\Validation\Rule;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcCustomer;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Customer;
 use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
 use function currentOrganization;
 use function Kirago\BusinessCore\JsonApi\V1\ProfilesManagement\Members\filled;
@@ -24,11 +24,11 @@ class Request extends ResourceRequest {
     public function rules(): array
     {
         /**
-         * @var BcCustomer|null $model
+         * @var Customer|null $model
          */
         $model = $this->model();
 
-        $tableName = (new BcCustomer)->getTable();
+        $tableName = (new Customer)->getTable();
 
        $organization = currentOrganization();
 //

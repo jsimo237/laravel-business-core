@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 @php
     /**
-     * @var \Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice $invoice
-     * @var \Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization $organization
+     * @var \Kirago\BusinessCore\Modules\SalesManagement\Models\Invoice $invoice
+     * @var \Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization $organization
      */
       $organization = $invoice->getOrganization();
 
-        $currency = $organization->getSettingOf(\Kirago\BusinessCore\Support\Constants\BcSettingsKeys::AMOUNT_CURRENCY->value);
-        $logo1 = $organization->getSettingOf(\Kirago\BusinessCore\Support\Constants\BcSettingsKeys::LOGOS->value)['LOGO_1'];
-        $logo2 = $organization->getSettingOf(\Kirago\BusinessCore\Support\Constants\BcSettingsKeys::LOGOS->value)['LIGHT'];
+        $currency = $organization->getSettingOf(\Kirago\BusinessCore\Support\Constants\SettingsKeys::AMOUNT_CURRENCY->value);
+        $logo1 = $organization->getSettingOf(\Kirago\BusinessCore\Support\Constants\SettingsKeys::LOGOS->value)['LOGO_1'];
+        $logo2 = $organization->getSettingOf(\Kirago\BusinessCore\Support\Constants\SettingsKeys::LOGOS->value)['LIGHT'];
         try {
             $logo1 = base64_encode(file_get_contents($logo1));
         } catch (\Throwable $e) {

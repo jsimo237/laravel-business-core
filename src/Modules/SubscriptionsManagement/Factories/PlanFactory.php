@@ -3,7 +3,7 @@
 namespace Kirago\BusinessCore\Modules\SubscriptionsManagement\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcPlan;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\Plan;
 
 /**
  * @extends Factory
@@ -11,7 +11,7 @@ use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcPlan;
 class PlanFactory extends Factory
 {
 
-    protected $model = BcPlan::class;
+    protected $model = Plan::class;
 
     /**
      * Define the model's default state.

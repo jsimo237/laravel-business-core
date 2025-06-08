@@ -2,18 +2,18 @@
 
 namespace Kirago\BusinessCore\Modules\SecurityManagement\Observers;
 
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcRole;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\Role;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
 
 class UserObserver{
 
 
 
     /** Se produit lorsque la resource est créee
-     * @param BcUser $user
+     * @param User $user
      * @return void
      */
-    public function creating(BcUser $user){
+    public function creating(User $user){
       //  $attributes = $user->getAttributes();
 
         $isManager = $user->is_manager ?? false;
@@ -23,7 +23,7 @@ class UserObserver{
         }
 
         if ($isManager) {
-          //  $user->assignRole(BcRole::MANAGER);
+          //  $user->assignRole(Role::MANAGER);
         }
     }
 }

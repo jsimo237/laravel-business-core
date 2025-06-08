@@ -5,12 +5,12 @@ namespace Kirago\BusinessCore\Modules\LocalizationManagement\Database\Migrations
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcAddress;
-use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcCity;
-use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcCountry;
-use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcQuarter;
-use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcState;
-use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcTimezone;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Models\Address;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Models\City;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Models\Country;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Models\Quarter;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Models\State;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Models\Timezone;
 
 return new class extends Migration {
 
@@ -28,8 +28,8 @@ return new class extends Migration {
 
     protected function createCountryTable()
     {
-        if (!Schema::hasTable((new BcCountry)->getTable())) {
-            Schema::create((new BcCountry)->getTable(), function (Blueprint $table) {
+        if (!Schema::hasTable((new Country)->getTable())) {
+            Schema::create((new Country)->getTable(), function (Blueprint $table) {
                 $table->id();
 
                 $table->string('code',10)->unique(uniqid("UQ_"))
@@ -48,13 +48,13 @@ return new class extends Migration {
 
     protected function createStateTable()
     {
-        if (!Schema::hasTable((new BcState)->getTable())) {
-            Schema::create((new BcState)->getTable(), function (Blueprint $table) {
+        if (!Schema::hasTable((new State)->getTable())) {
+            Schema::create((new State)->getTable(), function (Blueprint $table) {
                 $table->id();
                 $table->string('name')
                     ->comment("Le nom (ex : 'Littoral')");
-                $table->foreignIdFor(BcCountry::class, "country_id")->nullable()
-                    ->constrained((new BcCountry)->getTable(), (new BcCountry)->getKeyName(), uniqid("FK_"))
+                $table->foreignIdFor(Country::class, "country_id")->nullable()
+                    ->constrained((new Country)->getTable(), (new Country)->getKeyName(), uniqid("FK_"))
                     ->cascadeOnUpdate()->cascadeOnDelete()
                     ->comment("[FK] le pays");
 
@@ -69,14 +69,14 @@ return new class extends Migration {
 
     protected function createCityTable()
     {
-        if (!Schema::hasTable((new BcCity)->getTable())) {
-            Schema::create((new BcCity)->getTable(), function (Blueprint $table) {
+        if (!Schema::hasTable((new City)->getTable())) {
+            Schema::create((new City)->getTable(), function (Blueprint $table) {
 
                 $table->id();
                 $table->string('name')
                     ->comment("Le nom (ex : 'Douala')");
-                $table->foreignIdFor(BcState::class, BcState::FK_ID)->nullable()
-                    ->constrained((new BcState)->getTable(), (new BcState)->getKeyName(), uniqid("FK_"))
+                $table->foreignIdFor(State::class, State::FK_ID)->nullable()
+                    ->constrained((new State)->getTable(), (new State)->getKeyName(), uniqid("FK_"))
                     ->cascadeOnUpdate()->cascadeOnDelete()
                     ->comment("[FK] l'état/région associé");
                 $table->boolean('is_active')->default(true)
@@ -90,13 +90,13 @@ return new class extends Migration {
 
     protected function createQuarterTable()
     {
-        if (!Schema::hasTable((new BcQuarter)->getTable())) {
-            Schema::create((new BcQuarter)->getTable(), function (Blueprint $table) {
+        if (!Schema::hasTable((new Quarter)->getTable())) {
+            Schema::create((new Quarter)->getTable(), function (Blueprint $table) {
                 $table->id();
                 $table->string('name')
                     ->comment("Le nom (ex : 'Ndog-Passi 2')");
-                $table->foreignIdFor(BcCity::class, BcCity::FK_ID)->nullable()
-                    ->constrained((new BcCity)->getTable(), (new BcCity)->getKeyName(), uniqid("FK_"))
+                $table->foreignIdFor(City::class, City::FK_ID)->nullable()
+                    ->constrained((new City)->getTable(), (new City)->getKeyName(), uniqid("FK_"))
                     ->cascadeOnUpdate()->cascadeOnDelete()
                     ->comment("[FK] la ville");
 
@@ -111,9 +111,9 @@ return new class extends Migration {
 
     protected function createAddressTable()
     {
-        if (!Schema::hasTable((new BcAddress)->getTable())) {
+        if (!Schema::hasTable((new Address)->getTable())) {
 
-            Schema::create((new BcAddress)->getTable(), function (Blueprint $table) {
+            Schema::create((new Address)->getTable(), function (Blueprint $table) {
 
                 $table->id();
 
@@ -141,23 +141,23 @@ return new class extends Migration {
                     ->comment("Determine si c'est l'adresse par défaut")
                     ->default(false);
 
-                $table->foreignIdFor(BcCountry::class, BcCountry::FK_ID)->nullable()
-                    ->constrained((new BcCountry)->getTable(), (new BcCountry)->getKeyName(), uniqid("FK_"))
+                $table->foreignIdFor(Country::class, Country::FK_ID)->nullable()
+                    ->constrained((new Country)->getTable(), (new Country)->getKeyName(), uniqid("FK_"))
                     ->cascadeOnUpdate()->cascadeOnDelete()
                     ->comment("[FK] le pays");
 
-                $table->foreignIdFor(BcState::class, BcState::FK_ID)->nullable()
-                    ->constrained((new BcState)->getTable(), (new BcState)->getKeyName(), uniqid("FK_"))
+                $table->foreignIdFor(State::class, State::FK_ID)->nullable()
+                    ->constrained((new State)->getTable(), (new State)->getKeyName(), uniqid("FK_"))
                     ->cascadeOnUpdate()->cascadeOnDelete()
                     ->comment("[FK] l'état/région");
 
-                $table->foreignIdFor(BcCity::class, BcCity::FK_ID)->nullable()
-                    ->constrained((new BcCity)->getTable(), (new BcCity)->getKeyName(), uniqid("FK_"))
+                $table->foreignIdFor(City::class, City::FK_ID)->nullable()
+                    ->constrained((new City)->getTable(), (new City)->getKeyName(), uniqid("FK_"))
                     ->cascadeOnUpdate()->cascadeOnDelete()
                     ->comment("[FK] la ville");
 
-                $table->foreignIdFor(BcQuarter::class, BcQuarter::FK_ID)->nullable()
-                    ->constrained((new BcQuarter)->getTable(), (new BcQuarter)->getKeyName(), uniqid("FK_"))
+                $table->foreignIdFor(Quarter::class, Quarter::FK_ID)->nullable()
+                    ->constrained((new Quarter)->getTable(), (new Quarter)->getKeyName(), uniqid("FK_"))
                     ->cascadeOnUpdate()->cascadeOnDelete()
                     ->comment("[FK] le quartier");
 
@@ -182,8 +182,8 @@ return new class extends Migration {
 
     protected function createTimeZoneTable()
     {
-        if (!Schema::hasTable((new BcTimezone)->getTable())) {
-            Schema::create((new BcTimezone)->getTable(), function (Blueprint $table) {
+        if (!Schema::hasTable((new Timezone)->getTable())) {
+            Schema::create((new Timezone)->getTable(), function (Blueprint $table) {
                 $table->id();
                 $table->string('code',100)->unique(uniqid("UQ_"))
                     ->comment("[PK] le code");
@@ -201,10 +201,10 @@ return new class extends Migration {
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists((new BcCountry)->getTable());
-        Schema::dropIfExists((new BcState)->getTable());
-        Schema::dropIfExists((new BcCity)->getTable());
-        Schema::dropIfExists((new BcAddress)->getTable());
-        Schema::dropIfExists((new BcTimezone)->getTable());
+        Schema::dropIfExists((new Country)->getTable());
+        Schema::dropIfExists((new State)->getTable());
+        Schema::dropIfExists((new City)->getTable());
+        Schema::dropIfExists((new Address)->getTable());
+        Schema::dropIfExists((new Timezone)->getTable());
     }
 };

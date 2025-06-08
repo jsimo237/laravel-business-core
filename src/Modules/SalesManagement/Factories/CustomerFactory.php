@@ -4,15 +4,15 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BaseBcCustomer;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcCustomer;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\BaseCustomer;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Customer;
 
 /**
  * @extends Factory
  */
 class CustomerFactory extends Factory{
 
-    protected $model = BcCustomer::class;
+    protected $model = Customer::class;
     /**
      * Define the model's default state.
      *
@@ -31,7 +31,7 @@ class CustomerFactory extends Factory{
 
     public function configure(): self{
 
-        return $this->afterCreating(function (BaseBcCustomer $customer){
+        return $this->afterCreating(function (BaseCustomer $customer){
 
         })
 //        ->afterMaking(function (Application $wallet) {

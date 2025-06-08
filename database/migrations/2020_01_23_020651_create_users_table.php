@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Migrations\Migration;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
 
 return new class extends Migration  {
     /**
@@ -12,8 +12,8 @@ return new class extends Migration  {
      * @return void
      */
     public function up() {
-        if(!Schema::hasTable((new BcUser)->getTable())){
-                Schema::create((new BcUser)->getTable(), function (Blueprint $table) {
+        if(!Schema::hasTable((new User)->getTable())){
+                Schema::create((new User)->getTable(), function (Blueprint $table) {
 
                     $table->id();
 
@@ -71,6 +71,6 @@ return new class extends Migration  {
      * @return void
      */
     public function down(){
-        Schema::dropIfExists((new BcUser)->getTable());
+        Schema::dropIfExists((new User)->getTable());
     }
 };

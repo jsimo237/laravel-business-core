@@ -3,7 +3,7 @@
 namespace Kirago\BusinessCore\JsonApi\V1\SalesManagement\InvoiceItems;
 
 use Illuminate\Validation\Rule;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoiceItem;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\InvoiceItem;
 use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
 use LaravelJsonApi\Validation\Rule as JsonApiRule;
 
@@ -21,7 +21,7 @@ class Request extends ResourceRequest {
     public function rules(): array
     {
         /**
-         * @var BcInvoiceItem|null $model
+         * @var InvoiceItem|null $model
          */
         $model = $this->model();
 //       $organization = currentOrganization();

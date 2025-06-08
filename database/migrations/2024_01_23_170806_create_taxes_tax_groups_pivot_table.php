@@ -3,9 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcTax;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcTaxGroup;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcTaxHasGroup;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Tax;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\TaxGroup;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\TaxHasGroup;
 
 return new class extends Migration
 {
@@ -16,17 +16,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create((new BcTaxHasGroup)->getTable(), function (Blueprint $table) {
+        Schema::create((new TaxHasGroup)->getTable(), function (Blueprint $table) {
             $table->id();
 
 
-            $table->foreignIdFor(BcTax::class,'tax_id')
-                ->constrained((new BcTax)->getTable(), (new BcTax)->getKeyName(), uniqid("FK_"))
+            $table->foreignIdFor(Tax::class,'tax_id')
+                ->constrained((new Tax)->getTable(), (new Tax)->getKeyName(), uniqid("FK_"))
                 ->cascadeOnUpdate()->cascadeOnDelete()
                 ->comment("[FK] la taxe");
 
-            $table->foreignIdFor(BcTaxGroup::class,'tax_group_id')
-                ->constrained((new BcTaxGroup)->getTable(), (new BcTaxGroup)->getKeyName(), uniqid("FK_"))
+            $table->foreignIdFor(TaxGroup::class,'tax_group_id')
+                ->constrained((new TaxGroup)->getTable(), (new TaxGroup)->getKeyName(), uniqid("FK_"))
                 ->cascadeOnUpdate()->cascadeOnDelete()
                 ->comment("[FK] le groupe taxe");
 
@@ -46,6 +46,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists((new BcTaxHasGroup)->getTable());
+        Schema::dropIfExists((new TaxHasGroup)->getTable());
     }
 };

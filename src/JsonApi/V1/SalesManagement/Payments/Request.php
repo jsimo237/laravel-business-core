@@ -3,7 +3,7 @@
 namespace Kirago\BusinessCore\JsonApi\V1\SalesManagement\Payments;
 
 use Illuminate\Validation\Rule;
-use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcPaymentSource;
+use Kirago\BusinessCore\Modules\SalesManagement\Constants\PaymentSource;
 use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
 
 class Request extends ResourceRequest {
@@ -23,7 +23,7 @@ class Request extends ResourceRequest {
 
         return [
             'firstname' => ['required', 'string',"min:4",'max:60'],
-            'source_code'      => ['required', 'string',Rule::in(BcPaymentSource::values())],
+            'source_code'      => ['required', 'string',Rule::in(PaymentSource::values())],
             'source_reference'  => ['nullable', 'string',"min:4",'max:255'],
             'source_response'  => ['nullable'],
             'amount'     => ['required'],

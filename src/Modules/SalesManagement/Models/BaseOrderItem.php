@@ -5,8 +5,8 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kirago\BusinessCore\Modules\CoresManagement\Models\Traits\Auditable;
-use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BaseOrder;
-use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BaseOrderItem;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BaseOrderContract;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\OrderItemContract;
 use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\Orderable;
 use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\TaxableItemContrat;
 use Kirago\BusinessCore\Modules\SalesManagement\Helpers\TaxHelper;
@@ -23,13 +23,13 @@ use Kirago\BusinessCore\Support\Contracts\EventNotifiableContract;
  */
 abstract class BaseOrderItem extends Model implements
     TaxableItemContrat,EventNotifiableContract,
-    BaseOrderItem
+    OrderItemContract
 {
 
     use SoftDeletes,HasTaxGroup,Auditable;
 
     /************ Abstract functions ************/
-    abstract public function getOrder() : ?BaseOrder;
+    abstract public function getOrder() : ?BaseOrderContract;
 
     abstract public function getOrderable(): ?Orderable;
 

@@ -2,10 +2,10 @@
 
 namespace Kirago\BusinessCore\Modules\SalesManagement\Traits;
 
-use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BaseOrder;
-use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BaseOrderItem;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrderItem;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\BaseOrderContract;
+use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\OrderItemContract;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Order;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\OrderItem;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
@@ -14,12 +14,12 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 trait InteractWithOrdertemsCapacities
 {
 
-    public function getOrder(): ?BaseOrder
+    public function getOrder(): ?BaseOrderContract
     {
         return $this->order;
     }
 
-    public function getOrderItem(): ?BaseOrderItem
+    public function getOrderItem(): ?OrderItemContract
     {
         return $this->orderItem;
     }
@@ -27,15 +27,15 @@ trait InteractWithOrdertemsCapacities
     public function order(): HasOneThrough
     {
         return $this->hasOneThrough(
-                    BcOrder::class,
-                    BcOrderItem::class,
-                    BcOrderItem::MORPH_ID_COLUMN,  // Clé étrangère sur InvoiceItem (vers Product)
+                    Order::class,
+                    OrderItem::class,
+                    OrderItem::MORPH_ID_COLUMN,  // Clé étrangère sur InvoiceItem (vers Product)
                     'id',               // Clé primaire sur Order
                     'id',               // Clé primaire sur Product
                     'order_id'         // Clé étrangère sur OrderItem (vers Order)
                 )
                 ->where(
-                    (new BcOrderItem)->getTable().".".BcOrderItem::MORPH_TYPE_COLUMN,
+                    (new OrderItem)->getTable().".".OrderItem::MORPH_TYPE_COLUMN,
                     (new static)->getMorphClass()
                 );
     }
@@ -43,24 +43,24 @@ trait InteractWithOrdertemsCapacities
     public function orderItem(): MorphOne
     {
         return $this->morphOne(
-                    BcOrderItem::class,
-                    BcOrderItem::MORPH_FUNCTION_NAME,
-                    BcOrderItem::MORPH_TYPE_COLUMN,
+                    OrderItem::class,
+                    OrderItem::MORPH_FUNCTION_NAME,
+                    OrderItem::MORPH_TYPE_COLUMN,
                 );
     }
 
     public function orders(): HasManyThrough
     {
         return $this->hasManyThrough(
-                    BcOrder::class,
-                    BcOrderItem::class,
-                    BcOrderItem::MORPH_ID_COLUMN,  // Clé étrangère sur InvoiceItem (vers Product)
+                    Order::class,
+                    OrderItem::class,
+                    OrderItem::MORPH_ID_COLUMN,  // Clé étrangère sur InvoiceItem (vers Product)
                     'id',               // Clé primaire sur Order
                     'id',               // Clé primaire sur Product
                     'order_id'         // Clé étrangère sur OrderItem (vers Order)
                 )
                 ->where(
-                    (new BcOrderItem)->getTable().".".BcOrderItem::MORPH_TYPE_COLUMN,
+                    (new OrderItem)->getTable().".".OrderItem::MORPH_TYPE_COLUMN,
                     (new static)->getMorphClass()
                 );
     }
@@ -68,9 +68,9 @@ trait InteractWithOrdertemsCapacities
     public function orderItems(): MorphMany
     {
         return $this->morphMany(
-                    BcOrderItem::class,
-                    BcOrderItem::MORPH_FUNCTION_NAME,
-                    BcOrderItem::MORPH_TYPE_COLUMN,
+                    OrderItem::class,
+                    OrderItem::MORPH_FUNCTION_NAME,
+                    OrderItem::MORPH_TYPE_COLUMN,
                 );
     }
 }

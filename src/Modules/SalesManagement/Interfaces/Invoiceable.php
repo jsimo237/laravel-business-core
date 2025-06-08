@@ -9,16 +9,16 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 /**
- * @property BaseInvoice[] invoices
- * @property BaseInvoiceItem[] invoiceItems
- * @property BaseInvoice invoice
- * @property BaseInvoiceItem invoiceItem
+ * @property BaseInvoiceContract[] invoices
+ * @property InvoiceItemContract[] invoiceItems
+ * @property BaseInvoiceContract invoice
+ * @property InvoiceItemContract invoiceItem
  */
 interface Invoiceable
 {
-    public function getInvoice(): ?BaseInvoice;
+    public function getInvoice(): ?BaseInvoiceContract;
 
-    public function getInvoiceItem(): ?BaseInvoiceItem;
+    public function getInvoiceItem(): ?InvoiceItemContract;
 
     public function invoice() : HasOneThrough;
 

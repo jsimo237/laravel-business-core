@@ -4,14 +4,14 @@ namespace Kirago\BusinessCore\Modules\OrganizationManagement\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcStaff;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Staff;
 
 /**
  * @extends Factory
  */
 class StaffFactory extends Factory{
 
-    protected $model = BcStaff::class;
+    protected $model = Staff::class;
     /**
      * Define the model's default state.
      *
@@ -30,7 +30,7 @@ class StaffFactory extends Factory{
 
     public function configure(): self{
 
-        return $this->afterCreating(function (BcStaff $staff){
+        return $this->afterCreating(function (Staff $staff){
 
         })
 //        ->afterMaking(function (Application $wallet) {

@@ -9,7 +9,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcOtpCode;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\OtpCode;
 
 class OtpCodeGenerated
 {
@@ -18,7 +18,7 @@ class OtpCodeGenerated
     /**
      * Create a new event instance.
      */
-    public function __construct(public BcOtpCode $otp, public string $title)
+    public function __construct(public OtpCode $otp, public string $title)
     {
         //
     }

@@ -3,9 +3,9 @@
 namespace Kirago\BusinessCore\Modules\CoresManagement\Models;
 
 
-use Kirago\BusinessCore\Modules\BaseBcModel;
+use Kirago\BusinessCore\Modules\BaseModel;
 
-class Phone extends BaseBcModel {
+class Phone extends BaseModel {
 
 
     const MORPH_ID_COLUMN = "entity_id";

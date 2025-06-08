@@ -3,7 +3,7 @@
 namespace Kirago\BusinessCore\JsonApi\V1\SalesManagement\Products;
 
 use Illuminate\Validation\Rule;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcProduct;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Product;
 use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
 use LaravelJsonApi\Validation\Rule as JsonApiRule;
 
@@ -21,12 +21,12 @@ class Request extends ResourceRequest {
     public function rules(): array
     {
         /**
-         * @var BcProduct|null $model
+         * @var Product|null $model
          */
         $model = $this->model();
        $organization = currentOrganization();
 //
-        $uniqueSku = Rule::unique((new BcProduct)->getTable(), 'sku')
+        $uniqueSku = Rule::unique((new Product)->getTable(), 'sku')
                         ->when($organization,fn($q)=> $q->where("organization_id",$organization->getKey()))
                         ->when(filled($model),fn($q)=> $q->ignoreModel($model));
 

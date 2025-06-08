@@ -4,42 +4,42 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcSetting;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcStaff;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcCustomer;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcProduct;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Setting;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Staff;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Customer;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Invoice;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Order;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Product;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
 
 return new class extends Migration {
 
     public function up(){
 
         $classes = [
-           BcCustomer::class => [
+           Customer::class => [
                 "columns" => ['email',"phone","username"]
             ],
-            BcStaff::class => [
+            Staff::class => [
                 "columns" => ['email',"phone","username"]
             ],
 
-            BcProduct::class => [
+            Product::class => [
                 "columns" => ['sku']
             ],
 
-            BcOrder::class => [
+            Order::class => [
                 "columns" => ['code']
             ],
-            BcInvoice::class => [
+            Invoice::class => [
                 "columns" => ['code']
             ],
 
-           BcSetting::class => [
+           Setting::class => [
                 "columns" => ['key']
             ],
 
-            BcUser::class => [
+            User::class => [
                 "columns" => ['email',"phone","username"]
             ],
         ];

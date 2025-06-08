@@ -4,8 +4,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcOtpCode;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\OtpCode;
 
 return new class extends Migration
 {
@@ -14,8 +14,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if(Schema::hasTable((new BcOtpCode)->getTable())){
-            Schema::whenTableHasColumn((new BcOtpCode)->getTable(),"organization_id",function (Blueprint $table){
+        if(Schema::hasTable((new OtpCode)->getTable())){
+            Schema::whenTableHasColumn((new OtpCode)->getTable(),"organization_id",function (Blueprint $table){
 
                 $table->dropForeign(['organization_id']);
 
@@ -27,7 +27,7 @@ return new class extends Migration
                 // On recrée la contrainte avec cascade
                 $table->foreign('organization_id')
                     ->references('id')
-                    ->on((new BcOrganization)->getTable())
+                    ->on((new Organization)->getTable())
                     ->cascadeOnUpdate()
                     ->cascadeOnDelete();
 
@@ -40,8 +40,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        if (Schema::hasTable((new BcOtpCode)->getTable())) {
-            Schema::table((new BcOtpCode)->getTable(), function (Blueprint $table) {
+        if (Schema::hasTable((new OtpCode)->getTable())) {
+            Schema::table((new OtpCode)->getTable(), function (Blueprint $table) {
                 $table->dropForeign([$table->getTable().'_organization_id_foreign']);
 
                 $table->foreignId('organization_id')
@@ -50,7 +50,7 @@ return new class extends Migration
 
                 $table->foreign('organization_id')
                     ->references('id')
-                    ->on((new BcOrganization)->getTable())
+                    ->on((new Organization)->getTable())
                     ->cascadeOnUpdate()
                     ->cascadeOnDelete();
             });

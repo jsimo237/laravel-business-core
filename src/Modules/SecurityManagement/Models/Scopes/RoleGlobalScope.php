@@ -5,7 +5,7 @@ namespace Kirago\BusinessCore\Modules\SecurityManagement\Models\Scopes;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcRole;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\Role;
 
 class RoleGlobalScope implements Scope{
 
@@ -22,7 +22,7 @@ class RoleGlobalScope implements Scope{
                           //return $query->where("manager_id", $manager->id);
                         })
                         ->when(request()->filled("guard_name"),function ($query){
-                            $table = (new BcRole)->getTable();
+                            $table = (new Role)->getTable();
                             return $query->where("$table.guard_name",request()->get("guard_name"));
                         })
             ;

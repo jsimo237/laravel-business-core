@@ -4,7 +4,7 @@ namespace Kirago\BusinessCore\Modules\SubscriptionsManagement\Factories;
 
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcAdvantage;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\Advantage;
 
 /**
  * @extends Factory
@@ -12,7 +12,7 @@ use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcAdvantage;
 class AdvantageFactory extends Factory
 {
 
-    protected $model = BcAdvantage::class;
+    protected $model = Advantage::class;
     /**
      * Define the model's default state.
      *

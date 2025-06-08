@@ -1,6 +1,6 @@
 <?php
 
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
 
 return [
 
@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'users_model' => BcUser::class,
+    'users_model' => User::class,
 
     /*
     |--------------------------------------------------------------------------

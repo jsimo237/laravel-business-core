@@ -2,11 +2,11 @@
 
 namespace Kirago\BusinessCore\Modules\SubscriptionsManagement\Interfaces;
 
-use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcSubscription;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\Subscription;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
- * @property BcSubscription[] $subscriptions
+ * @property Subscription[] $subscriptions
  */
 interface HasSubscriptions
 {

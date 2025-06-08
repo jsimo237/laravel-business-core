@@ -4,7 +4,7 @@ namespace Kirago\BusinessCore\Modules\CoresManagement\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
-use Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Media;
 use Spatie\Valuestore\Valuestore;
 
 class MediaDeletionRepository
@@ -25,10 +25,10 @@ class MediaDeletionRepository
     }
 
     /**
-     * @param BcMedia $media
+     * @param Media $media
      * @return mixed
      */
-    public function addMediaToDelete(BcMedia $media): mixed
+    public function addMediaToDelete(Media $media): mixed
     {
         // Put multiple items in one go
       return  $this->store->put($media->toArray());
@@ -50,7 +50,7 @@ class MediaDeletionRepository
             $idsToDelete = Arr::pluck($items,["id"]);
 
             if ($idsToDelete){
-                $medias = BcMedia::whereIn("id",$idsToDelete)->get();
+                $medias = Media::whereIn("id",$idsToDelete)->get();
                 $medias->each(fn($media)=> $media->delete());
 
                 $this->store->flush();

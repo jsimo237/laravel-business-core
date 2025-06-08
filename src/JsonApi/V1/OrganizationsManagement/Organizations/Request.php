@@ -3,8 +3,8 @@
 namespace Kirago\BusinessCore\JsonApi\V1\OrganizationsManagement\Organizations;
 
 use Illuminate\Validation\Rule;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
-use Kirago\BusinessCore\Modules\SalesManagement\Constants\BcBillingInformations;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
+use Kirago\BusinessCore\Modules\SalesManagement\Constants\BillingInformations;
 use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
 use LaravelJsonApi\Validation\Rule as JsonApiRule;
 
@@ -22,7 +22,7 @@ class Request extends ResourceRequest {
     public function rules(): array
     {
         /**
-         * @var BcOrganization $model
+         * @var Organization $model
          */
         $model = $this->model();
 
@@ -45,7 +45,7 @@ class Request extends ResourceRequest {
             'manager'     => ['nullable', JsonApiRule::toOne()],
             'is_active'   => ['nullable', JsonApiRule::boolean()],
 
-            ...BcBillingInformations::baseRules(),
+            ...BillingInformations::baseRules(),
         ];
     }
 

@@ -3,8 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoiceItem;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Invoice;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\InvoiceItem;
 
 return new class extends Migration
 {
@@ -15,7 +15,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create((new BcInvoiceItem)->getTable(), function (Blueprint $table) {
+        Schema::create((new InvoiceItem)->getTable(), function (Blueprint $table) {
             $table->id();
 
             $table->string('code',60)
@@ -29,8 +29,8 @@ return new class extends Migration
 
             $table->nullableUlidMorphs('invoiceable',uniqid("POLY_INDEX_"));
 
-            $table->foreignIdFor(BcInvoice::class,'invoice_id')
-                ->constrained((new BcInvoice)->getTable(), (new BcInvoice)->getKeyName(), uniqid("FK_"))
+            $table->foreignIdFor(Invoice::class,'invoice_id')
+                ->constrained((new Invoice)->getTable(), (new Invoice)->getKeyName(), uniqid("FK_"))
                 ->cascadeOnUpdate()->cascadeOnDelete()
                 ->comment("[FK] la facture");
 
@@ -47,6 +47,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists((new BcInvoiceItem)->getTable());
+        Schema::dropIfExists((new InvoiceItem)->getTable());
     }
 };

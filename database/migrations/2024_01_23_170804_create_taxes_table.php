@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcTax;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Tax;
 
 return new class extends Migration
 {
@@ -14,7 +14,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create((new BcTax)->getTable(), function (Blueprint $table) {
+        Schema::create((new Tax)->getTable(), function (Blueprint $table) {
             $table->id();
 
             $table->string('name');
@@ -39,6 +39,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists((new BcTax)->getTable());
+        Schema::dropIfExists((new Tax)->getTable());
     }
 };

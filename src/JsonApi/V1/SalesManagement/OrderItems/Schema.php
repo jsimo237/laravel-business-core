@@ -5,7 +5,7 @@ namespace Kirago\BusinessCore\JsonApi\V1\SalesManagement\OrderItems;
 use Kirago\BusinessCore\Support\Helpers\JsonApiHelper;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrderItem;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\OrderItem;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\ArrayList;
@@ -26,7 +26,7 @@ class Schema extends JsonApiSchema {
      *
      * @var string
      */
-    public static string $model = BcOrderItem::class;
+    public static string $model = OrderItem::class;
 
     /**
      * The maximum include path depth.
@@ -53,7 +53,7 @@ class Schema extends JsonApiSchema {
 
             MorphTo::make('orderable')->types('subscriptions','products')->readOnly(),
 
-            ArrayHash::make('pricing')->extractUsing(function (BcOrderItem $model) {
+            ArrayHash::make('pricing')->extractUsing(function (OrderItem $model) {
                 return [
                     "taxes" => $model->getItemTaxes(),
                     "subtotal" => $model->getItemSubTotalAmount(),

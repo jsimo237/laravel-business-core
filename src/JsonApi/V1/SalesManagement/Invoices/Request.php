@@ -3,7 +3,7 @@
 namespace Kirago\BusinessCore\JsonApi\V1\SalesManagement\Invoices;
 
 use Illuminate\Validation\Rule;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Invoice;
 use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
 use LaravelJsonApi\Validation\Rule as JsonApiRule;
 

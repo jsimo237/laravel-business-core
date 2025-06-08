@@ -4,9 +4,9 @@ namespace Kirago\BusinessCore\Modules\SecurityManagement\Middlewares;
 
 use Closure;
 use Illuminate\Http\Request;
-use Kirago\BusinessCore\Support\Constants\BcReasonCode;
-use Kirago\BusinessCore\Support\Constants\BcServerStatus;
-use Kirago\BusinessCore\Support\Exceptions\BcFieldHeaderRequiredException;
+use Kirago\BusinessCore\Support\Constants\ReasonCode;
+use Kirago\BusinessCore\Support\Constants\ServerStatus;
+use Kirago\BusinessCore\Support\Exceptions\FieldHeaderRequiredException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class EnsureAuthGuardHeaderIsPresent
@@ -17,9 +17,9 @@ class EnsureAuthGuardHeaderIsPresent
 
         throw_if(
             !$request->hasHeader("x-auth-guard"),
-            new BcFieldHeaderRequiredException(
-                BcReasonCode::REQUIRED_X_AUTH_GUARD_HEADER->value,
-                BcServerStatus::BAD_REQUEST_HEADER->value,
+            new FieldHeaderRequiredException(
+                ReasonCode::REQUIRED_X_AUTH_GUARD_HEADER->value,
+                ServerStatus::BAD_REQUEST_HEADER->value,
             )
         );
 
@@ -28,7 +28,7 @@ class EnsureAuthGuardHeaderIsPresent
 
         throw_if(
             filled($guards) && !in_array($guardName, $guards),
-            new \InvalidArgumentException(BcReasonCode::INVALID_AUTH_GUARD->value,)
+            new \InvalidArgumentException(ReasonCode::INVALID_AUTH_GUARD->value,)
         );
 
 

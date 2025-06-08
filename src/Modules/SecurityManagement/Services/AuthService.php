@@ -4,7 +4,7 @@ namespace Kirago\BusinessCore\Modules\SecurityManagement\Services;
 
 use Illuminate\Database\Eloquent\Builder;
 use Kirago\BusinessCore\Modules\SecurityManagement\Interfaces\AuthenticatableModelContract;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -45,7 +45,7 @@ class AuthService
     /**
      * Recherche un utilisateur à partir des identifiants définis par son modèle.
      */
-    public function findUserByIdentifier(string $identifier): ?BcUser
+    public function findUserByIdentifier(string $identifier): ?User
     {
         /**
          * @var AuthenticatableModelContract
@@ -97,7 +97,7 @@ class AuthService
         $passwordField = $this->getModelClass()::getAuthPasswordField();
 
         /**
-         * @var BcUser
+         * @var User
          */
         $user = $model?->getUser();
 

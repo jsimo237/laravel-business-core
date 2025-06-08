@@ -7,7 +7,7 @@ namespace Kirago\BusinessCore\Commands\Install;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcRole;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
 
 class InstallRoleSuperAdmin extends Command{
@@ -24,7 +24,7 @@ class InstallRoleSuperAdmin extends Command{
             app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
             $role = [
-                'name' => BcRole::SUPER_ADMIN,
+                'name' => Role::SUPER_ADMIN,
                 'editable' => false,
                 'description' => null,
                 'guard_name' => "api",
@@ -32,11 +32,11 @@ class InstallRoleSuperAdmin extends Command{
             ];
 
             /**
-             * @var BcRole $role
+             * @var Role $role
              */
-           $role = BcRole::upsert($role,['name']);
+           $role = Role::upsert($role,['name']);
 
-         //  $role->givePermissionTo(BcPermission::pluck('id')->toArray());
+         //  $role->givePermissionTo(Permission::pluck('id')->toArray());
 
             $this->info("✅  Le rôle Super-Admin a été créé.");
             DB::commit();

@@ -4,7 +4,7 @@ namespace Kirago\BusinessCore\Modules\SecurityManagement\Repositories;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
 
 class UserRepository
 {
@@ -12,7 +12,7 @@ class UserRepository
     /**
      * @throws ValidationException
      */
-    public function updatePassword(BcUser $user, string $oldPassword , string $newPassword) : bool{
+    public function updatePassword(User $user, string $oldPassword , string $newPassword) : bool{
 
         $passwordField = $user->getPasswordField();
 
@@ -28,7 +28,7 @@ class UserRepository
         return true;
     }
 
-    public function updatePersonnalInformations(BcUser $user, array $payload) : BcUser{
+    public function updatePersonnalInformations(User $user, array $payload) : User{
 
         $user->firstname = $payload['firstname'];
         $user->lastname = $payload['lastname'];

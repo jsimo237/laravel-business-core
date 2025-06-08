@@ -7,7 +7,7 @@ namespace Kirago\BusinessCore\Commands\Install;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcPermission;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\Permission;
 use Spatie\Permission\PermissionRegistrar;
 
 
@@ -25,9 +25,9 @@ class InstallPermissions extends Command{
             // Rest cached roles and permissions
             app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-            BcPermission::upsert($rows, ['name',"guard_name"]);
+            Permission::upsert($rows, ['name',"guard_name"]);
 
-            BcPermission::syncAllPermissionsToSuperAdminRole();
+            Permission::syncAllPermissionsToSuperAdminRole();
 
             $this->info("✅  Les permissions ont été créées.");
         } catch (\Exception $e) {

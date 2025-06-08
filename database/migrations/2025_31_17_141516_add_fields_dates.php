@@ -3,23 +3,23 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia;
-use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcAddress;
-use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcCity;
-use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcCountry;
-use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcQuarter;
-use Kirago\BusinessCore\Modules\LocalizationManagement\Models\BcState;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcStaff;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcCustomer;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoiceItem;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrderItem;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcProduct;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcPermission;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcRole;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Media;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Models\Address;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Models\City;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Models\Country;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Models\Quarter;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Models\State;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Staff;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Customer;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Invoice;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\InvoiceItem;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Order;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\OrderItem;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Product;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\Permission;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\Role;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
 
 return new class extends Migration {
     /**

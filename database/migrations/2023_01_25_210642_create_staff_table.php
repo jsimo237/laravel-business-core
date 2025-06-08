@@ -3,14 +3,14 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcStaff;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Staff;
 
 return new class extends Migration {
 
     public function up(){
 
-        if(!Schema::hasTable((new BcStaff)->getTable())){
-            Schema::create((new BcStaff)->getTable(), function (Blueprint $table) {
+        if(!Schema::hasTable((new Staff)->getTable())){
+            Schema::create((new Staff)->getTable(), function (Blueprint $table) {
                 $table->id();
 
                 $table->string('firstname',100)
@@ -41,6 +41,6 @@ return new class extends Migration {
 
 
     public function down(){
-        Schema::dropIfExists((new BcStaff)->getTable());
+        Schema::dropIfExists((new Staff)->getTable());
     }
 };

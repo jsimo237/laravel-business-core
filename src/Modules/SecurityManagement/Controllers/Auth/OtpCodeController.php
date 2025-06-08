@@ -14,10 +14,10 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Kirago\BusinessCore\Modules\SecurityManagement\Events\OtpCodeGenerated;
 use Kirago\BusinessCore\Modules\SecurityManagement\Helpers\OtpCodeHelper;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcOtpCode;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\OtpCode;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
 use Kirago\BusinessCore\Modules\SecurityManagement\Services\AuthService;
-use Kirago\BusinessCore\Support\Constants\BcReasonCode;
+use Kirago\BusinessCore\Support\Constants\ReasonCode;
 
 class OtpCodeController extends Controller
 {
@@ -29,7 +29,7 @@ class OtpCodeController extends Controller
 
         $request->validate([
                     'identifier' => ['required',"string"],
-                    'code' => ['required', 'string' , Rule::exists((new BcOtpCode)->getTable())],
+                    'code' => ['required', 'string' , Rule::exists((new OtpCode)->getTable())],
                 ]);
 
         $authService = new AuthService($request->header('x-auth-guard'));
@@ -39,7 +39,7 @@ class OtpCodeController extends Controller
         throw_if(
             blank($user) ,
             new ModelNotFoundException(
-                BcReasonCode::USER_NOT_FOUND->value
+                ReasonCode::USER_NOT_FOUND->value
             )
         );
 
@@ -76,16 +76,16 @@ class OtpCodeController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'email' => ['required', 'string' , Rule::exists((new BcUser)->getTable(),"email")],
+                'email' => ['required', 'string' , Rule::exists((new User)->getTable(),"email")],
             ]
         );
 
         $validated = $validator->validate();
 
         /**
-         * @var BcUser $user
+         * @var User $user
          */
-        $user = BcUser::firstWhere('email', $validated['email']);
+        $user = User::firstWhere('email', $validated['email']);
 
         // Génère un nouveau code OTP pour l'utilisateur
         $otp = OtpCodeHelper::generateFor($user);

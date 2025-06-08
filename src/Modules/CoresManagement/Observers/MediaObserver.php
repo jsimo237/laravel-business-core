@@ -5,7 +5,7 @@ namespace Kirago\BusinessCore\Modules\CoresManagement\Observers;
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
-use Kirago\BusinessCore\Modules\CoresManagement\Models\BcMedia;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Media;
 
 class MediaObserver
 {
@@ -21,30 +21,30 @@ class MediaObserver
     /**
      * Handle the Media "created" event.
      *
-     * @param BcMedia  $media
+     * @param Media  $media
      * @return void
      */
-    public function created(BcMedia $media){
+    public function created(Media $media){
         Artisan::call("storage:link");
     }
 
     /**
      * Handle the Media "updated" event.
      *
-     * @param  BcMedia  $media
+     * @param  Media  $media
      * @return void
      */
-    public function updated(BcMedia $media){
+    public function updated(Media $media){
         Artisan::call("storage:link");
     }
 
     /**
      * Handle the Media "deleted" event.
      *
-     * @param  BcMedia  $media
+     * @param  Media  $media
      * @return void
      */
-    public function deleted(BcMedia $media){
+    public function deleted(Media $media){
         // $media->forceDelete();
         //  Artisan::call("storage:link");
         write_log("medias/deleted",$media->only(['id','name']));
@@ -55,20 +55,20 @@ class MediaObserver
     /**
      * Handle the Media "restored" event.
      *
-     * @param  BcMedia  $media
+     * @param  Media  $media
      * @return void
      */
-    public function restored(BcMedia $media){
+    public function restored(Media $media){
         Artisan::call("storage:link");
     }
 
     /**
      * Handle the Media "force deleted" event.
      *
-     * @param  BcMedia  $media
+     * @param  Media  $media
      * @return void
      */
-    public function forceDeleted(BcMedia $media){
+    public function forceDeleted(Media $media){
         Artisan::call("storage:link");
     }
 

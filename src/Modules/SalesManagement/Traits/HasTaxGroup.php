@@ -3,7 +3,7 @@
 namespace Kirago\BusinessCore\Modules\SalesManagement\Traits;
 
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcTaxGroup;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\TaxGroup;
 
 trait HasTaxGroup
 {
@@ -11,7 +11,7 @@ trait HasTaxGroup
     public function taxGroups(): MorphToMany
     {
         return $this->morphToMany(
-            BcTaxGroup::class,
+            TaxGroup::class,
             'model',
             'model_tax_groups',
             'model_id',

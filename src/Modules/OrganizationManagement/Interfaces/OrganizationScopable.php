@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
 
 
 /**
- * @property BcOrganization organization
+ * @property Organization organization
  * @property string|int|null organization_id
  */
 interface OrganizationScopable
@@ -21,9 +21,9 @@ interface OrganizationScopable
     /**
      * getOrganization
      *
-     * @return ?BcOrganization
+     * @return ?Organization
      */
-    public function getOrganization(): ?BcOrganization;
+    public function getOrganization(): ?Organization;
 
     /**
      * Undocumented function
@@ -33,6 +33,6 @@ interface OrganizationScopable
     /**
      * Undocumented function
      */
-   // public function scopeOrganization(Builder $query, string|int|BcOrganization $organization): ?Builder;
-    public function scopeOrganizationId(Builder $query, string|int|BcOrganization $organization): ?Builder;
+   // public function scopeOrganization(Builder $query, string|int|Organization $organization): ?Builder;
+    public function scopeOrganizationId(Builder $query, string|int|Organization $organization): ?Builder;
 }

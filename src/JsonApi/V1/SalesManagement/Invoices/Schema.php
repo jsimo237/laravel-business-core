@@ -5,7 +5,7 @@ namespace Kirago\BusinessCore\JsonApi\V1\SalesManagement\Invoices;
 use Kirago\BusinessCore\Support\Helpers\JsonApiHelper;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcInvoice;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Invoice;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\ArrayList;
@@ -31,7 +31,7 @@ class Schema extends JsonApiSchema {
      *
      * @var string
      */
-    public static string $model = BcInvoice::class;
+    public static string $model = Invoice::class;
 
     /**
      * The maximum include path depth.
@@ -71,7 +71,7 @@ class Schema extends JsonApiSchema {
 
           //  HasMany::make('recipient')->type('invoices')->readOnly(),
 
-            ArrayHash::make('pricing')->extractUsing(function (BcInvoice $model) {
+            ArrayHash::make('pricing')->extractUsing(function (Invoice $model) {
 
                 return [
                     "taxes" => $model->getTaxes(),

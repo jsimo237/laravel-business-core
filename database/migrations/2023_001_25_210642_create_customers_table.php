@@ -3,14 +3,14 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcCustomer;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Customer;
 
 return new class extends Migration {
 
     public function up(){
 
-        if(!Schema::hasTable((new BcCustomer)->getTable())){
-            Schema::create((new BcCustomer)->getTable(), function (Blueprint $table) {
+        if(!Schema::hasTable((new Customer)->getTable())){
+            Schema::create((new Customer)->getTable(), function (Blueprint $table) {
                 $table->id();
 
                 $table->string('firstname',100)
@@ -42,6 +42,6 @@ return new class extends Migration {
 
 
     public function down(){
-        Schema::dropIfExists((new BcCustomer)->getTable());
+        Schema::dropIfExists((new Customer)->getTable());
     }
 };

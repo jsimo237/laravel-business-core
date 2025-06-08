@@ -4,7 +4,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcPlan;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\Plan;
 
 return new class extends Migration
 {
@@ -12,7 +12,7 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void{
-        Schema::create((new BcPlan)->getTable(), function (Blueprint $table) {
+        Schema::create((new Plan)->getTable(), function (Blueprint $table) {
             $table->id();
 
             $table->string("title",100);
@@ -35,6 +35,6 @@ return new class extends Migration
      * Reverse the migrations.
      */
     public function down(): void{
-        Schema::dropIfExists((new BcPlan)->getTable());
+        Schema::dropIfExists((new Plan)->getTable());
     }
 };

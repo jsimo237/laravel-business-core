@@ -5,7 +5,7 @@ namespace Kirago\BusinessCore\JsonApi\V1\SecurityManagement\Users;
 use Kirago\BusinessCore\Support\Helpers\JsonApiHelper;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ArrayList;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
@@ -27,7 +27,7 @@ class Schema extends JsonApiSchema {
      *
      * @var string
      */
-    public static string $model = BcUser::class;
+    public static string $model = User::class;
 
     /**
      * The maximum include path depth.

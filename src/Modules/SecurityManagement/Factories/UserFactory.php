@@ -5,14 +5,14 @@ namespace Kirago\BusinessCore\Modules\SecurityManagement\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Kirago\BusinessCore\Modules\SecurityManagement\Interfaces\AuthenticatableModelContract;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
 
 /**
  * @extends Factory
  */
 class UserFactory extends Factory{
 
-    protected $model = BcUser::class;
+    protected $model = User::class;
     /**
      * Define the model's default state.
      *
@@ -29,16 +29,16 @@ class UserFactory extends Factory{
             'remember_token'        => Str::random(10),
             'email_verified_at'     => now(),
             'phone_verified_at'     => now(),
-            BcUser::MORPH_ID_COLUMN => null, // Sera défini dynamiquement
-            BcUser::MORPH_TYPE_COLUMN => null, // Sera défini dynamiquement
+            User::MORPH_ID_COLUMN => null, // Sera défini dynamiquement
+            User::MORPH_TYPE_COLUMN => null, // Sera défini dynamiquement
         ];
     }
 
     public function forModel(AuthenticatableModelContract $authenticable)
     {
         return $this->state(fn (array $attributes) => [
-                        BcUser::MORPH_ID_COLUMN => $authenticable->getKey(),
-                        BcUser::MORPH_TYPE_COLUMN => $authenticable->getMorphClass(),
+                        User::MORPH_ID_COLUMN => $authenticable->getKey(),
+                        User::MORPH_TYPE_COLUMN => $authenticable->getMorphClass(),
                     ]);
     }
 
@@ -46,10 +46,10 @@ class UserFactory extends Factory{
 
     public function configure(): self{
 
-        return $this->afterCreating(function (BcUser $user){
+        return $this->afterCreating(function (User $user){
 
                     })
-                    ->afterMaking(function (BcUser $user) {
+                    ->afterMaking(function (User $user) {
                         //
                     })
                     ;

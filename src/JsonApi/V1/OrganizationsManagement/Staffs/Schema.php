@@ -5,8 +5,8 @@ namespace Kirago\BusinessCore\JsonApi\V1\OrganizationsManagement\Staffs;
 use Kirago\BusinessCore\Support\Helpers\JsonApiHelper;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcStaff;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Staff;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ArrayList;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
@@ -28,7 +28,7 @@ class Schema extends JsonApiSchema {
      *
      * @var string
      */
-    public static string $model = BcStaff::class;
+    public static string $model = Staff::class;
 
     /**
      * The maximum include path depth.

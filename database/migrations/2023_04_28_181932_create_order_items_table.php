@@ -3,8 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrder;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcOrderItem;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Order;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\OrderItem;
 
 return new class extends Migration
 {
@@ -15,7 +15,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create((new BcOrderItem)->getTable(), function (Blueprint $table) {
+        Schema::create((new OrderItem)->getTable(), function (Blueprint $table) {
             $table->id();
 
             $table->string('code',60)
@@ -29,8 +29,8 @@ return new class extends Migration
 
             $table->nullableUlidMorphs('orderable',uniqid("POLY_INDEX_"));
 
-            $table->foreignIdFor(BcOrder::class,'order_id')->nullable()
-                ->constrained((new BcOrder)->getTable(), (new BcOrder)->getKeyName(), uniqid("FK_"))
+            $table->foreignIdFor(Order::class,'order_id')->nullable()
+                ->constrained((new Order)->getTable(), (new Order)->getKeyName(), uniqid("FK_"))
                 ->cascadeOnUpdate()->cascadeOnDelete()
                 ->comment("[FK] la commande");
 
@@ -47,6 +47,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists((new BcOrderItem)->getTable());
+        Schema::dropIfExists((new OrderItem)->getTable());
     }
 };

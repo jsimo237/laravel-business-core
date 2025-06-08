@@ -6,10 +6,10 @@ use Closure;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
-use Kirago\BusinessCore\Support\Constants\BcServerStatus;
-use Kirago\BusinessCore\Support\Constants\BcReasonCode;
-use Kirago\BusinessCore\Support\Exceptions\BcFieldHeaderRequiredException;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
+use Kirago\BusinessCore\Support\Constants\ServerStatus;
+use Kirago\BusinessCore\Support\Constants\ReasonCode;
+use Kirago\BusinessCore\Support\Exceptions\FieldHeaderRequiredException;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -29,20 +29,20 @@ class EnsureRequestHasOrganization
     {
         throw_if(
             !$request->hasHeader("x-organization-id"),
-            new BcFieldHeaderRequiredException(
-                BcReasonCode::REQUIRED_X_ORGANIZATION_ID_HEADER->value,
-                BcServerStatus::BAD_REQUEST_HEADER->value,
+            new FieldHeaderRequiredException(
+                ReasonCode::REQUIRED_X_ORGANIZATION_ID_HEADER->value,
+                ServerStatus::BAD_REQUEST_HEADER->value,
             )
         );
 
         $organizationId = $request->header("x-organization-id");
 
-        $organization = BcOrganization::firstWhere('id', $organizationId);
+        $organization = Organization::firstWhere('id', $organizationId);
 
         throw_if(
             !$organization,
             new ModelNotFoundException(
-                BcReasonCode::ORGANIZATION_NOT_FOUND->value
+                ReasonCode::ORGANIZATION_NOT_FOUND->value
             )
         );
 

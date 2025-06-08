@@ -6,8 +6,8 @@ use Illuminate\Routing\Controller;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Kirago\BusinessCore\Modules\LocalizationManagement\Constants\BcSettingsKeys;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
+use Kirago\BusinessCore\Modules\LocalizationManagement\Constants\SettingsKeys;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
 use Kirago\Xpeedy\Services\XpeedyService;
 
 
@@ -20,10 +20,10 @@ class XpeedyController extends Controller
     {
 
         /**
-         * @var BcOrganization $organization
+         * @var Organization $organization
          */
         if($organization = currentOrganization()){
-            $xpeedyConfig = $organization->getSettingOf(BcSettingsKeys::XPEEDY_CONFIG);
+            $xpeedyConfig = $organization->getSettingOf(SettingsKeys::XPEEDY_CONFIG);
             $this->service = new XpeedyService($xpeedyConfig);
         }
     }

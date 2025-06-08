@@ -5,7 +5,7 @@ namespace Kirago\BusinessCore\JsonApi\V1\SalesManagement\Payments;
 use Kirago\BusinessCore\Support\Helpers\JsonApiHelper;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Kirago\BusinessCore\Modules\SalesManagement\Models\BcPayment;
+use Kirago\BusinessCore\Modules\SalesManagement\Models\Payment;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ArrayList;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
@@ -25,7 +25,7 @@ class Schema extends JsonApiSchema {
      *
      * @var string
      */
-    public static string $model = BcPayment::class;
+    public static string $model = Payment::class;
 
     /**
      * The maximum include path depth.

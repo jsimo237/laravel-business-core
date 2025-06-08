@@ -4,7 +4,7 @@ namespace Kirago\BusinessCore\Modules\SalesManagement\Traits;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Kirago\BusinessCore\Modules\SalesManagement\Interfaces\TaxableItemContrat;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
 use Kirago\BusinessCore\Modules\SalesManagement\Constants\DiscountType;
 
 trait WithOrderCapacities
@@ -33,7 +33,7 @@ trait WithOrderCapacities
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(BcUser::class,"user_id");
+        return $this->belongsTo(User::class,"user_id");
     }
 
     /************ computing functions  ************/

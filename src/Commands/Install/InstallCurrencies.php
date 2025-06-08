@@ -6,7 +6,7 @@ namespace Kirago\BusinessCore\Commands\Install;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
-use Kirago\BusinessCore\Modules\CoresManagement\Models\BcCurrency;
+use Kirago\BusinessCore\Modules\CoresManagement\Models\Currency;
 use Spatie\Permission\PermissionRegistrar;
 
 
@@ -23,7 +23,7 @@ class InstallCurrencies extends Command{
         DB::beginTransaction();
         try {
 
-            BcCurrency::upsert($rows, ['code']);
+            Currency::upsert($rows, ['code']);
 
             DB::commit();
 

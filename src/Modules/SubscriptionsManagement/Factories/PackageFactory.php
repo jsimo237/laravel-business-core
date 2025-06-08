@@ -4,14 +4,14 @@ namespace Kirago\BusinessCore\Modules\SubscriptionsManagement\Factories;
 
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\BcPackage;
+use Kirago\BusinessCore\Modules\SubscriptionsManagement\Models\Package;
 
 /**
  * @extends Factory
  */
 class PackageFactory extends Factory
 {
-    protected $model = BcPackage::class;
+    protected $model = Package::class;
     /**
      * Define the model's default state.
      *

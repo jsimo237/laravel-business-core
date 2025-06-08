@@ -4,7 +4,7 @@
 namespace Kirago\BusinessCore\Modules\SecurityManagement\Models\Traits;
 
 
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcUser;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\User;
 
 trait UserInteractWithSomeEntity{
 

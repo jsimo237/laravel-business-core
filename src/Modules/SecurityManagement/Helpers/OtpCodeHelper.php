@@ -5,26 +5,25 @@ namespace Kirago\BusinessCore\Modules\SecurityManagement\Helpers;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Kirago\BusinessCore\Modules\BaseBcModel;
-use Kirago\BusinessCore\Modules\OrganizationManagement\Models\BcOrganization;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcOtpCode;
-use Kirago\BusinessCore\Support\Helpers\OtpCode;
+use Kirago\BusinessCore\Modules\BaseModel;
+use Kirago\BusinessCore\Modules\OrganizationManagement\Models\Organization;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\OtpCode;
 
 final class OtpCodeHelper
 {
     /**
      * Génère un code OTP pour un identifiant morphable
      *
-     * @param BaseBcModel|Model $identifier
+     * @param BaseModel|Model $identifier
      * @param int $ttl en secondes (durée de vie)
      * @param int $length Longueur du code OTP
      * @param bool $invalidate
-     * @return BcOtpCode
+     * @return OtpCode
      * @throws Exception
      */
     public static function generateFor(
-        BaseBcModel|Model $identifier,
-        int $ttl = 1800, int $length = 6, bool $invalidate = true): BcOtpCode
+        BaseModel|Model $identifier,
+        int $ttl = 1800, int $length = 6, bool $invalidate = true): OtpCode
     {
 
         // Assurer que le modèle utilise ULID
@@ -41,7 +40,7 @@ final class OtpCodeHelper
 
         $code = self::generateUniqueCode($length, $organization?->id);
 
-        $otp = new BcOtpCode();
+        $otp = new OtpCode();
         $otp->code = $code;
         $otp->expired_at = now()->addSeconds($ttl);
         $otp->identifier()->associate($identifier);
@@ -57,9 +56,9 @@ final class OtpCodeHelper
     /**
      * Vérifie un code OTP pour un identifiant
      */
-    public static function verify(BaseBcModel|Model $identifier, string $code): bool
+    public static function verify(BaseModel|Model $identifier, string $code): bool
     {
-        return BcOtpCode::where('identifier_type', $identifier->getMorphClass())
+        return OtpCode::where('identifier_type', $identifier->getMorphClass())
                         ->where('identifier_id', $identifier->getKey())
                         ->where('organization_id', $identifier->organization_id)
                         ->where('code', $code)
@@ -77,7 +76,7 @@ final class OtpCodeHelper
             $code = Str::password($length, false, true, false, false);
             //$code = Str::upper(Str::random($length)); // ou sprintf('%06d', random_int(0, 999999)) pour un code numérique
         } while (
-            BcOtpCode::where('code', $code)
+            OtpCode::where('code', $code)
                     ->where('organization_id', $organizationId)
                     ->exists()
         );
@@ -88,13 +87,13 @@ final class OtpCodeHelper
     /**
      * Sassures qu’il n’y a qu’un OTP actif par utilisateur et par organisation
      *
-     * @param BaseBcModel|Model $identifier
-     * @param BcOrganization|null $organization
+     * @param BaseModel|Model $identifier
+     * @param Organization|null $organization
      * @return void
      */
-    protected static function invalidateOldOtps(BaseBcModel|Model $identifier, BcOrganization|null $organization): void
+    protected static function invalidateOldOtps(BaseModel|Model $identifier, Organization|null $organization): void
     {
-        BcOtpCode::where('identifier_type', $identifier->getMorphClass())
+        OtpCode::where('identifier_type', $identifier->getMorphClass())
                 ->where('identifier_id', $identifier->getKey())
                 ->where('organization_id', $organization?->id)
                 ->where('expired_at', '>', now()) // uniquement ceux encore valides

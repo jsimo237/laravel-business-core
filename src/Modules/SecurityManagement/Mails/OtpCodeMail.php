@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Kirago\BusinessCore\Modules\SecurityManagement\Models\BcOtpCode;
+use Kirago\BusinessCore\Modules\SecurityManagement\Models\OtpCode;
 
 class OtpCodeMail extends Mailable
 {
@@ -20,7 +20,7 @@ class OtpCodeMail extends Mailable
      * Create a new message instance.
      */
     public function __construct(
-        public BcOtpCode $otp ,
+        public OtpCode $otp ,
         public ?string $title,
         public ?array $fromAddress = [],
     )
